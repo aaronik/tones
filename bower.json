@@ -1,0 +1,20 @@
+{
+  "name": "tones",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "Aaron Sullivan <aasullivan1618@gmail.com>",
+  "private": false,
+  "main": [
+    "dist/tones.js",
+    "dist/tones.min.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ],
+  "moduleType": [
+    "globals"
+  ]
+}
