@@ -64,7 +64,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	alert('javascript be workin!');
+	console.log('javascript be workin!');
+
+	var initCanvas = function initCanvas() {
+	  var canvas = document.getElementById('canvas'),
+	      context = canvas.getContext('2d');
+
+	  context.beginPath();
+	  context.rect(50, 50, 100, 100);
+	  context.fill();
+	};
 
 /***/ }
 /******/ ])
