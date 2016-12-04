@@ -6,21 +6,6 @@
   "license": "MIT",
   "homepage": "https://github.com/aaronik/tones",
   "main": "lib/index.js",
-  "jsnext:main": "src/index.js",
-  "files": [
-    "dist",
-    "lib",
-    "src"
-  ],
-  "npmName": "tones",
-  "npmFileMap": [
-    {
-      "basePath": "/dist/",
-      "files": [
-        "*.js"
-      ]
-    }
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aaronik/tones.git"
@@ -40,10 +25,10 @@
     "coverage": "babel-node node_modules/isparta/bin/isparta cover node_modules/mocha/bin/_mocha",
     "coveralls": "istanbul-coveralls",
     "check": "npm run lint && npm run coverage",
-    "build:lib": "babel src --out-dir lib --source-maps",
     "build:umd": "webpack src/index.js dist/tones.js --config webpack/webpack.config.development.js",
     "build:umd:min": "webpack src/index.js dist/tones.min.js --config webpack/webpack.config.production.js",
-    "build": "npm run build:lib && npm run build:umd && npm run build:umd:min",
+    "build": "npm run build:umd && npm run build:umd:min",
+    "build:watch": "./node_modules/nodemon/bin/nodemon.js --ignore dist/ --exec npm run build",
     "preversion": "npm run clean && npm run check",
     "version": "npm run build",
     "postversion": "git push && git push --tags && npm run clean",
@@ -73,6 +58,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.2.5",
+    "nodemon": "^1.11.0",
     "phantomjs": "^1.9.19",
     "phantomjs-prebuilt": "^2.1.4",
     "rimraf": "^2.3.4",
@@ -81,7 +67,7 @@
     "webpack": "<=1.12.12"
   },
   "devEngines": {
-    "node": "4.x || 5.x",
-    "npm": "2.x || 3.x"
+    "node": "6.x || 7.x",
+    "npm": "3.x"
   }
 }

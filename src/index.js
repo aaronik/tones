@@ -1,2 +1,1 @@
-export default from './Library';
-export util from './util';
+alert('javascript be workin!');
