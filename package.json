@@ -27,7 +27,7 @@
     "build:umd": "webpack src/js/index.js dist/tones.js --config webpack/webpack.config.development.js",
     "build:umd:min": "webpack src/js/index.js dist/tones.min.js --config webpack/webpack.config.production.js",
     "build": "npm run build:umd && npm run build:umd:min",
-    "dev": "webpack --watch --progress src/js/index.js dist/tones.js --config webpack/webpack.config.development.js",
+    "dev": "webpack-dev-server --hot --output-public-path dist/ --config webpack/webpack.config.development.js",
     "preversion": "npm run clean && npm run check",
     "version": "npm run build",
     "postversion": "git push && git push --tags && npm run clean",
@@ -63,7 +63,8 @@
     "rimraf": "^2.3.4",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
-    "webpack": "<=1.12.12"
+    "webpack": "<=1.12.12",
+    "webpack-dev-server": "^1.16.2"
   },
   "devEngines": {
     "node": "6.x || 7.x",

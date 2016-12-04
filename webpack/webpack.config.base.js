@@ -1,18 +1,26 @@
 'use strict';
 
+var path = require('path');
+
 module.exports = {
-  entry: './src/js/index.js',
+  entry: {
+    app: ['./src/js/index.js']
+  },
   output: {
-    library: 'tones',
-    libraryTarget: 'umd'
+    path: './dist',
+    filename: 'tones.js'
   },
   resolve: {
-    extensions: ['', '.js']
+    extensions: ['', '.js', '.scss'],
+    alias: {
+      js: path.resolve(__dirname, '../src/js'),
+      sass: path.resolve(__dirname, '../src/sass')
+    }
   },
   module: {
     loaders: [
       { test: /\.js$/, loaders: ['babel-loader'], exclude: /node_modules/ },
-      { test: /\.scss$/, loaders: ['style', 'css', 'sass'], exclude: /node_modules|bower_components/ }
+      { test: /\.scss$/, loaders: ['style', 'css', 'sass'], exclude: /node_modules/ }
     ]
   }
 };
