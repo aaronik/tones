@@ -75,6 +75,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  context.fill();
 	};
 
+	initCanvas();
+
 /***/ }
 /******/ ])
 });

@@ -8,3 +8,5 @@ const initCanvas = () => {
   context.rect(50,50,100,100);
   context.fill();
 }
+
+initCanvas();
