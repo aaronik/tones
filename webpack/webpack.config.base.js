@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/js/index.js',
   output: {
     library: 'tones',
     libraryTarget: 'umd'
