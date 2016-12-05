@@ -28,10 +28,6 @@
     "build:umd:min": "webpack src/js/index.js dist/tones.min.js --config webpack/webpack.config.production.js",
     "build": "npm run build:umd && npm run build:umd:min",
     "dev": "webpack-dev-server --hot --output-public-path dist/ --config webpack/webpack.config.development.js",
-    "preversion": "npm run clean && npm run check",
-    "version": "npm run build",
-    "postversion": "git push && git push --tags && npm run clean",
-    "prepublish": "npm run clean && npm run build",
     "release": "./scripts/release.sh"
   },
   "devDependencies": {
