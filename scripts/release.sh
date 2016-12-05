@@ -81,6 +81,11 @@ function print_to_changelog () {
 function amend_build () {
   report "tacking on build to gh-pages branch..."
   npm run build
+
+  if [[ $? != 0 ]]; then
+    report "Wuh oh, something went wrong with the build, bailing hard. To undo what's been done, remove the gh-pages branch and ditch the release commit."
+  fi
+
   git commit --amend --no-edit
 }
 
