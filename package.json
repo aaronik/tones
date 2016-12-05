@@ -31,7 +31,8 @@
     "preversion": "npm run clean && npm run check",
     "version": "npm run build",
     "postversion": "git push && git push --tags && npm run clean",
-    "prepublish": "npm run clean && npm run build"
+    "prepublish": "npm run clean && npm run build",
+    "release": "npm run clean && npm run build"
   },
   "devDependencies": {
     "babel-cli": "^6.4.0",
