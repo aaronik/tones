@@ -4,8 +4,6 @@
 #  Script to cut a release and publish to gh-pages (or whatever release branch is)
 #
 
-# TODO only unminified is being built and added to git
-
 SEMVER=./node_modules/semver/bin/semver
 OLD_VERSION=$(node -pe 'require("./package.json").version')
 CHANGELOG=./CHANGELOG.md
@@ -117,7 +115,8 @@ function clean_build () {
 ### Main
 
 # technically it should already be clean and this should have no effect.
-# If it isn't, the script will bail on the next step.
+# If it isn't, the script will bail on the next step. We expect there to
+# be no build.
 npm run clean
 
 ensure_changes_since_last_release
