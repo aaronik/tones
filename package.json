@@ -32,7 +32,7 @@
     "version": "npm run build",
     "postversion": "git push && git push --tags && npm run clean",
     "prepublish": "npm run clean && npm run build",
-    "release": "npm run clean && npm run build"
+    "release": "./scripts/release.sh"
   },
   "devDependencies": {
     "babel-cli": "^6.4.0",
@@ -63,6 +63,7 @@
     "phantomjs-prebuilt": "^2.1.4",
     "rimraf": "^2.3.4",
     "sass-loader": "^4.0.2",
+    "semver": "^5.3.0",
     "style-loader": "^0.13.1",
     "webpack": "<=1.12.12",
     "webpack-dev-server": "^1.16.2"
