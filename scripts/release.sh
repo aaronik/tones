@@ -166,3 +166,4 @@ git merge gh-pages
 # we're all done, clean up
 report "all done! cleaning up after ourselves..."
 git branch -d gh-pages
+rm -rf dist/
