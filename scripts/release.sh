@@ -8,7 +8,7 @@ SEMVER=./node_modules/semver/bin/semver
 OLD_VERSION=$(node -pe 'require("./package.json").version')
 CHANGELOG=./CHANGELOG.md
 PROG=$(basename $0)
-RELEASE_BRANCH=gh-pages
+RELEASE_BRANCH=gh-pages # NOTE: this script will force push over this branch. Def. don't use master!
 
 NEW_VERSION='' # will be populated later by script
 
