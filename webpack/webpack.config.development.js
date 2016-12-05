@@ -11,6 +11,11 @@ config.plugins = [
   })
 ];
 
+config.output = {
+  path: './dist',
+  filename: 'tones.js'
+};
+
 // Note: There seems to be no rhyme or reason at all about what combo of options
 // need to be specified on the CLI vs. here in the config. This here works,
 // so I'm half content to just leave it and carry on.

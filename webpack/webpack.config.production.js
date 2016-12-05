@@ -16,4 +16,9 @@ config.plugins = [
   })
 ];
 
+config.output = {
+  path: './dist',
+  filename: 'tones.min.js'
+};
+
 module.exports = config;

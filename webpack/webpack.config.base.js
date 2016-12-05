@@ -6,10 +6,6 @@ module.exports = {
   entry: {
     app: ['./src/js/index.js']
   },
-  output: {
-    path: './dist',
-    filename: 'tones.js'
-  },
   resolve: {
     extensions: ['', '.js', '.scss'],
     alias: {
