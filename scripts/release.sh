@@ -83,7 +83,7 @@ function amend_build () {
   npm run build
 
   if [[ $? != 0 ]]; then
-    report "Wuh oh, something went wrong with the build, bailing hard. To undo what's been done, remove the gh-pages branch and ditch the release commit."
+    report "Wuh oh, something went wrong with the build, bailing hard. To undo what's been done, just remove the gh-pages branch."
   fi
 
   git commit --amend --no-edit
@@ -107,6 +107,13 @@ set -e
 # get the new version number
 get_new_version
 
+# copy branch onto gh-pages.
+# Scheme is as follows: Do release commit, tag, etc. on gh-pages branch.
+# If something borks in this script, cleaning up is as easy as removing the branch.
+# Once all's done and pushed to GH, we'll merge this branch back into master.
+report "creating branch gh-pages..."
+git checkout -b gh-pages
+
 # modify package to have new version number. Deps on .npmrc existing
 report "writing new npm version $NEW_VERSION..."
 npm version $NEW_VERSION
@@ -122,18 +129,21 @@ git tag $NEW_VERSION
 report "writing new git release..."
 git commit -am "release: $NEW_VERSION"
 
-# copy branch onto gh-pages
-report "creating branch gh-pages..."
-git checkout -b gh-pages
-
 # build it and put it into the release commit
 amend_build
 
 # push to the hub
 report "pushing the latest..."
-git push
+git push --tags
+
+# checkout back to master
+report "back to master..."
+git checkout master
+
+# now merge gh-pages release commit into master branch
+report "merging gh-pages release commit into master for fully updated-ness..."
+git merge gh-pages
 
 # we're all done, clean up
 report "all done! cleaning up after ourselves..."
-git checkout master
 git branch -d gh-pages
