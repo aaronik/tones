@@ -4,6 +4,8 @@
 #  Script to cut a release and publish to gh-pages (or whatever release branch is)
 #
 
+# TODO only unminified is being built and added to git
+
 SEMVER=./node_modules/semver/bin/semver
 OLD_VERSION=$(node -pe 'require("./package.json").version')
 CHANGELOG=./CHANGELOG.md
@@ -93,17 +95,21 @@ function print_to_changelog () {
   $CHANGES >> $CHANGELOG
 }
 
-# now make the build and tac it onto the release commit
-# This method keeps the master branch clean of builds.
-function amend_build () {
-  report "tacking on build to $RELEASE_BRANCH branch..."
+function build () {
   npm run build
 
   if [[ $? != 0 ]]; then
     report "Wuh oh, something went wrong with the build, bailing hard. To undo what's been done, just remove the $RELEASE_BRANCH branch."
   fi
+}
 
-  git add -A
+# now nuke the build from disk and git
+# This method keeps the master branch clean of builds.
+function clean_build () {
+  report "removing build before merging back into master..."
+
+  git rm -r dist/
+  rm -rf dist/
   git commit --amend --no-edit
 }
 
@@ -146,16 +152,20 @@ print_to_changelog $NEW_VERSION
 report "cutting new git tag..."
 git tag $NEW_VERSION
 
+# run build
+build
+
 # commit the changes (package.json and CHANGELOG.md)
 report "writing new git release..."
+git add -A
 git commit -am "release: $NEW_VERSION"
-
-# build it and put it into the release commit
-amend_build
 
 # push to the hub
 report "pushing the latest..."
 git push origin $RELEASE_BRANCH --tags
+
+# now we need to clean out the build before we go back to master
+clean_build
 
 # checkout back to master
 report "back to master..."
@@ -168,4 +178,3 @@ git merge $RELEASE_BRANCH
 # we're all done, clean up
 report "all done! cleaning up after ourselves..."
 git branch -d $RELEASE_BRANCH
-rm -rf dist/
