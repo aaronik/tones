@@ -57,6 +57,15 @@ function ensure_changes_since_last_release () {
   }
 }
 
+# ensure the version we're gonna try to write doesn't already exist
+function ensure_unique_version () {
+  local tag=$1
+  report "ensuring the new version isn't already taken..."
+  [[ $(git tag | grep $tag) ]] && {
+    error "looks like that tag is already taken :/ Best remove it from git tag list, or use a higher one. Make sure it doesn't exist on GH as well."
+  }
+}
+
 # Prompt for new version (if not provided)
 function get_new_version () {
   report "grabbing new version..."
@@ -101,11 +110,14 @@ ensure_changes_since_last_release
 ensure_on_master_branch
 ensure_no_gh_pages_branch
 
-# nothing should be failing from here on out
-set -e
-
 # get the new version number
 get_new_version
+
+# make sure we haven't used that version
+ensure_unique_version $NEW_VERSION
+
+# nothing should be failing from here on out
+set -e
 
 # copy branch onto gh-pages.
 # Scheme is as follows: Do release commit, tag, etc. on gh-pages branch.
