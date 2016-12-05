@@ -103,6 +103,7 @@ function amend_build () {
     report "Wuh oh, something went wrong with the build, bailing hard. To undo what's been done, just remove the $RELEASE_BRANCH branch."
   fi
 
+  git add -A
   git commit --amend --no-edit
 }
 
