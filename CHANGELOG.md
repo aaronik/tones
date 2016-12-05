@@ -21,3 +21,11 @@
   * (Aaron Sullivan) Fix error in release script function naming
   * (Aaron Sullivan) Make release.sh executable
   * (Aaron Sullivan) Add to release
+
+### [0.0.3](https://github.com/aaronik/tones/releases/tag/0.0.3)
+
+  * (Aaron Sullivan) Force push build branch from release script
+  * (Aaron Sullivan) release s
+  * (Aaron Sullivan) Amend comments in release script
+  * (Aaron Sullivan) Fix issue with builds overwriting each other
+  * (Aaron Sullivan) release: 0.0.2
