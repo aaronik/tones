@@ -6,11 +6,18 @@
 
 SEMVER=./node_modules/semver/bin/semver
 OLD_VERSION=$(node -pe 'require("./package.json").version')
-CHANGES=$(git log $OLD_VERSION...master --no-merges --pretty=format:"  * (%an) %s")
 CHANGELOG=./CHANGELOG.md
 PROG=$(basename $0)
 
 NEW_VERSION='' # will be populated later by script
+
+# before anything, populate a "changes file" and create alias to read it.
+# This'll help with ensuring changes, writing changes, etc. Zsh lets you
+# assign nicely formatted stuff to a variable, but bash does not, so we
+# need to actually write to a file.
+CHANGES_FILE=$(mktemp)
+git log $OLD_VERSION...master --no-merges --pretty=format:"  * (%an) %s" > $CHANGES_FILE
+CHANGES="cat $CHANGES_FILE"
 
 # for printing friendly status messages
 function report () {
@@ -81,8 +88,8 @@ function get_new_version () {
 function print_to_changelog () {
   report "writing changes to changelog..."
   local new_version=$1
-  printf "### [$new_version]\n\n" > $CHANGELOG
-  echo $CHANGES > $CHANGELOG
+  printf "\n\n### [$new_version](https://github.com/aaronik/tones/releases/tag/$new_version)\n\n" >> $CHANGELOG
+  $CHANGES >> $CHANGELOG
 }
 
 # now make the build and tac it onto the release commit
@@ -106,7 +113,7 @@ function amend_build () {
 npm run clean
 
 ensure_changes_since_last_release
-# ensure_clean_directory
+ensure_clean_directory
 ensure_on_master_branch
 ensure_no_gh_pages_branch
 
