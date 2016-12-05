@@ -24,8 +24,8 @@
     "coverage": "babel-node node_modules/isparta/bin/isparta cover node_modules/mocha/bin/_mocha",
     "coveralls": "istanbul-coveralls",
     "check": "npm run lint && npm run coverage",
-    "build:umd": "webpack src/js/index.js dist/tones.js --config webpack/webpack.config.development.js",
-    "build:umd:min": "webpack src/js/index.js dist/tones.min.js --config webpack/webpack.config.production.js",
+    "build:umd": "webpack --config webpack/webpack.config.development.js",
+    "build:umd:min": "webpack --config webpack/webpack.config.production.js",
     "build": "npm run build:umd && npm run build:umd:min",
     "dev": "webpack-dev-server --hot --output-public-path dist/ --config webpack/webpack.config.development.js",
     "release": "./scripts/release.sh"
