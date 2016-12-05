@@ -57,7 +57,7 @@ npm run clean
 ensure_changes_since_last_release
 ensure_clean_directory
 ensure_on_master_branch
-ensure_no_github_pages
+ensure_no_gh_pages_branch
 
 # Prompt for new version (if not provided)
 function get_new_version () {
