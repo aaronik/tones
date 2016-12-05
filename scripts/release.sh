@@ -161,7 +161,8 @@ git commit -am "release: $NEW_VERSION"
 
 # push to the hub
 report "pushing the latest..."
-git push origin $RELEASE_BRANCH --tags
+# force push b/c master is the source of truth
+git push origin $RELEASE_BRANCH -f --tags
 
 # now we need to clean out the build before we go back to master
 clean_build
