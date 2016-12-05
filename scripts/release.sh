@@ -1,13 +1,14 @@
 #!/bin/bash
 
 #
-#  Script to cut a release and publish to gh-pages
+#  Script to cut a release and publish to gh-pages (or whatever release branch is)
 #
 
 SEMVER=./node_modules/semver/bin/semver
 OLD_VERSION=$(node -pe 'require("./package.json").version')
 CHANGELOG=./CHANGELOG.md
 PROG=$(basename $0)
+RELEASE_BRANCH=gh-pages
 
 NEW_VERSION='' # will be populated later by script
 
@@ -48,12 +49,12 @@ function ensure_on_master_branch () {
 	}
 }
 
-# The gh-pages branch will end up existing on github, but not ever locally.
+# The $RELEASE_BRANCH branch will end up existing on github, but not ever locally.
 # This way we won't be tempted to tamper with it. Also it makes sense.
 function ensure_no_gh_pages_branch () {
-  report "ensuring there isn't already a gh-pages branch..."
-	[[ $(git branch | grep gh-pages) ]] && {
-    error 'looks like a gh-pages branch already exists, this is wrong. Bailing like a zebra.'
+  report "ensuring there isn't already a $RELEASE_BRANCH branch..."
+	[[ $(git branch | grep $RELEASE_BRANCH) ]] && {
+    error "looks like a $RELEASE_BRANCH branch already exists, this is wrong. Bailing like a zebra."
 	}
 }
 
@@ -95,11 +96,11 @@ function print_to_changelog () {
 # now make the build and tac it onto the release commit
 # This method keeps the master branch clean of builds.
 function amend_build () {
-  report "tacking on build to gh-pages branch..."
+  report "tacking on build to $RELEASE_BRANCH branch..."
   npm run build
 
   if [[ $? != 0 ]]; then
-    report "Wuh oh, something went wrong with the build, bailing hard. To undo what's been done, just remove the gh-pages branch."
+    report "Wuh oh, something went wrong with the build, bailing hard. To undo what's been done, just remove the $RELEASE_BRANCH branch."
   fi
 
   git commit --amend --no-edit
@@ -126,12 +127,12 @@ ensure_unique_version $NEW_VERSION
 # nothing should be failing from here on out
 set -e
 
-# copy branch onto gh-pages.
-# Scheme is as follows: Do release commit, tag, etc. on gh-pages branch.
+# copy branch onto $RELEASE_BRANCH.
+# Scheme is as follows: Do release commit, tag, etc. on $RELEASE_BRANCH branch.
 # If something borks in this script, cleaning up is as easy as removing the branch.
 # Once all's done and pushed to GH, we'll merge this branch back into master.
-report "creating branch gh-pages..."
-git checkout -b gh-pages
+report "creating branch $RELEASE_BRANCH..."
+git checkout -b $RELEASE_BRANCH
 
 # modify package to have new version number. Deps on .npmrc existing
 report "writing new npm version $NEW_VERSION..."
@@ -153,17 +154,17 @@ amend_build
 
 # push to the hub
 report "pushing the latest..."
-git push --tags
+git push origin $RELEASE_BRANCH --tags
 
 # checkout back to master
 report "back to master..."
 git checkout master
 
-# now merge gh-pages release commit into master branch
-report "merging gh-pages release commit into master for fully updated-ness..."
-git merge gh-pages
+# now merge $RELEASE_BRANCH release commit into master branch
+report "merging $RELEASE_BRANCH release commit into master for fully updated-ness..."
+git merge $RELEASE_BRANCH
 
 # we're all done, clean up
 report "all done! cleaning up after ourselves..."
-git branch -d gh-pages
+git branch -d $RELEASE_BRANCH
 rm -rf dist/
