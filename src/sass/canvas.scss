@@ -1,11 +1,15 @@
-#canvas {
-  border: 1px solid blue;
+body {
+  margin: 0;
+  background-color: black;
 }
 
 #container {
-  background-color: orange;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-body {
-  background-color: teal;
+#canvas {
+  border: 1px solid green;
 }
