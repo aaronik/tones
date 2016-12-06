@@ -1,23 +1,20 @@
+import { oneTo, flatten, log } from 'js/util';
+
 require('sass/canvas');
+
+const bodyHeight    = document.body.scrollHeight,
+      bodyWidth     = document.body.clientWidth,
+      matrixSideLen = Math.floor(Math.min(bodyHeight, bodyWidth) - 10); // bit of border
 
 const initContext = () => {
   const canvas  = document.getElementById('canvas');
   return canvas.getContext('2d');
 };
 
-// TODO: move to util
-const least = (x, y) => {
-  if (x < y) return x;
-  return y;
-}
-
 const initHtml = () => {
   const head      = document.head,
         body      = document.body,
-        container = document.querySelector('#container'),
-        height    = document.body.scrollHeight,
-        width     = document.body.clientWidth,
-        sideLen   = Math.floor(least(height, width) - 10); // bit of border
+        container = document.querySelector('#container');
 
   // if we're developing, add the hot loading webpack server bit
   // TODO: get some html preprocessor for webpack and put this into index.html
@@ -31,45 +28,71 @@ const initHtml = () => {
   // add canvas
   let canvas     = document.createElement('canvas');
   canvas.id      = "canvas";
-  canvas.height  = sideLen;
-  canvas.width   = sideLen;
+  canvas.height  = matrixSideLen;
+  canvas.width   = matrixSideLen;
+
+  log('setting canvas side length to:', matrixSideLen);
 
   container.appendChild(canvas);
 }
 
-// generate a
-// generateTonePositions = () => {
+// TODO move to tone helper or something
+const generateTones = (matrixSideLen, tonesPerRow) => {
+  // Using objects without draw() fn for tone data structure:
+  //  ++ easily modifiable for effects
+  //  + easier to measure when mouse (or touch) is inside of tone air space
+  //  + more functional
+  //  - harder to animate other things, but the drawer can just look for a draw
+  //    function and use that if need be.
 
-// };
+  const round = Math.round; // convenience
 
-// Tone data structure thoughts:
-// Draw Function:
-//  + can animate other things like text on screen, etc.
-//  - much less functional
-//  -- can't easily modify for effects
-// points[] etc data:
-//  ++ easily modifiable for effects
-//  + more functional
-//  - harder to animate other things, but the drawer can just look for a draw function and use that if need be.
+  const toneSideLen = round(matrixSideLen / tonesPerRow);
 
-// each square is a tone, the whole thing is a matrix.
-const generateTones = (ctx) => {
-  // TODO don't draw here, just build the objects.
-  // Object needs: {
-  //   points[]: ordered list of points, first one the start point (to moveTo), rest points to lineTo.
-  //   fillStyle: hex color
-  //
+  const tones = oneTo(tonesPerRow).map(x => {
+    return oneTo(tonesPerRow).map(y => {
+      return {
+        points: [
+          [round(x * toneSideLen), round(y * toneSideLen)],
+          [round((x + 1) * toneSideLen), round(y * toneSideLen)],
+          [round((x + 1) * toneSideLen), round((y + 1) * toneSideLen)],
+          [round(x * toneSideLen), round((y + 1) * toneSideLen)]
+        ],
+        fillStyle: "#5CF1F1"
+      }
+    });
+  });
+
+  // It's handy to construct tones as a 2d array, but no entity down the line
+  // should need it in 2d form, so we'll export it in 1d form.
+  return flatten(tones);
+};
+
+const draw = (ctx, drawable) => {
+  // TODO ensure points, fillStyle
+
   ctx.beginPath();
-  ctx.moveTo(150,125);
-  ctx.lineTo(125,175);
-  ctx.lineTo(175,175);
+
+  // move to the start point
+  ctx.moveTo(...drawable.points[0]);
+
+  // draw sides to the rest of the points
+  drawable.points.slice(1).forEach(point => {
+    ctx.lineTo(...point);
+  });
+
+  // completes the final side
   ctx.closePath();
-  ctx.fillStyle="#FF5722";
+
+  ctx.fillStyle = drawable.fillStyle;
+
   ctx.fill();
   ctx.stroke();
 };
 
+// TODO initHtml and initContext are tied together, can initHtml just return the context?
 initHtml();
 const ctx = initContext();
-generateTones(ctx);
-
+window.ctx = ctx; // dev convenience TODO remove
+const tones = generateTones(matrixSideLen, 16);
+tones.forEach(draw.bind(null, ctx));
