@@ -7,4 +7,3 @@ Serverless multiplayer musical instrument, built on canvas
 
 ### TODO
 * get minified in production, unminified in dev
-* make canvas width/height of screen
