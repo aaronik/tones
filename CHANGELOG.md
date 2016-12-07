@@ -29,3 +29,13 @@
   * (Aaron Sullivan) Amend comments in release script
   * (Aaron Sullivan) Fix issue with builds overwriting each other
   * (Aaron Sullivan) release: 0.0.2
+
+### [0.0.4](https://github.com/aaronik/tones/releases/tag/0.0.4)
+
+  * (Aaron Sullivan) Get basic principle of identifying tones in place
+  * (Aaron Sullivan) Start creating visual matrix
+  * (Aaron Sullivan) Add TODOs, terminology to readme
+  * (Aaron Sullivan) Remove canvas height of screen note in readme
+  * (Aaron Sullivan) dev server only in dev env; notes on tone data structure
+  * (Aaron Sullivan) Update readme with release notes
+  * (Aaron Sullivan) release: 0.0.3
