@@ -4,7 +4,7 @@ var webpack = require('webpack');
 var baseConfig = require('./webpack.config.base');
 
 var config = Object.create(baseConfig);
-config.plugins = [
+config.plugins = config.plugins.concat([
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('production')
@@ -14,11 +14,8 @@ config.plugins = [
       warnings: false
     }
   })
-];
+]);
 
-config.output = {
-  path: './dist',
-  filename: 'tones.min.js'
-};
+config.output.filename = 'tones.min.js';
 
 module.exports = config;

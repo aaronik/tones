@@ -4,17 +4,15 @@ var webpack = require('webpack');
 var baseConfig = require('./webpack.config.base');
 
 var config = Object.create(baseConfig);
-config.plugins = [
+config.plugins = config.plugins.concat([
+  // new webpack.HotModuleReplacementPlugin(), # TODO will this work instead of adding the script in the html page?
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('development')
   })
-];
+]);
 
-config.output = {
-  path: './dist',
-  filename: 'tones.js'
-};
+config.output.filename = 'tones.js';
 
 // Note: There seems to be no rhyme or reason at all about what combo of options
 // need to be specified on the CLI vs. here in the config. This here works,

@@ -2,14 +2,18 @@
 
 Serverless multiplayer musical instrument, built on canvas
 
-## Releasing:
+### Developing:
+* run `npm run dev`, open up `localhost:8080` and all the good webpack dev server stuff gets happenin'.
+  Start changing files and :boom: there you'll see the changes in your browser.
+
+### Releasing:
 * Nav to master branch, run `npm run release` and the script should take care of all the rest.
 
-## Terminlogy:
+### Terminlogy:
 * A "tone" is a single clickable square. It's also the data structure the square represents.
 * The "matrix" is all around us. Jkizzle it's the whole collection of tones.
 
-## Architecture decisions:
+### Architecture decisions:
 * Use classic inheritance patterns or shoot for a more functional approach when structuring
   the tone data? I've opted to go for the functional approach. Practically this'll look like
   having a tone data structure like:
@@ -37,7 +41,6 @@ Serverless multiplayer musical instrument, built on canvas
   and creates the object. The key for the first layer of the object is the x coordinate, and the second layer's
   key is the y coordinate. This makes for lightning fast lookup times at the cost of memory and initial build
   time, both of which are negligible on modern devices even given a set of tones larger than would ever be used.
-
 
 #### TODO
 * Fix release script adding last release commit to each release

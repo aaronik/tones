@@ -27,7 +27,7 @@
     "build:umd": "webpack --config webpack/webpack.config.development.js",
     "build:umd:min": "webpack --config webpack/webpack.config.production.js",
     "build": "npm run build:umd && npm run build:umd:min",
-    "dev": "webpack-dev-server --hot --output-public-path dist/ --config webpack/webpack.config.development.js",
+    "dev": "webpack-dev-server --hot --config webpack/webpack.config.development.js",
     "release": "./scripts/release.sh"
   },
   "devDependencies": {
@@ -46,6 +46,7 @@
     "eslint": "^1.7.1",
     "eslint-config-rackt": "^1.1.1",
     "eslint-plugin-react": "^3.16.1",
+    "html-webpack-plugin": "^2.24.1",
     "isparta": "^4.0.0",
     "istanbul-coveralls": "^1.0.3",
     "karma": "^0.13.21",
