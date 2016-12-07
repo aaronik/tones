@@ -3,7 +3,7 @@ import { draw, initDrawLoop } from 'js/draw';
 import { generateTones } from 'js/tones';
 import { initCanvas } from 'js/init';
 
-require('sass/canvas');
+require('sass/main');
 
 // calculate the side length of the full matrix. We'll create a square from it.
 const matrixSideLen = Math.floor(
