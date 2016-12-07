@@ -13,6 +13,7 @@ export const flatten = (nestedArray) => {
   }, []);
 }
 
+// print messages prettily
 export const log = (...args) => {
   console.log('Tones: ', ...args);
 }

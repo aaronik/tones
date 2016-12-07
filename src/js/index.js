@@ -1,4 +1,5 @@
 import { oneTo, flatten, log } from 'js/util';
+import { generatePixelToneMapping, draw } from 'js/matrix';
 
 require('sass/canvas');
 
@@ -6,8 +7,13 @@ const bodyHeight    = document.body.scrollHeight,
       bodyWidth     = document.body.clientWidth,
       matrixSideLen = Math.floor(Math.min(bodyHeight, bodyWidth) - 10); // bit of border
 
-const initContext = () => {
+const initContext = (pixelToneMapping) => {
   const canvas  = document.getElementById('canvas');
+
+  canvas.addEventListener('mousemove', evt => {
+    console.log(evt.offsetX, evt.offsetY, pixelToneMapping[evt.offsetX][evt.offsetY]);
+  }, false);
+
   return canvas.getContext('2d');
 };
 
@@ -68,31 +74,10 @@ const generateTones = (matrixSideLen, tonesPerRow) => {
   return flatten(tones);
 };
 
-const draw = (ctx, drawable) => {
-  // TODO ensure points, fillStyle
-
-  ctx.beginPath();
-
-  // move to the start point
-  ctx.moveTo(...drawable.points[0]);
-
-  // draw sides to the rest of the points
-  drawable.points.slice(1).forEach(point => {
-    ctx.lineTo(...point);
-  });
-
-  // completes the final side
-  ctx.closePath();
-
-  ctx.fillStyle = drawable.fillStyle;
-
-  ctx.fill();
-  ctx.stroke();
-};
+const tones = generateTones(matrixSideLen, 16);
+const pixelToneMapping = generatePixelToneMapping(tones);
 
 // TODO initHtml and initContext are tied together, can initHtml just return the context?
 initHtml();
-const ctx = initContext();
-window.ctx = ctx; // dev convenience TODO remove
-const tones = generateTones(matrixSideLen, 16);
+const ctx = initContext(pixelToneMapping);
 tones.forEach(draw.bind(null, ctx));
