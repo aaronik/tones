@@ -3,8 +3,7 @@
 import { log } from 'js/util';
 
 // initialize all HTML. Passes back canvas context. Takes event liteners.
-// TODO remove pixelToneMapping in favor of just listeners
-export const initHtmlCtx = (pixelToneMapping, matrixSideLen, listeners = {}) => {
+export const initHtmlCtx = (matrixSideLen, listeners = {}) => {
   const head      = document.head,
         body      = document.body,
         container = document.querySelector('#container');
@@ -28,11 +27,11 @@ export const initHtmlCtx = (pixelToneMapping, matrixSideLen, listeners = {}) => 
 
   container.appendChild(canvas);
 
-  canvas.addEventListener('mousemove', evt => {
-    console.log(evt.offsetX, evt.offsetY, pixelToneMapping[evt.offsetX][evt.offsetY]);
-  }, false);
+  for (let eventName in listeners) {
+    log(`Adding listener for event: ${eventName}`);
+    canvas.addEventListener(eventName, listeners[eventName], false);
+  }
 
   return canvas.getContext('2d');
 };
-
 
