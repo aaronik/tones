@@ -10,9 +10,9 @@ const matrixSideLen = Math.floor(
 );
 
 // how many tones are there per side? (square that num for total num tones)
-const numTones = 16;
+const numTonesPerSide = 16;
 
-const tones = generateTones(matrixSideLen, numTones);
+const tones = generateTones(matrixSideLen, numTonesPerSide);
 const pixelToneMapping = generatePixelToneMapping(tones);
 
 const ctx = initHtmlCtx(pixelToneMapping, matrixSideLen);
