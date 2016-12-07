@@ -44,13 +44,6 @@ const initHtml = () => {
 
 // TODO move to tone helper or something
 const generateTones = (matrixSideLen, tonesPerRow) => {
-  // Using objects without draw() fn for tone data structure:
-  //  ++ easily modifiable for effects
-  //  + easier to measure when mouse (or touch) is inside of tone air space
-  //  + more functional
-  //  - harder to animate other things, but the drawer can just look for a draw
-  //    function and use that if need be.
-
   const round = Math.round; // convenience
 
   const toneSideLen = round(matrixSideLen / tonesPerRow);
