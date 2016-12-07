@@ -5,7 +5,7 @@ var baseConfig = require('./webpack.config.base');
 
 var config = Object.create(baseConfig);
 config.plugins = config.plugins.concat([
-  // new webpack.HotModuleReplacementPlugin(), # TODO will this work instead of adding the script in the html page?
+  new webpack.HotModuleReplacementPlugin(),
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('development')

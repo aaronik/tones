@@ -1,7 +1,7 @@
 import { generatePixelToneMapping } from 'js/matrix';
 import { draw, initDrawLoop } from 'js/draw';
 import { generateTones } from 'js/tones';
-import { initHtmlCtx } from 'js/init';
+import { initCanvas } from 'js/init';
 
 require('sass/canvas');
 
@@ -22,7 +22,7 @@ const matrixListeners = {
   mousedown: (evt) => { console.log('mouse down', pixelToneMapping[evt.offsetX][evt.offsetY]); }
 };
 
-const ctx              = initHtmlCtx(matrixSideLen, matrixListeners);
+const ctx              = initCanvas(matrixSideLen, matrixListeners);
 const drawWithCtx      = draw.bind(null, ctx);
 
 initDrawLoop(tones, drawWithCtx, drawInterval);

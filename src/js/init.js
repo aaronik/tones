@@ -2,20 +2,9 @@
 
 import { log } from 'js/util';
 
-// initialize all HTML. Passes back canvas context. Takes event liteners.
-export const initHtmlCtx = (matrixSideLen, listeners = {}) => {
-  const head      = document.head,
-        body      = document.body,
-        container = document.querySelector('#container');
-
-  // if we're developing, add the hot loading webpack server bit
-  // TODO: get some html preprocessor for webpack and put this into index.html
-  if (process.env.NODE_ENV === 'development')
-    head.appendChild(
-      document.createElement('script', {
-        src: "http://localhost:8080/webpack-dev-server.js"
-      })
-    );
+// initialize canvas. Passes back canvas context. Takes event liteners for the canvas el.
+export const initCanvas = (matrixSideLen, listeners = {}) => {
+  const container = document.querySelector('#container');
 
   // add canvas
   let canvas     = document.createElement('canvas');

@@ -44,7 +44,6 @@ Serverless multiplayer musical instrument, built on canvas
 
 #### TODO
 * Fix release script adding last release commit to each release
-* Get minified in production, unminified in dev
 * Add timer, show columns chiming
 * Add sound, single instrument
 * Add multiple instruments
