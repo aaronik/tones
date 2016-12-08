@@ -22,7 +22,11 @@ const matrixListeners = {
   mousedown: (evt) => { console.log('mouse down', pixelToneMapping[evt.offsetX][evt.offsetY]); }
 };
 
-const ctx              = initCanvas(matrixSideLen, matrixListeners);
-const drawWithCtx      = draw.bind(null, ctx);
+const ctx       = initCanvas(matrixSideLen, matrixListeners);
+const boundDraw = draw.bind(null, ctx);
+const noArgDraw = () => { // TODO rename
+  tones.forEach(tone => { draw(ctx, tone) });
+};
 
-initDrawLoop(tones, drawWithCtx, drawInterval);
+initDrawLoop(noArgDraw, drawInterval);
+
