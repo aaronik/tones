@@ -1,20 +1,24 @@
+//
 // helper for init related code
+//
 
-import { log } from 'js/util';
+import util from 'js/util';
 
-let util;
+let canvasUtil = {};
+export default canvasUtil;
 
 // initialize canvas. Passes back canvas context. Takes event liteners for the canvas el.
-export const initCanvas = (canvasDim, listeners = {}) => {
+canvasUtil.initCanvas = (canvasDim, listeners = {}) => {
+  util.log('canvasUtil: setting canvas side length to:', canvasDim);
+
+  // we'll toss the canvas into the container element
   const container = document.querySelector('#container');
 
-  // add canvas
+  // create a canvas element, add it to DOM
   let canvas     = document.createElement('canvas');
   canvas.id      = "canvas";
   canvas.height  = canvasDim;
   canvas.width   = canvasDim;
-
-  log('setting canvas side length to:', canvasDim);
 
   container.appendChild(canvas);
 
@@ -23,9 +27,10 @@ export const initCanvas = (canvasDim, listeners = {}) => {
 
 // attach listeners to the canvas, convenience
 // Arg { key: <event name>, val: <on fn()> }, canvas
-export const attachListeners = (listeners, canvas) => {
+canvasUtil.attachListeners = (listeners, canvas) => {
   for (let eventName in listeners) {
-    log(`Adding listener for event: ${eventName}`);
+    util.log(`Adding listener for event: ${eventName}`);
     canvas.addEventListener(eventName, listeners[eventName], false);
   }
 };
+

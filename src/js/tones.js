@@ -1,14 +1,19 @@
+//
 // general helper for tone related stuff
+//
 
-import { oneTo, flatten } from 'js/util';
+import util from 'js/util';
 
-export const generateTones = (matrixSideLen, tonesPerRow) => {
+let tonesUtil = {};
+export default tonesUtil;
+
+tonesUtil.generateTones = (matrixSideLen, tonesPerRow) => {
   const round = Math.round; // convenience
 
   const toneSideLen = round(matrixSideLen / tonesPerRow);
 
-  const tones = oneTo(tonesPerRow).map(x => {
-    return oneTo(tonesPerRow).map(y => {
+  const tones = util.oneTo(tonesPerRow).map(x => {
+    return util.oneTo(tonesPerRow).map(y => {
       return {
         points: [
           [round(x * toneSideLen), round(y * toneSideLen)],
@@ -23,6 +28,6 @@ export const generateTones = (matrixSideLen, tonesPerRow) => {
 
   // It's handy to construct tones as a 2d array, but no entity down the line
   // should need it in 2d form, so we'll export it in 1d form.
-  return flatten(tones);
+  return util.flatten(tones);
 };
 

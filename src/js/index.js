@@ -1,8 +1,7 @@
-import { generatePixelToneMapping } from 'js/matrix';
-import { draw, initDrawLoop } from 'js/draw';
-import { generateTones } from 'js/tones';
+import matrixUtil from 'js/matrix';
+import drawUtil from 'js/draw';
+import tonesUtil from 'js/tones';
 import canvasUtil from 'js/canvas';
-import { initCanvas, attachListeners } from 'js/canvas';
 
 require('sass/main');
 
@@ -14,8 +13,8 @@ const canvasDim = Math.floor(
 const numTonesPerSide  = 16;    // how many tones per side (square for total)
 const drawInterval     = 1000;  // how often to draw
 
-const tones            = generateTones(canvasDim, numTonesPerSide);
-const pixelToneMapping = generatePixelToneMapping(tones);
+const tones            = tonesUtil.generateTones(canvasDim, numTonesPerSide);
+const pixelToneMapping = matrixUtil.generatePixelToneMapping(tones);
 
 // these are the functions that get fired when you interact with the canvas
 const matrixListeners = {
@@ -27,10 +26,9 @@ const matrixListeners = {
 const canvas    = initCanvas(canvasDim, matrixListeners);
 const ctx       = canvas.getContext('2d');
 
-// generate a function that, when called with no args, draws
-// to the canvas.
+// generate an arity 0 function that draws to the canvas.
 const pureDraw = () => {
-  tones.forEach(tone => { draw(ctx, tone) });
+  tones.forEach(tone => { drawUtil.drawDrawable(ctx, tone) });
 };
 
 // fire up the draw loop.

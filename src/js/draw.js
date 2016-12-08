@@ -1,8 +1,13 @@
+//
 // draw helpers
+//
+
+let drawUtil = {};
+export default drawUtil;
 
 // this function takes what you give it and draws it (ATTOW simple,
 // only does edged shapes)
-export const draw = (ctx, drawable) => {
+drawUtil.drawDrawable = (ctx, drawable) => {
   // TODO ensure points, fillStyle
 
   ctx.beginPath();
@@ -25,7 +30,7 @@ export const draw = (ctx, drawable) => {
 };
 
 // set up a draw loop. Takes a single draw function. Returns interval id.
-export const initDrawLoop = (draw, interval) => {
+drawUtil.initDrawLoop = (draw, interval) => {
   // setInterval waits to call the first draw, so we have to call it
   // manually on the first run.
   draw();
