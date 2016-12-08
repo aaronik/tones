@@ -39,3 +39,23 @@
   * (Aaron Sullivan) dev server only in dev env; notes on tone data structure
   * (Aaron Sullivan) Update readme with release notes
   * (Aaron Sullivan) release: 0.0.3
+
+### [0.0.5](https://github.com/aaronik/tones/releases/tag/0.0.5)
+
+  * (Aaron Sullivan) Select a tone, scheming on further animation scheme
+  * (Aaron Sullivan) Rework listening architecture, rename, obfuscate pixel tone mapping
+  * (Aaron Sullivan) Adopt clearer import scheme
+  * (Aaron Sullivan) Clean canvas utilities
+  * (Aaron Sullivan) Add build_tags to npm scripts, though seems to be useless
+  * (Aaron Sullivan) initDrawLoop: (drawables, draw, interval) -> (draw, interval)
+  * (Aaron Sullivan) canvass.sass -> main.sass
+  * (Aaron Sullivan) Add hot module replacement in webpack plugins, not manually
+  * (Aaron Sullivan) Gets HTML webpack plugin runnin'
+  * (Aaron Sullivan) Add bug to readme
+  * (Aaron Sullivan) Add cleanish event declaration structure
+  * (Aaron Sullivan) Construct draw interval; organise
+  * (Aaron Sullivan) Add pixel -> tone mapping architecture decision to readme
+  * (Aaron Sullivan) Rework architecture a bit, cleaning index.js
+  * (Aaron Sullivan) Clean errant comments
+  * (Aaron Sullivan) Update readme with design decisions, knock off todos
+  * (Aaron Sullivan) release: 0.0.4
