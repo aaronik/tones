@@ -28,7 +28,8 @@
     "build:umd:min": "webpack --config webpack/webpack.config.production.js",
     "build": "npm run build:umd && npm run build:umd:min",
     "dev": "webpack-dev-server --hot --config webpack/webpack.config.development.js",
-    "release": "./scripts/release.sh"
+    "release": "./scripts/release.sh",
+    "build_tags": "ctags -f .tags -R --exclude=node_modules ."
   },
   "devDependencies": {
     "babel-cli": "^6.4.0",
