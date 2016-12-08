@@ -4,9 +4,14 @@
 
 import util from 'js/util';
 
+// TODO put in config file
+const DEACTIVATED_COLOR = "#5CF1F1";
+const ACTIVATED_COLOR = "#FBB034";
+
 let tonesUtil = {};
 export default tonesUtil;
 
+// initial generation of all the tones
 tonesUtil.generateTones = (matrixSideLen, tonesPerRow) => {
   const round = Math.round; // convenience
 
@@ -15,13 +20,14 @@ tonesUtil.generateTones = (matrixSideLen, tonesPerRow) => {
   const tones = util.oneTo(tonesPerRow).map(x => {
     return util.oneTo(tonesPerRow).map(y => {
       return {
+        active: false,
+        fillStyle: DEACTIVATED_COLOR,
         points: [
           [round(x * toneSideLen), round(y * toneSideLen)],
           [round((x + 1) * toneSideLen), round(y * toneSideLen)],
           [round((x + 1) * toneSideLen), round((y + 1) * toneSideLen)],
           [round(x * toneSideLen), round((y + 1) * toneSideLen)]
-        ],
-        fillStyle: "#5CF1F1"
+        ]
       }
     });
   });
@@ -31,3 +37,12 @@ tonesUtil.generateTones = (matrixSideLen, tonesPerRow) => {
   return util.flatten(tones);
 };
 
+// 'activate' a tone, i.e. make it selected
+tonesUtil.toggleToneActivation = (tones, tid) => {
+  tones[tid].active = !tones[tid].active;
+
+  if (tones[tid].active)
+    tones[tid].fillStyle = ACTIVATED_COLOR;
+  else
+    tones[tid].fillStyle = DEACTIVATED_COLOR;
+};

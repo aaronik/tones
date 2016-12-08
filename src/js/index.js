@@ -12,27 +12,27 @@ const canvasDim = Math.floor(
 );
 
 const numTonesPerSide = 16;    // how many tones per side (square for total)
-const drawInterval    = 1000;  // how often to draw
+const drawInterval    = 100;  // how often to draw
 
 const tones           = tonesUtil.generateTones(canvasDim, numTonesPerSide);
 const pixelToTone     = matrixUtil.createPixelToneTranslator(tones);
 
+// instantialize the HTML canvas element, grab the context
+const canvas          = canvasUtil.initCanvas(canvasDim);
+const ctx             = canvas.getContext('2d');
+
 // these are the functions that get fired when you interact with the canvas
 const canvasListeners = {
   mousemove: (evt) => {
-    const pid = canvasUtil.canvasEvtToPxlId(evt, pixelToTone);
-    util.log('mouse move', pid);
+    const tid = canvasUtil.canvasEvtToToneId(evt, pixelToTone);
+    util.log('mouse move', tid);
   },
 
   mousedown: (evt) => {
-    const pid = canvasUtil.canvasEvtToPxlId(evt, pixelToTone);
-    util.log('mouse down', pid);
+    const tid = canvasUtil.canvasEvtToToneId(evt, pixelToTone);
+    tonesUtil.toggleToneActivation(tones, tid);
   }
 };
-
-// instantialize the HTML canvas element, grab the context
-const canvas    = canvasUtil.initCanvas(canvasDim);
-const ctx       = canvas.getContext('2d');
 
 canvasUtil.attachListeners(canvas, canvasListeners);
 

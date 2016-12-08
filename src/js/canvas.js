@@ -35,7 +35,7 @@ canvasUtil.attachListeners = (canvas, listeners) => {
 };
 
 // translate canvas event to pixel id
-canvasUtil.canvasEvtToPxlId = (evt, pixelToTone) => {
+canvasUtil.canvasEvtToToneId = (evt, pixelToTone) => {
   let [x, y] = [evt.offsetX, evt.offsetY];
 
   // not sure why, but sometimes evt.offsetX is -1. Just
