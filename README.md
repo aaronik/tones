@@ -43,6 +43,7 @@ Serverless multiplayer musical instrument, built on canvas
   time, both of which are negligible on modern devices even given a set of tones larger than would ever be used.
 
 #### TODO
+* get eslint into webpack dev thing somehow
 * Fix release script adding last release commit to each release
 * Add timer, show columns chiming
 * Add sound, single instrument
