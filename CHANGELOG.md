@@ -1,3 +1,7 @@
+### [0.0.6](https://github.com/aaronik/tones/releases/tag/0.0.6)
+
+  * (Aaron Sullivan) Fix changelog ordering in release script, manually touches CHANGELOG.md
+
 ### [0.0.5](https://github.com/aaronik/tones/releases/tag/0.0.5)
 
   * (Aaron Sullivan) Select a tone, scheming on further animation scheme
