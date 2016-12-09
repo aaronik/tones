@@ -44,7 +44,6 @@ Serverless multiplayer musical instrument, built on canvas
 
 #### TODO
 * get eslint into webpack dev thing somehow
-* Fix release script adding last release commit to each release
 * Add timer, show columns chiming
 * Add sound, single instrument
 * Add multiple instruments
