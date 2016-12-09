@@ -9,16 +9,10 @@ OLD_VERSION=$(node -pe 'require("./package.json").version')
 CHANGELOG=./CHANGELOG.md
 PROG=$(basename $0)
 RELEASE_BRANCH=gh-pages # NOTE: this script will force push over this branch. Def. don't use master!
+CHANGES=$(git log $OLD_VERSION...master --no-merges --pretty=format:"  * (%an) %s" | head -n -1)
+OLD_CHANGES=$(cat $CHANGELOG)
 
 NEW_VERSION='' # will be populated later by script
-
-# before anything, populate a "changes file" and create alias to read it.
-# This'll help with ensuring changes, writing changes, etc. Zsh lets you
-# assign nicely formatted stuff to a variable, but bash does not, so we
-# need to actually write to a file.
-CHANGES_FILE=$(mktemp)
-git log $OLD_VERSION...master --no-merges --pretty=format:"  * (%an) %s" > $CHANGES_FILE
-CHANGES="cat $CHANGES_FILE"
 
 # for printing friendly status messages
 function report () {
@@ -89,8 +83,7 @@ function get_new_version () {
 function print_to_changelog () {
   report "writing changes to changelog..."
   local new_version=$1
-  printf "\n\n### [$new_version](https://github.com/aaronik/tones/releases/tag/$new_version)\n\n" >> $CHANGELOG
-  $CHANGES >> $CHANGELOG
+  printf "### [$new_version](https://github.com/aaronik/tones/releases/tag/$new_version)\n\n$CHANGES\n\n$OLD_CHANGES" > $CHANGELOG
 }
 
 function build () {
