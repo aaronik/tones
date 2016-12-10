@@ -20,7 +20,8 @@ tonesUtil.generateTones = (matrixSideLen, tonesPerRow) => {
   const tones = util.oneTo(tonesPerRow).map(x => {
     return util.oneTo(tonesPerRow).map(y => {
       return {
-        active: false,
+        active:    false, // clicked or not
+        hovered:   false, // has ongoing hover effect
         fillStyle: DEACTIVATED_COLOR,
         points: [
           [round(x * toneSideLen), round(y * toneSideLen)],
@@ -45,4 +46,12 @@ tonesUtil.toggleToneActivation = (tones, tid) => {
     tones[tid].fillStyle = ACTIVATED_COLOR;
   else
     tones[tid].fillStyle = DEACTIVATED_COLOR;
+};
+
+tonesUtil.hoverTone = (tones, tid) => {
+  // * if a hover effect is already on the tone, bail
+  // * set hover effect active
+  // * animate
+  //   * Want to do one animation frame per draw loop tic
+  // * set hover effect not active
 };
