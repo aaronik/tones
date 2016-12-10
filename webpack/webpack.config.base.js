@@ -25,7 +25,7 @@ module.exports = {
   output: { path: './dist' }, // filename added in dev/prod configs
 
   plugins: [new HtmlWebpackPlugin({
-    template: './src/index.ejs',
+    template: './src/ejs/index.ejs',
     inject: 'body',                   // inject js into body, not head. Adds <script> tag with js from otuput above
     favicon: null,                    // TODO add one
     minify: false,
