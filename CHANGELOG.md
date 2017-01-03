@@ -1,3 +1,10 @@
+### [0.1.0](https://github.com/aaronik/tones/releases/tag/0.1.0)
+
+  * (Aaron Sullivan) Start on building out animator
+  * (Aaron Sullivan) Move index.ejs to its own folder
+  * (Aaron Sullivan) More notes on animation
+  * (Aaron Sullivan) Remove todo from readme
+
 ### [0.0.6](https://github.com/aaronik/tones/releases/tag/0.0.6)
 
   * (Aaron Sullivan) Fix changelog ordering in release script, manually touches CHANGELOG.md
