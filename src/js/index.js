@@ -3,7 +3,7 @@ import matrixUtil from 'js/matrix';
 import drawUtil   from 'js/draw';
 import tonesUtil  from 'js/tones';
 import canvasUtil from 'js/canvas';
-import animator   from 'js/animator';
+import Animator   from 'js/animator';
 
 require('sass/main');
 

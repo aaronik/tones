@@ -61,5 +61,4 @@ class Animator {
 
 }
 
-const animator = new Animator;
-export default animator;
+export default Animator;
