@@ -1,3 +1,7 @@
+### [0.1.1](https://github.com/aaronik/tones/releases/tag/0.1.1)
+
+  * (Aaron Sullivan) Fix incorrect export of legacy animator
+
 ### [0.1.0](https://github.com/aaronik/tones/releases/tag/0.1.0)
 
   * (Aaron Sullivan) Start on building out animator
