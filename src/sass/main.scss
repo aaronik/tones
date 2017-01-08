@@ -1,15 +1,128 @@
-body {
-  margin: 0;
-  background-color: black;
-}
+@import './variables';
 
-#container {
-  height: 100%;
+* {
+  transition: all 0.3s;
+};
+
+.layout-row {
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  justify-content: space-between;
+  background-color: $colorBackground;
+};
 
-#canvas {
-  border: 1px solid green;
-}
+.matrix-container {
+  width: $matrixLength;
+  height: $matrixLength;
+  margin: auto;
+};
+
+.blank-matrix {
+  width: $matrixLength;
+  height: $matrixLength;
+  margin: auto;
+  background: $green;
+};
+
+.matrix-table {
+  width: 100%;
+  height: 100%;
+  background-color: $blue;
+};
+
+.tone-container {
+  width: 27px;
+  height: 27px;
+  background-color: $green;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: $black;
+  };
+};
+
+.tone-container-active {
+  background-color: $red;
+};
+
+.tracks-container {
+  display: flex;
+};
+
+.mini-tone {
+  width: 1px;
+  height: 1px;
+  background-color: $green;
+};
+
+.mini-tone-active {
+  background-color: $red;
+};
+
+.mini-matrix-container {
+  //
+};
+
+.mini-matrix-table {
+  border: 0;
+  border-collapse: collapse;
+  cellspacing: 0;
+};
+
+.add-track-button-container {
+  width: $miniMatrixLength;
+  height: $miniMatrixLength;
+  background: $blue;
+  cursor: pointer;
+  border: 1px solid $black;
+  text-align: center;
+  line-height: $miniMatrixLength;
+  font-size: 30px;
+};
+
+.track-container {
+  border: 1px solid $black;
+};
+
+.mini-matrix-container {
+  width: $miniMatrixLength;
+  height: $miniMatrixLength;
+  background-color: $blue;
+  cursor: pointer;
+};
+
+.track-remove-button-container {
+  width: $trackRemoveButtonLength;
+  height: $trackRemoveButtonLength;
+  background-color: $red;
+  text-align: center;
+  cursor: pointer;
+  line-height: $trackRemoveButtonLength;
+  font-size: 30px;
+};
+
+.track-body-container {
+  width: $trackBodyWidth;
+  height: $trackBodyHeight;
+  background-color: $orange;
+};
+
+.main-menu-container {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: $mainMenuHeight;
+  justify-content: center;
+};
+
+.main-menu-inner {
+  display: flex;
+  justify-content: space-around;
+  background: $red;
+  width: 250px;
+  font-size: 40px;
+
+  & > i {
+    cursor: pointer;
+  };
+};
