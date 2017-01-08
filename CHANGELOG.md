@@ -1,3 +1,7 @@
+### [0.1.2](https://github.com/aaronik/tones/releases/tag/0.1.2)
+
+  * (Aaron Sullivan) Merge musictous (music-to-us) with this project.
+
 ### [0.1.1](https://github.com/aaronik/tones/releases/tag/0.1.1)
 
   * (Aaron Sullivan) Fix incorrect export of legacy animator
