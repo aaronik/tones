@@ -59,7 +59,7 @@ const App = React.createClass({
   },
 
   onRemoveTrack (trackId) {
-    let newTracks = this.state.tracks.filter( (track) => {
+    let newTracks = this.state.tracks.filter(track => {
       return track.id != trackId;
     });
 

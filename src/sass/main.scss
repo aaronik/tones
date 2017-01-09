@@ -50,9 +50,12 @@
 };
 
 .mini-tone {
-  width: 1px;
-  height: 1px;
+  width: 3px;
+  height: 3px;
   background-color: $green;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  box-sizing: border-box;
 };
 
 .mini-tone-active {
@@ -60,13 +63,9 @@
 };
 
 .mini-matrix-container {
-  //
-};
-
-.mini-matrix-table {
-  border: 0;
-  border-collapse: collapse;
-  cellspacing: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 };
 
 .add-track-button-container {
