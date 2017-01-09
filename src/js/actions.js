@@ -1,4 +1,10 @@
-import utils from 'js/utils'
+// import utils from 'js/utils'
+
+// Getting an active track
+// * Must put it in query string, otherwise we need to do
+//   messy stuff to get state to play nice with re-reading URL
+// * The URL is now constructed imperitively. Better to have a
+//   url store which shoves itself into URL bar on change?
 
 function navTo (url) {
   window.history.pushState({}, '', url);
@@ -22,6 +28,10 @@ var actions = {
   navigateToTracks (tracks) {
     let newUrlString = '?' + utils.tracksToUrlString(tracks);
     navTo(newUrlString);
+  },
+
+  setActiveTrack (trackId) {
+    addFrag('a=' + trackId);
   }
 }
 

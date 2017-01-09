@@ -7,11 +7,10 @@ import React from 'react'
 
 function isBinaryString (string) {
   if (typeof string != 'string') return false;
-  let allZerosAndOnes = string.split('').every( (char) => {
+
+  return string.split('').every(char => {
     return (char == '0' || char == '1');
   });
-  if (!allZerosAndOnes) return false;
-  return true;
 }
 
 function binaryStringValidator (props, propName, componentName) {

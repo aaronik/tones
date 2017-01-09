@@ -7,21 +7,20 @@ import Track    from 'components/track';
 import Tracks   from 'components/tracks';
 import Matrix   from 'components/matrix';
 import MainMenu from 'components/main_menu';
-import utils    from 'js/utils';
+// import utils    from 'js/utils';
 import actions  from 'js/actions';
+import URL from 'url-parse'
 
-// let's call a track data
-// track = { id: string, tones: bin string, slots: bin string }
-
+window.URL = URL;
 const App = React.createClass({
-  getInitialState() {
-    let tracks = utils.getTracksFromUrl();
+  // getInitialState() {
+  //   // let tracks = utils.getTracksFromUrl();
 
-    return {
-      tracks: tracks,
-      currentTrack: tracks[0]
-    };
-  },
+  //   // return {
+  //   //   tracks: tracks,
+  //   //   currentTrack: tracks[0]
+  //   // };
+  // },
 
   componentWillMount() {
     // TODO: move to actions? actions.listenForUrlChange (event) => ...
@@ -29,7 +28,8 @@ const App = React.createClass({
     window.addEventListener('message', (event) => {
       if (event.data != 'pushstate') return;
 
-      let tracks = utils.getTracksFromUrl();
+      // let tracks = utils.getTracksFromUrl();
+      // let currentTrack = utils.getCurrentTrackIdFromUrl();
 
       this.setState({
         tracks: tracks,
@@ -38,20 +38,15 @@ const App = React.createClass({
     });
   },
 
-  _setActiveTrack (trackId) {
-    let newCurrentTrack = _.findWhere(this.state.tracks, {id: trackId});
-    this.setState({ currentTrack: newCurrentTrack });
-  },
-
   onToneClick (toneId) {
-    let modifiedTrack = utils.toggleTone(toneId, this.state.currentTrack);
+    // let modifiedTrack = utils.toggleTone(toneId, this.state.currentTrack);
 
     let newTracks = this.state.tracks.map( (track) => {
       if (track.id != modifiedTrack.id) return track;
       return modifiedTrack;
     });
 
-    actions.navigateToTracks(newTracks);
+    // actions.navigateToTracks(newTracks);
   },
 
   onNewTrack() {
@@ -67,12 +62,13 @@ const App = React.createClass({
   },
 
   onMiniMatrixClick (trackId) {
-    this._setActiveTrack(trackId);
+    actions.setActiveTrack(trackId);
   },
 
   render() {
     let { tracks, currentTrack } = this.state;
     if (!!currentTrack) var { tones } = currentTrack;
+    console.log(currentTrack);
 
     return (
       <div>
