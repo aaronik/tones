@@ -3,13 +3,13 @@ import propTypes from 'js/prop_types'
 
 const MiniTone = React.createClass({
   propTypes: {
-    tone: propTypes.bit.isRequired
+    tone: propTypes.tone.isRequired
   },
 
   render() {
     let className = 'mini-tone ';
 
-    if (this.props.tone == '1') {
+    if (this.props.tone.active) {
       className += 'mini-tone-active';
     }
 

@@ -6,15 +6,15 @@ import propTypes from 'js/prop_types'
 
 const Track = React.createClass({
   propTypes: {
-    id: React.PropTypes.string.isRequired,
-    tones: propTypes.binaryString.isRequired,
-    slots: propTypes.binaryString.isRequired,
-    onRemoveTrack: React.PropTypes.func.isRequired,
+    id:                React.PropTypes.string.isRequired,
+    tones:             propTypes.tones.isRequired,
+    slots:             propTypes.slots.isRequired,
+    onRemoveTrack:     React.PropTypes.func.isRequired,
     onMiniMatrixClick: React.PropTypes.func.isRequired
   },
 
   render() {
-    let { onMiniMatrixClick, id, tones, onRemoveTrack, slots } = this.props;
+    const { onMiniMatrixClick, id, tones, onRemoveTrack, slots } = this.props;
 
     return (
       <div className='track-container'>

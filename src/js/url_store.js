@@ -3,21 +3,36 @@
 // bar itself. Messy string manipulation. Instead, this will hold
 // state, and when it changes, it'll update the URL bar. It'll also
 // contain all the methods of getting at the URL state info.
-
+import _       from 'underscore'
 import util    from 'js/util'
 import urlUtil from 'js/url_util'
+
+// TODO move all this.tracks, this.activeTrackId to this.state.x
 
 // constants TODO move to App
 const NUM_SLOTS       = 8,
       MATRIX_SIDE_LEN = 16;
 
-class UrlStore {
-  constructor(state) {
-    // take the state, validate its shape, set it.
-    // TODO take state or build it from URL here?
-    // TODO if there are no tracks in the URL, let's make one here
-    this.tracks        = state.tracks || [];
-    this.activeTrackId = state.activeTrackId || 0 // TODO or the first track
+export default class UrlStore {
+  constructor() {
+    const state = urlUtil.deconstructUrlString();
+
+    // If there aren't any tracks in the URL, let's make a new one
+    this.tracks = state.tracks || []; // TODO state.tracks will have empty array. Change?
+
+    if (!this.tracks.length) this._addTrack();
+
+    this.activeTrackId = state.activeTrackId || this.tracks[0].id;
+    this.listeners = [];
+
+    this._emitChange();
+  }
+
+  ////
+  // listener
+
+  onChange(fn) {
+    this.listeners.push(fn);
   }
 
   ////
@@ -35,27 +50,36 @@ class UrlStore {
   // writers
 
   addTrack() {
-    this.tracks.push({
-      id: this._generateUniqueTrackId(),
+    this._addTrack();
 
-      slots: util.oneTo(NUM_SLOTS).map(id => {
-        return { id: id, active: false };
-      },
+    // set active track to the one just created.
+    this.activeTrackId = this.tracks[this.tracks.length - 1].id;
+    this._emitChange();
+  }
 
-      tones: util.oneTo(Math.pow(MATRIX_SIDE_LEN, 2)).map(id => {
-        return { id: id, active: false };
-      })
+  removeTrack (trackId) {
+    this.tracks = _.filter(this.tracks, track => {
+      return track.id !== trackId;
     });
+
+    // if we're removing the last track, add a new blank one
+    if (!this.tracks.length) this._addTrack();
+
+    // if the currently selected track was removed,
+    // modify the active track to reflect it
+    if (trackId === this.activeTrackId) this.activeTrackId = this.tracks[0].id;
 
     this._emitChange();
   }
 
-  toggleTone(toneId, trackId) {
+  toggleTone (toneId, trackId) {
+
     this.tracks.forEach(track => {
       if (track.id !== trackId) return;
 
       track.tones.forEach(tone => {
         if (tone.id !== toneId) return;
+
         tone.active = !tone.active;
       });
     });
@@ -63,7 +87,7 @@ class UrlStore {
     this._emitChange();
   }
 
-  setActiveTrack(trackId) {
+  setActiveTrack (trackId) {
     this.activeTrackId = trackId;
 
     this._emitChange();
@@ -74,18 +98,52 @@ class UrlStore {
 
   // return a track id that has not been used yet
   _generateUniqueTrackId() {
-    let usedIds = this.tracks.map(track => { return track.id });
+    const usedIds = this.tracks.map(track => { return track.id });
+
+    // our ids are stringified, we'll use a numerical technique to generate
+    // a new one, so we parse them here.
+    const parsedUsedIds = usedIds.map(id => { return parseInt(id, 10) });
 
     // major hack?
-    for (var newId = 0; _.contains(usedIds, newId); newId++) {}
-    return newId;
+    for (var newId = 0; _.contains(parsedUsedIds, newId); newId++) {}
+    return newId.toString();
   }
 
   _emitChange() {
-    // build URL here
+    // build URL, put it in the bar
     urlUtil.constructUrlString({
       activeTrackId: this.activeTrackId,
-      tracks: this.tracks
+      tracks:        this.tracks
+    });
+
+    // also emit change from this JS object. This will
+    // decouple the URL bar with the state of the app.
+    // If things start to go wrong with the URL bar,
+    // given this setup, it won't look weird in the app.
+    // It'll only break when the user tries to reload
+    // their app. Big problem! TODO: To fix: Limit number of
+    // tracks. Also consider using larger than 64 character
+    // helix. There are 1.15792089237316e77 possibilities,
+    // so it should be way bigger than 64 ;). I believe there
+    // will be significantly diminishing returns going up. Maybe
+    // by doubling we'll shave off 1 character per track?
+    this.listeners.forEach(fn => { fn() });
+  }
+
+  // adds track, but unlike the public writer function, this
+  // does not call emitChange. This is used internally in the
+  // constructor.
+  _addTrack() {
+    this.tracks.push({
+      id: this._generateUniqueTrackId(),
+
+      slots: util.oneTo(NUM_SLOTS).map(id => {
+        return { id: id.toString(), active: false };
+      }),
+
+      tones: util.oneTo(Math.pow(MATRIX_SIDE_LEN, 2)).map(id => {
+        return { id: id.toString(), active: false };
+      })
     });
   }
 }

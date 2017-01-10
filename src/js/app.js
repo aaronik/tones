@@ -1,74 +1,55 @@
 require('../sass/main.scss');
 
-import _        from 'underscore';
-import React    from 'react';
-import ReactDOM from 'react-dom';
-import Track    from 'components/track';
-import Tracks   from 'components/tracks';
-import Matrix   from 'components/matrix';
-import MainMenu from 'components/main_menu';
-// import utils    from 'js/utils';
-import actions  from 'js/actions';
-import URL from 'url-parse'
+import _        from 'underscore'
+import React    from 'react'
+import ReactDOM from 'react-dom'
+import Track    from 'components/track'
+import Tracks   from 'components/tracks'
+import Matrix   from 'components/matrix'
+import MainMenu from 'components/main_menu'
+import UrlStore from 'js/url_store'
 
-window.URL = URL;
+// TODO Make robust to ill-formed URLs
+
+const urlStore = new UrlStore();
+
+const getStateFromStore = () => {
+  return {
+    tracks:      urlStore.getTracks(),
+    activeTrack: urlStore.getActiveTrack()
+  };
+};
+
 const App = React.createClass({
-  // getInitialState() {
-  //   // let tracks = utils.getTracksFromUrl();
-
-  //   // return {
-  //   //   tracks: tracks,
-  //   //   currentTrack: tracks[0]
-  //   // };
-  // },
+  getInitialState() {
+    return getStateFromStore();
+  },
 
   componentWillMount() {
-    // TODO: move to actions? actions.listenForUrlChange (event) => ...
-    // some kind of store watch mixin?
-    window.addEventListener('message', (event) => {
-      if (event.data != 'pushstate') return;
-
-      // let tracks = utils.getTracksFromUrl();
-      // let currentTrack = utils.getCurrentTrackIdFromUrl();
-
-      this.setState({
-        tracks: tracks,
-        currentTrack: !!tracks.length && tracks[tracks.length - 1]
-      });
+    urlStore.onChange(() => {
+      this.setState(getStateFromStore());
     });
   },
 
   onToneClick (toneId) {
-    // let modifiedTrack = utils.toggleTone(toneId, this.state.currentTrack);
-
-    let newTracks = this.state.tracks.map( (track) => {
-      if (track.id != modifiedTrack.id) return track;
-      return modifiedTrack;
-    });
-
-    // actions.navigateToTracks(newTracks);
+    urlStore.toggleTone(toneId, this.state.activeTrack.id);
   },
 
   onNewTrack() {
-    actions.addTrack();
+    urlStore.addTrack();
   },
 
   onRemoveTrack (trackId) {
-    let newTracks = this.state.tracks.filter(track => {
-      return track.id != trackId;
-    });
-
-    actions.navigateToTracks(newTracks);
+    urlStore.removeTrack(trackId);
   },
 
   onMiniMatrixClick (trackId) {
-    actions.setActiveTrack(trackId);
+    urlStore.setActiveTrack(trackId);
   },
 
   render() {
-    let { tracks, currentTrack } = this.state;
-    if (!!currentTrack) var { tones } = currentTrack;
-    console.log(currentTrack);
+    const { tracks, activeTrack } = this.state;
+    const { tones } = activeTrack;
 
     return (
       <div>

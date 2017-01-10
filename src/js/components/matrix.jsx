@@ -5,20 +5,17 @@ import _ from 'underscore'
 
 const TableRow = React.createClass({
   propTypes: {
-    tones: propTypes.binaryString,
-    onToneClick: React.PropTypes.func.isRequired,
-    id: React.PropTypes.number.isRequired
+    id:          React.PropTypes.number.isRequired,
+    tones:       propTypes.tones.isRequired,
+    onToneClick: React.PropTypes.func.isRequired
   },
 
   _generateRow() {
-    return this.props.tones.split('').map( (tone, idx) => {
-      // let id = this.props.id * idx;
-      let id = `${this.props.id}.${idx}`
-
+    return this.props.tones.map((tone, idx) => {
       return (
         <td key={`tone-${idx}`}>
           <Tone
-            id={id}
+            id={tone.id}
             tone={tone}
             onClick={this.props.onToneClick}/>
         </td>
@@ -33,17 +30,18 @@ const TableRow = React.createClass({
 
 const Table = React.createClass({
   propTypes: {
-    tones: propTypes.binaryString.isRequired,
-    onToneClick: React.PropTypes.func.isRequired
+    tones:        propTypes.tones.isRequired,
+    onToneClick:  React.PropTypes.func.isRequired
   },
 
   _generateTable() {
     let matrixLength = Math.sqrt(this.props.tones.length);
 
     return _.times(matrixLength, (idx) => {
-      let startIdx = matrixLength * idx;
-      let endIdx = matrixLength * (idx + 1);
-      let rowTones = this.props.tones.split('').slice(startIdx, endIdx).join('');
+      const startIdx = matrixLength * idx,
+            endIdx   = matrixLength * (idx + 1),
+            rowTones = this.props.tones.slice(startIdx, endIdx);
+
       return <TableRow
         key={`table-row-${idx}`}
         tones={rowTones}
@@ -65,23 +63,21 @@ const Table = React.createClass({
 
 const Matrix = React.createClass({
   propTypes: {
-    tones: propTypes.binaryString,
+    tones: propTypes.tones.isRequired,
     onToneClick: React.PropTypes.func.isRequired
   },
 
   componentWillMount() {
-    if (!this.props.tones) return;
-    let toneCount = this.props.tones.length;
-    let matrixLength = Math.sqrt(toneCount);
-    let roundedRoot = Math.round(matrixLength);
-    if (roundedRoot != matrixLength) {
+    const toneCount    = this.props.tones.length,
+          matrixLength = Math.sqrt(toneCount),
+          roundedRoot  = Math.round(matrixLength);
+
+    if (roundedRoot != matrixLength) { // TODO make this check in app
       throw new Error('matrix must be given a square grid');
     }
   },
 
   render() {
-    if (!this.props.tones) return <div className='blank-matrix'></div>
-
     return (
       <div className='matrix-container'>
         <Table tones={this.props.tones} onToneClick={this.props.onToneClick}/>

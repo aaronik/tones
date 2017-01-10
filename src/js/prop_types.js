@@ -5,33 +5,24 @@ import React from 'react'
 //   `Invalid prop of type ${propName} supplied to ${componentName}, expected ${expectedType}.`
 // }
 
-function isBinaryString (string) {
-  if (typeof string != 'string') return false;
-
-  return string.split('').every(char => {
-    return (char == '0' || char == '1');
-  });
-}
-
-function binaryStringValidator (props, propName, componentName) {
-  if (!isBinaryString(props[propName])) {
-    return new Error();
-  }
-}
-
-// wrap in React.oneOfType for .isRequired
-var binaryString = React.PropTypes.oneOfType([binaryStringValidator]);
-
-var track = React.PropTypes.shape({
-  id: React.PropTypes.string,
-  tones: binaryString,
-  slots: binaryString
+const tone = React.PropTypes.shape({
+  id:     React.PropTypes.string.isRequired,
+  active: React.PropTypes.bool.isRequired
 });
 
-var bit = React.PropTypes.oneOf(['1', '0']);
+const tones = React.PropTypes.arrayOf(tone);
 
-export default {
-  binaryString: binaryString,
-  track: track,
-  bit: bit
-};
+const slot = React.PropTypes.shape({
+  id:     React.PropTypes.string.isRequired,
+  active: React.PropTypes.bool.isRequired
+});
+
+const slots = React.PropTypes.arrayOf(slot);
+
+const track = React.PropTypes.shape({
+  id:     React.PropTypes.string.isRequired,
+  tones:  tones,
+  slots:  slots
+});
+
+export default { track, tone, tones, slot, slots };

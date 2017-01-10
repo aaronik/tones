@@ -5,12 +5,12 @@ import MiniTone   from 'components/mini_tone'
 
 const MiniMatrix = React.createClass({
   propTypes: {
-    tones:    propTypes.binaryString.isRequired,
+    tones:    propTypes.tones.isRequired,
     onClick:  React.PropTypes.func.isRequired
   },
 
   miniTones() {
-    let tones = this.props.tones.split('');
+    const tones = this.props.tones;
 
     return tones.map((tone, idx) => {
       return <MiniTone key={`tone-${idx}`} tone={tone}/>

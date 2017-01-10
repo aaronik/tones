@@ -1,8 +1,9 @@
 import React from 'react'
+import propTypes from 'js/prop_types'
 
 const TrackBody = React.createClass({
   propTypes: {
-    slots: React.PropTypes.string.isRequired
+    slots: propTypes.slots.isRequired
   },
 
   render() {

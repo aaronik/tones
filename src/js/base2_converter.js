@@ -61,10 +61,12 @@ function encode (binary) {
 
 // Turn base64 string back into binary.
 function decode (basedNum, desiredNumBits = 256) {
-  let basedNumArr = basedNum.split('');
+  const basedNumArr = basedNum.split('');
+
   let basedNumIdxArr = basedNumArr.map( char => {
     return RADIX_CHARS.indexOf(char);
   });
+
   return basedNumIdxArr.map( (num, idx) => {
     if (idx == (basedNum.length - 1)) { // last num (handle 6 bit roundoff issue)
       // if desiredNumBits % 6 == 0, we're really on the last bit and we want 6

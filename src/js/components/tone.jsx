@@ -1,16 +1,17 @@
 import React from 'react'
+import propTypes from 'js/prop_types'
 
 const Tone = React.createClass({
   propTypes: {
-    tone: React.PropTypes.oneOf(['0', '1']).isRequired,
-    onClick: React.PropTypes.func.isRequired,
-    id: React.PropTypes.string.isRequired
+    id:      React.PropTypes.string.isRequired,
+    tone:    propTypes.tone.isRequired,
+    onClick: React.PropTypes.func.isRequired
   },
 
   render() {
     let className = 'tone-container ';
 
-    if (this.props.tone == '1') {
+    if (this.props.tone.active) {
       className += 'tone-container-active';
     }
 
