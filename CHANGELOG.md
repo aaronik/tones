@@ -1,3 +1,9 @@
+### [0.1.3](https://github.com/aaronik/tones/releases/tag/0.1.3)
+
+  * (Aaron Sullivan) Finish massive data rearchitecture:
+  * (Aaron Sullivan) Beginning of a massive data rearchitecture
+  * (Aaron Sullivan) Make mini matrices look a bit nicer
+
 ### [0.1.2](https://github.com/aaronik/tones/releases/tag/0.1.2)
 
   * (Aaron Sullivan) Merge musictous (music-to-us) with this project.
