@@ -1,3 +1,7 @@
+### [0.1.5](https://github.com/aaronik/tones/releases/tag/0.1.5)
+
+  * (Aaron Sullivan) Get basics of universal-esque play button
+
 ### [0.1.4](https://github.com/aaronik/tones/releases/tag/0.1.4)
 
   * (Aaron Sullivan) Add npm install to readme dev section
