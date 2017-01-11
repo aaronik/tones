@@ -122,20 +122,9 @@
 
 .main-menu-container {
   display: flex;
-  align-items: flex-end;
-  width: 100%;
+  align-items: center;
+  width: 100px;
+  background: red;
   height: $mainMenuHeight;
   justify-content: center;
-};
-
-.main-menu-inner {
-  display: flex;
-  justify-content: space-around;
-  background: $red;
-  width: 250px;
-  font-size: 40px;
-
-  & > i {
-    cursor: pointer;
-  };
 };
