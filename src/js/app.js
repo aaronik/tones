@@ -8,10 +8,13 @@ import Tracks   from 'components/tracks'
 import Matrix   from 'components/matrix'
 import MainMenu from 'components/main_menu'
 import UrlStore from 'js/url_store'
+import AudioPlayer from 'js/audio_player'
 
 // TODO Make robust to ill-formed URLs
 
 const urlStore = new UrlStore();
+
+window.AP = new AudioPlayer();
 
 const getStateFromStore = () => {
   return {

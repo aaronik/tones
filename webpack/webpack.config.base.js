@@ -8,11 +8,12 @@ module.exports = {
   entry: './src/js/app.js',
 
   resolve: {
-    extensions: ['', '.js', '.scss', '.jsx'],
+    extensions: ['', '.js', '.scss', '.jsx', '.json'],
     alias: {
-      js: path.resolve(__dirname, '../src/js'),
+      js:         path.resolve(__dirname, '../src/js'),
       components: path.resolve(__dirname, '../src/js/components'),
-      sass: path.resolve(__dirname, '../src/sass')
+      sass:       path.resolve(__dirname, '../src/sass'),
+      json:       path.resolve(__dirname, '../src/json')
     }
   },
 
@@ -26,6 +27,11 @@ module.exports = {
       {
         test: /\.js$/,
         loaders: ['babel-loader'],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.json$/,
+        loaders: ['json-loader'],
         exclude: /node_modules/
       },
       {
