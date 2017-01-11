@@ -35,7 +35,11 @@ const App = React.createClass({
   },
 
   onToneClick (toneId) {
-    urlStore.toggleTone(toneId, this.state.activeTrack.id);
+    urlStore.toggleTone(this.state.activeTrack.id, toneId);
+  },
+
+  onSlotClick (trackId, slotId) {
+    urlStore.toggleSlot(trackId, slotId);
   },
 
   onNewTrack() {
@@ -68,7 +72,8 @@ const App = React.createClass({
             tracks={tracks}
             onNewTrack={this.onNewTrack}
             onRemoveTrack={this.onRemoveTrack}
-            onMiniMatrixClick={this.onMiniMatrixClick}/>
+            onMiniMatrixClick={this.onMiniMatrixClick}
+            onSlotClick={this.onSlotClick}/>
 
 
         </div>

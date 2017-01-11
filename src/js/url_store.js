@@ -72,8 +72,7 @@ export default class UrlStore {
     this._emitChange();
   }
 
-  toggleTone (toneId, trackId) {
-
+  toggleTone (trackId, toneId) {
     this.tracks.forEach(track => {
       if (track.id !== trackId) return;
 
@@ -81,6 +80,20 @@ export default class UrlStore {
         if (tone.id !== toneId) return;
 
         tone.active = !tone.active;
+      });
+    });
+
+    this._emitChange();
+  }
+
+  toggleSlot (trackId, slotId) {
+    this.tracks.forEach(track => {
+      if (track.id !== trackId) return;
+
+      track.slots.forEach(slot => {
+        if (slot.id !== slotId) return;
+
+        slot.active = !slot.active;
       });
     });
 

@@ -106,6 +106,20 @@
   background-color: $orange;
 };
 
+.slot-container {
+  height: $trackBodyHeight / 8; // TODO un-hardcode
+  border-bottom: 1px solid red;
+  cursor: pointer;
+
+  &:hover {
+    background: yellow;
+  }
+
+  &.active {
+    background: purple;
+  }
+};
+
 .main-menu-container {
   display: flex;
   align-items: flex-end;
