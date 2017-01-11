@@ -3,6 +3,7 @@
 Serverless multiplayer musical instrument
 
 ### Developing:
+* `npm install`
 * run `npm run dev`, open up `localhost:8080` and all the good webpack dev server stuff gets happenin'.
   Start changing files and :boom: there you'll see the changes in your browser.
 
