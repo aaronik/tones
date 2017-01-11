@@ -1,3 +1,10 @@
+### [0.1.4](https://github.com/aaronik/tones/releases/tag/0.1.4)
+
+  * (Aaron Sullivan) Add npm install to readme dev section
+  * (Aaron Sullivan) Get basic slot toggling working
+  * (Aaron Sullivan) Begin audio setup
+  * (Aaron Sullivan) Pare down README after rearchitecture
+
 ### [0.1.3](https://github.com/aaronik/tones/releases/tag/0.1.3)
 
   * (Aaron Sullivan) Finish massive data rearchitecture:
