@@ -120,11 +120,13 @@
   }
 };
 
-.main-menu-container {
+.play-button-container {
   display: flex;
   align-items: center;
   width: 100px;
   background: red;
   height: $mainMenuHeight;
   justify-content: center;
+  line-height: 50px;
+  font-size: 30px;
 };

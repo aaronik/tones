@@ -20,3 +20,4 @@ Serverless multiplayer musical instrument
 * Add sound, single instrument
 * Add multiple instruments
 * Add multiplayer functionality
+* Make back button either undo or go to the actual last page
