@@ -1,26 +1,26 @@
 require('../sass/main.scss');
 
-import _        from 'underscore'
-import React    from 'react'
-import ReactDOM from 'react-dom'
-import Track    from 'components/track'
-import Tracks   from 'components/tracks'
-import Matrix   from 'components/matrix'
-import PlayButton from 'components/play_button'
-import UrlStore from 'js/url_store'
+import _           from 'underscore'
+import React       from 'react'
+import ReactDOM    from 'react-dom'
+import Track       from 'components/track'
+import Tracks      from 'components/tracks'
+import Matrix      from 'components/matrix'
+import PlayButton  from 'components/play_button'
+import Store       from 'js/store'
 import AudioPlayer from 'js/audio_player'
 
 // TODO Make robust to ill-formed URLs
 
-const urlStore = new UrlStore();
-const audioPlayer = new AudioPlayer();
+const store = new Store();
+const audioPlayer = new AudioPlayer(store);
 
 window.AP = audioPlayer; // TODO remove
 
 const getStateFromStore = () => {
   return {
-    tracks:      urlStore.getTracks(),
-    activeTrack: urlStore.getActiveTrack()
+    tracks:      store.getTracks(),
+    activeTrack: store.getActiveTrack()
   };
 };
 
@@ -33,36 +33,42 @@ const App = React.createClass({
   },
 
   componentWillMount() {
-    urlStore.onChange(() => {
+    store.onChange(() => {
       this.setState(getStateFromStore());
     });
   },
 
   onToneClick (toneId) {
-    urlStore.toggleTone(this.state.activeTrack.id, toneId);
+    store.toggleTone(this.state.activeTrack.id, toneId);
   },
 
   onSlotClick (trackId, slotId) {
-    urlStore.toggleSlot(trackId, slotId);
+    store.toggleSlot(trackId, slotId);
   },
 
   onNewTrack() {
-    urlStore.addTrack();
+    store.addTrack();
   },
 
   onRemoveTrack (trackId) {
-    urlStore.removeTrack(trackId);
+    store.removeTrack(trackId);
   },
 
   onMiniMatrixClick (trackId) {
-    urlStore.setActiveTrack(trackId);
+    store.setActiveTrack(trackId);
   },
 
   onInstrumentClick (trackId, instrumentId) {
-    urlStore.setInstrument(trackId, instrumentId);
+    store.setInstrument(trackId, instrumentId);
   },
 
   onMatrixPlayClick() {
+    if (this.state.matrixPlayActive) {
+      audioPlayer.stop();
+    } else {
+      audioPlayer.startMatrix();
+    }
+
     this.setState({
       tracksPlayActive: false,
       matrixPlayActive: !this.state.matrixPlayActive
@@ -96,7 +102,7 @@ const App = React.createClass({
             onRemoveTrack={this.onRemoveTrack}
             onMiniMatrixClick={this.onMiniMatrixClick}
             onSlotClick={this.onSlotClick}
-            instruments={audioPlayer.instruments}
+            instruments={store.instruments}
             onInstrumentClick={this.onInstrumentClick}/>
         </div>
 

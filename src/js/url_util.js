@@ -13,7 +13,7 @@ const navTo = (url) => {
 }
 
 // turn URL into full state object, which will then
-// be consumed by the UrlStore.
+// be consumed by the Store.
 const deconstructUrlString = () => {
   var state = {},
       query = url().query;
@@ -40,7 +40,11 @@ const deconstructUrlString = () => {
 
       slots: unencodedSlotBitString.split('').map((bit, id) => {
         return { id: id.toString(), active: bit === '1' };
-      })
+      }),
+
+      tuningId: '0', // TODO
+
+      instrumentId: '0' // TODO
     };
   });
 

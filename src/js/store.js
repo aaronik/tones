@@ -4,26 +4,64 @@
 // state, and when it changes, it'll update the URL bar. It'll also
 // contain all the methods of getting at the URL state info.
 import _       from 'underscore'
+import Tone    from 'tone'
 import util    from 'js/util'
 import urlUtil from 'js/url_util'
 
 // TODO move all this.tracks, this.activeTrackId to this.state.x
+// TODO Can we use numeric ids instead of string based ones? Would be easier.
 
 // constants TODO move to App
 const NUM_SLOTS       = 8,
       MATRIX_SIDE_LEN = 16;
 
-export default class UrlStore {
+const TUNINGS = [
+  {
+    id: '0',
+    name: 'Major Pentatonic', // TODO use something more language independent, like M5?
+    pitches: [
+      'D6', 'C6', 'A5', 'G5', 'E5', 'D5', 'C5', 'A4', 'G4', 'E4', 'D4', 'C4', 'A3', 'G3', 'E3', 'C2'
+    ]
+  }
+];
+
+
+export default class Store {
   constructor() {
+    this.MATRIX_SIDE_LEN = MATRIX_SIDE_LEN;
+    this.NUM_SLOTS       = NUM_SLOTS;
+
     const state = urlUtil.deconstructUrlString();
 
-    // If there aren't any tracks in the URL, let's make a new one
     this.tracks = state.tracks || []; // TODO state.tracks will have empty array. Change?
 
+    // If there aren't any tracks in the URL, let's make a new one
     if (!this.tracks.length) this._addTrack();
 
     this.activeTrackId = state.activeTrackId || this.tracks[0].id;
+
     this.listeners = [];
+
+    this.instruments = [
+      {
+        id: '0',
+        iconClassName: 'fa fa-bullhorn',
+        name: 'Synth', // for printing purposes?
+        synth: new Tone.Synth().toMaster() // TODO is this the best spot for this?
+      },
+      {
+        id: '1',
+        iconClassName: 'fa fa-bullhorn',
+        name: 'AMSynth',
+        synth: new Tone.AMSynth().toMaster()
+      },
+      {
+        id: '2',
+        iconClassName: 'fa fa-bullhorn',
+        name: 'FMSynth',
+        synth: new Tone.FMSynth().toMaster()
+      }
+    ];
 
     this._emitChange();
   }
@@ -31,7 +69,7 @@ export default class UrlStore {
   ////
   // listener
 
-  onChange(fn) {
+  onChange (fn) {
     this.listeners.push(fn);
   }
 
@@ -44,6 +82,18 @@ export default class UrlStore {
 
   getTracks() {
     return this.tracks;
+  }
+
+  getTuning (tuningId) {
+    return TUNINGS.find(tuning => {
+      return tuning.id === tuningId;
+    });
+  }
+
+  getInstrument (instrumentId) {
+    return this.instruments.find(instrument => {
+      return instrument.id === instrumentId;
+    });
   }
 
   ////
@@ -105,7 +155,7 @@ export default class UrlStore {
   setInstrument (trackId, instrumentId) {
     let track = this._getTrack(trackId);
 
-    track.instrument = this._getInstrument(instrumentId);
+    track.instrument = this.getInstrument(instrumentId);
 
     this._emitChange();
   }
@@ -116,12 +166,6 @@ export default class UrlStore {
   _getTrack (trackId) {
     return this.tracks.find(track => {
       return track.id === trackId;
-    });
-  }
-
-  _getInstrument (instrumentId) {
-    return this.instruments.find(instrument => {
-      return instrument.id === instrumentId;
     });
   }
 
@@ -172,7 +216,11 @@ export default class UrlStore {
 
       tones: util.oneTo(Math.pow(MATRIX_SIDE_LEN, 2)).map(id => {
         return { id: id.toString(), active: false };
-      })
+      }),
+
+      tuningId: '0', // TODO
+
+      instrumentId: '0' // TODO
     });
   }
 }
