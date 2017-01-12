@@ -1,5 +1,7 @@
 {
   "plew": {
+    "id": "0",
+    "iconClassName": "fa fa-bullhorn",
     "Frequency": {
       "Start": 1093.609156683272,
       "Min": 645.0960333186325,
@@ -24,6 +26,8 @@
   },
 
   "bass": {
+    "id": "1",
+    "iconClassName": "fa fa-bullhorn",
     "Frequency": {
       "Start": 546.9676465714656,
       "Min": 110,
@@ -49,6 +53,8 @@
   },
 
   "open hat": {
+    "id": "2",
+    "iconClassName": "fa fa-bullhorn",
     "Frequency": {
       "Start": 746.7508413439836,
       "Slide": -0.686992140128613

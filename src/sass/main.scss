@@ -90,6 +90,54 @@
   cursor: pointer;
 };
 
+.instrument-icon-container {
+  height: $miniMatrixLength;
+  width: $miniMatrixLength;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: yellow;
+  }
+}
+
+.instrument-switch-icon-container { // TODO this and above are real similar
+  height: $miniMatrixLength;
+  width: $miniMatrixLength;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    transform: rotate(360deg);
+  }
+}
+.instrument-selector-dropdown {
+  height: $miniMatrixLength;
+  width: $miniMatrixLength;
+  position: absolute;
+  overflow: hidden;
+  text-align: center;
+  background-color: cyan;
+
+  &:hover {
+    height: $miniMatrixLength * 4; // magic number is num instruments + 1
+  }
+}
+
+.instrument-selector-place-holder { // adds doc flow space holder
+  height: $miniMatrixLength;
+  width: $miniMatrixLength;
+  z-index: -1;
+}
+
+.track-body-container {
+  width: $trackBodyWidth;
+  height: $trackBodyHeight;
+  background-color: $orange;
+};
+
 .track-remove-button-container {
   width: $trackRemoveButtonLength;
   height: $trackRemoveButtonLength;
@@ -98,12 +146,6 @@
   cursor: pointer;
   line-height: $trackRemoveButtonLength;
   font-size: 30px;
-};
-
-.track-body-container {
-  width: $trackBodyWidth;
-  height: $trackBodyHeight;
-  background-color: $orange;
 };
 
 .slot-container {

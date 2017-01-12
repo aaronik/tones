@@ -14,9 +14,7 @@ const Slot = React.createClass({
 
     if (slot.active) className += 'active';
 
-    return (
-      <div className={className} onClick={onClick}></div>
-    );
+    return <div className={className} onClick={onClick}></div>;
   }
 });
 

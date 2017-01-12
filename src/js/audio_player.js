@@ -12,9 +12,20 @@ import jsfx   from 'js/lib/jsfx'
 //   appears in the slot. Once that's there, a mouse over shows a - above it,
 //   and that removes it from the slot.
 
+// instrument shape:
+// * id
+// * iconClassName
+// * name (corresponds to value in SOUNDS json)
+
 export default class AudioPlayer {
   constructor() {
-
+    this.instruments = Object.keys(SOUNDS).map(name => {
+      return {
+        name:          name,
+        id:            SOUNDS[name].id,
+        iconClassName: SOUNDS[name].iconClassName
+      };
+    });
   }
 
   // TODO either this or having separate instruments like below

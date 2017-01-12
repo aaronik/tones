@@ -13,8 +13,9 @@ import AudioPlayer from 'js/audio_player'
 // TODO Make robust to ill-formed URLs
 
 const urlStore = new UrlStore();
+const audioPlayer = new AudioPlayer();
 
-window.AP = new AudioPlayer();
+window.AP = audioPlayer; // TODO remove
 
 const getStateFromStore = () => {
   return {
@@ -57,6 +58,10 @@ const App = React.createClass({
     urlStore.setActiveTrack(trackId);
   },
 
+  onInstrumentClick (trackId, instrumentId) {
+    urlStore.setInstrument(trackId, instrumentId);
+  },
+
   onMatrixPlayClick() {
     this.setState({
       tracksPlayActive: false,
@@ -75,9 +80,6 @@ const App = React.createClass({
     const { tracks, activeTrack } = this.state;
     const { tones } = activeTrack;
 
-    console.log('matrixPlayActive:', this.state.matrixPlayActive);
-    console.log('tracksPlayActive:', this.state.tracksPlayActive);
-
     return (
       <div>
         <div className='layout-row'>
@@ -93,9 +95,9 @@ const App = React.createClass({
             onNewTrack={this.onNewTrack}
             onRemoveTrack={this.onRemoveTrack}
             onMiniMatrixClick={this.onMiniMatrixClick}
-            onSlotClick={this.onSlotClick}/>
-
-
+            onSlotClick={this.onSlotClick}
+            instruments={audioPlayer.instruments}
+            onInstrumentClick={this.onInstrumentClick}/>
         </div>
 
         <div className='layout-row'>

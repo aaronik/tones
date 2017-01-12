@@ -73,28 +73,24 @@ export default class UrlStore {
   }
 
   toggleTone (trackId, toneId) {
-    this.tracks.forEach(track => {
-      if (track.id !== trackId) return;
+    let track = this._getTrack(trackId);
 
-      track.tones.forEach(tone => {
-        if (tone.id !== toneId) return;
+    track.tones.forEach(tone => {
+      if (tone.id !== toneId) return;
 
-        tone.active = !tone.active;
-      });
+      tone.active = !tone.active;
     });
 
     this._emitChange();
   }
 
   toggleSlot (trackId, slotId) {
-    this.tracks.forEach(track => {
-      if (track.id !== trackId) return;
+    let track = this._getTrack(trackId);
 
-      track.slots.forEach(slot => {
-        if (slot.id !== slotId) return;
+    track.slots.forEach(slot => {
+      if (slot.id !== slotId) return;
 
-        slot.active = !slot.active;
-      });
+      slot.active = !slot.active;
     });
 
     this._emitChange();
@@ -106,8 +102,28 @@ export default class UrlStore {
     this._emitChange();
   }
 
+  setInstrument (trackId, instrumentId) {
+    let track = this._getTrack(trackId);
+
+    track.instrument = this._getInstrument(instrumentId);
+
+    this._emitChange();
+  }
+
   ////
   // private helpers
+
+  _getTrack (trackId) {
+    return this.tracks.find(track => {
+      return track.id === trackId;
+    });
+  }
+
+  _getInstrument (instrumentId) {
+    return this.instruments.find(instrument => {
+      return instrument.id === instrumentId;
+    });
+  }
 
   // return a track id that has not been used yet
   _generateUniqueTrackId() {
