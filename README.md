@@ -21,3 +21,11 @@ Serverless multiplayer musical instrument
 * Add multiple instruments
 * Add multiplayer functionality
 * Make back button either undo or go to the actual last page
+* Add keyboard shortcuts
+* Add tuning selector
+* Add animations to tones in matrix
+* Add Slot play
+* Add slot range indicator (select how many slots to play)
+* Make animation for play triangle turning into stop square, back
+* Add color changes for instruments in tracks, matrix -- maybe just matrix, mini matrix
+* Add drag n drop track re-ordering
