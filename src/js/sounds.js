@@ -13,19 +13,19 @@ const TUNINGS = [
 const INSTRUMENTS = [
   {
     id: 0,
-    iconClassName: 'fa fa-bullhorn',
+    iconClassName: 'fa fa-bell',
     name: 'Synth', // for printing purposes?
     synth: new Tone.Synth().toMaster() // TODO is this the best spot for this?
   },
   {
     id: 1,
-    iconClassName: 'fa fa-bullhorn',
+    iconClassName: 'fa fa-adjust',
     name: 'AMSynth',
     synth: new Tone.AMSynth().toMaster()
   },
   {
     id: 2,
-    iconClassName: 'fa fa-bullhorn',
+    iconClassName: 'fa fa-square',
     name: 'FMSynth',
     synth: new Tone.FMSynth().toMaster()
   }
