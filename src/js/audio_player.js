@@ -52,14 +52,20 @@ export default class AudioPlayer {
 
     console.log(this.matrixPlayData);
 
-    this.transportScheduleId = Tone.Transport.scheduleRepeat(() => {
+    // TODO This isn't workin - choppy, ill-timed,
+    // starts at the wrong spot. Read about a loop
+    // scheduler, that might make this work better.
+    this.transportScheduleId = new Tone.Loop((time) => {
+      // TODO this isn't working either. Loop would prob fix it,
+      // otherwise if there are multiple instruments, better do
+      // poly synth.
       this.matrixPlayData[colCounter].forEach(playDatum => {
         const { synth, pitch } = playDatum;
-        synth.triggerAttackRelease(pitch, '8n');
+        synth.triggerAttackRelease(pitch, '16n');
       });
 
       colCounter = (colCounter + 1) % this.store.MATRIX_SIDE_LEN;
-    }, '16n');
+    }, '16n').start(0);
 
     Tone.Transport.start();
   }

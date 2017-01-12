@@ -15,6 +15,7 @@ import urlUtil from 'js/url_util'
 const NUM_SLOTS       = 8,
       MATRIX_SIDE_LEN = 16;
 
+// TODO Move this and insruments to some kinda constants / music library
 const TUNINGS = [
   {
     id: '0',
@@ -25,11 +26,36 @@ const TUNINGS = [
   }
 ];
 
+const INSTRUMENTS = [
+  {
+    id: '0',
+    iconClassName: 'fa fa-bullhorn',
+    name: 'Synth', // for printing purposes?
+    synth: new Tone.Synth().toMaster() // TODO is this the best spot for this?
+  },
+  {
+    id: '1',
+    iconClassName: 'fa fa-bullhorn',
+    name: 'AMSynth',
+    synth: new Tone.AMSynth().toMaster()
+  },
+  {
+    id: '2',
+    iconClassName: 'fa fa-bullhorn',
+    name: 'FMSynth',
+    synth: new Tone.FMSynth().toMaster()
+  }
+];
+
 
 export default class Store {
   constructor() {
     this.MATRIX_SIDE_LEN = MATRIX_SIDE_LEN;
     this.NUM_SLOTS       = NUM_SLOTS;
+
+    // TODO move this outta here, it's used by app but app can access it directly
+    // once it's in its own file
+    this.instruments     = INSTRUMENTS;
 
     const state = urlUtil.deconstructUrlString();
 
@@ -41,27 +67,6 @@ export default class Store {
     this.activeTrackId = state.activeTrackId || this.tracks[0].id;
 
     this.listeners = [];
-
-    this.instruments = [
-      {
-        id: '0',
-        iconClassName: 'fa fa-bullhorn',
-        name: 'Synth', // for printing purposes?
-        synth: new Tone.Synth().toMaster() // TODO is this the best spot for this?
-      },
-      {
-        id: '1',
-        iconClassName: 'fa fa-bullhorn',
-        name: 'AMSynth',
-        synth: new Tone.AMSynth().toMaster()
-      },
-      {
-        id: '2',
-        iconClassName: 'fa fa-bullhorn',
-        name: 'FMSynth',
-        synth: new Tone.FMSynth().toMaster()
-      }
-    ];
 
     this._emitChange();
   }
@@ -91,7 +96,7 @@ export default class Store {
   }
 
   getInstrument (instrumentId) {
-    return this.instruments.find(instrument => {
+    return INSTRUMENTS.find(instrument => {
       return instrument.id === instrumentId;
     });
   }
@@ -218,9 +223,9 @@ export default class Store {
         return { id: id.toString(), active: false };
       }),
 
-      tuningId: '0', // TODO
+      tuning: TUNINGS[0],
 
-      instrumentId: '0' // TODO
+      instrument: INSTRUMENTS[0]
     });
   }
 }
