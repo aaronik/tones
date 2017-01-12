@@ -4,6 +4,7 @@
 // * name (corresponds to value in SOUNDS json)
 
 import Tone from 'tone'
+import sounds from 'js/sounds'
 
 export default class AudioPlayer {
   constructor(store) {
@@ -25,8 +26,8 @@ export default class AudioPlayer {
   _updateActiveTrack() {
     const track = this.store.getActiveTrack(),
           tones = track.tones,
-          instrument = this.store.getInstrument(track.instrumentId),
-          pitches = this.store.getTuning(track.tuningId).pitches;
+          instrument = sounds.getInstrument(track.instrument.id),
+          pitches = sounds.getTuning(track.tuning.id).pitches;
 
     this.matrixPlayData = tones.reduce((acc, tone, idx) => {
       // which row we're at, starting from top to bottom
@@ -49,8 +50,6 @@ export default class AudioPlayer {
 
   startMatrix() {
     let colCounter = 0;
-
-    console.log(this.matrixPlayData);
 
     // TODO This isn't workin - choppy, ill-timed,
     // starts at the wrong spot. Read about a loop

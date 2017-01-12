@@ -7,6 +7,7 @@ import _       from 'underscore'
 import Tone    from 'tone'
 import util    from 'js/util'
 import urlUtil from 'js/url_util'
+import sounds  from 'js/sounds'
 
 // TODO move all this.tracks, this.activeTrackId to this.state.x
 // TODO Can we use numeric ids instead of string based ones? Would be easier.
@@ -15,47 +16,10 @@ import urlUtil from 'js/url_util'
 const NUM_SLOTS       = 8,
       MATRIX_SIDE_LEN = 16;
 
-// TODO Move this and insruments to some kinda constants / music library
-const TUNINGS = [
-  {
-    id: '0',
-    name: 'Major Pentatonic', // TODO use something more language independent, like M5?
-    pitches: [
-      'D6', 'C6', 'A5', 'G5', 'E5', 'D5', 'C5', 'A4', 'G4', 'E4', 'D4', 'C4', 'A3', 'G3', 'E3', 'C2'
-    ]
-  }
-];
-
-const INSTRUMENTS = [
-  {
-    id: '0',
-    iconClassName: 'fa fa-bullhorn',
-    name: 'Synth', // for printing purposes?
-    synth: new Tone.Synth().toMaster() // TODO is this the best spot for this?
-  },
-  {
-    id: '1',
-    iconClassName: 'fa fa-bullhorn',
-    name: 'AMSynth',
-    synth: new Tone.AMSynth().toMaster()
-  },
-  {
-    id: '2',
-    iconClassName: 'fa fa-bullhorn',
-    name: 'FMSynth',
-    synth: new Tone.FMSynth().toMaster()
-  }
-];
-
-
 export default class Store {
   constructor() {
     this.MATRIX_SIDE_LEN = MATRIX_SIDE_LEN;
     this.NUM_SLOTS       = NUM_SLOTS;
-
-    // TODO move this outta here, it's used by app but app can access it directly
-    // once it's in its own file
-    this.instruments     = INSTRUMENTS;
 
     const state = urlUtil.deconstructUrlString();
 
@@ -87,18 +51,6 @@ export default class Store {
 
   getTracks() {
     return this.tracks;
-  }
-
-  getTuning (tuningId) {
-    return TUNINGS.find(tuning => {
-      return tuning.id === tuningId;
-    });
-  }
-
-  getInstrument (instrumentId) {
-    return INSTRUMENTS.find(instrument => {
-      return instrument.id === instrumentId;
-    });
   }
 
   ////
@@ -160,7 +112,7 @@ export default class Store {
   setInstrument (trackId, instrumentId) {
     let track = this._getTrack(trackId);
 
-    track.instrument = this.getInstrument(instrumentId);
+    track.instrument = sounds.getInstrument(instrumentId);
 
     this._emitChange();
   }
@@ -223,9 +175,9 @@ export default class Store {
         return { id: id.toString(), active: false };
       }),
 
-      tuning: TUNINGS[0],
+      tuning: sounds.TUNINGS[0],
 
-      instrument: INSTRUMENTS[0]
+      instrument: sounds.INSTRUMENTS[0]
     });
   }
 }

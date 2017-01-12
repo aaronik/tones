@@ -9,6 +9,7 @@ import Matrix      from 'components/matrix'
 import PlayButton  from 'components/play_button'
 import Store       from 'js/store'
 import AudioPlayer from 'js/audio_player'
+import sounds      from 'js/sounds'
 
 // TODO Make robust to ill-formed URLs
 
@@ -102,7 +103,7 @@ const App = React.createClass({
             onRemoveTrack={this.onRemoveTrack}
             onMiniMatrixClick={this.onMiniMatrixClick}
             onSlotClick={this.onSlotClick}
-            instruments={store.instruments}
+            instruments={sounds.INSTRUMENTS}
             onInstrumentClick={this.onInstrumentClick}/>
         </div>
 
