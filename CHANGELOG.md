@@ -1,3 +1,11 @@
+### [0.1.6](https://github.com/aaronik/tones/releases/tag/0.1.6)
+
+  * (Aaron Sullivan) Get tuning, instrument IDs into URL
+  * (Aaron Sullivan) Trying a _slightly_ different method on playback, doesn't really work
+  * (Aaron Sullivan) First take at making the sound work.
+  * (Aaron Sullivan) Major headway on instrument switching
+  * (Aaron Sullivan) Notes, small style changes
+
 ### [0.1.5](https://github.com/aaronik/tones/releases/tag/0.1.5)
 
   * (Aaron Sullivan) Get basics of universal-esque play button
