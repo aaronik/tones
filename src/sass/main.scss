@@ -101,6 +101,10 @@
   &:hover {
     background-color: yellow;
   }
+
+  &.active {
+    background-color: salmon;
+  }
 }
 
 .instrument-switch-icon-container { // TODO this and above are real similar

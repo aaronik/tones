@@ -4,16 +4,21 @@ const returnFalse = () => { return false };
 
 const InstrumentSelector = React.createClass({
   propTypes: {
-    instruments:       React.PropTypes.array.isRequired, // TODO propTypes
-    onInstrumentClick: React.PropTypes.func.isRequired
+    activeInstrumentId: React.PropTypes.number.isRequired,
+    instruments:        React.PropTypes.array.isRequired, // TODO propTypes
+    onInstrumentClick:  React.PropTypes.func.isRequired
   },
 
   instrumentIcons() {
     return this.props.instruments.map(instrument => {
       const onClick = this.props.onInstrumentClick.bind(null, instrument.id);
 
+      let containerClassName = 'instrument-icon-container ';
+      if (instrument.id === this.props.activeInstrumentId)
+        containerClassName += 'active';
+
       return (
-        <div key={instrument.id} className='instrument-icon-container' onClick={onClick}>
+        <div key={instrument.id} className={containerClassName} onClick={onClick}>
           <i className={instrument.iconClassName}/>
         </div>
       );

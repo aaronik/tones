@@ -24,10 +24,18 @@ const Track = React.createClass({
 
     return (
       <div className='track-container'>
+
         <MiniMatrix tones={tones} onClick={onMiniMatrixClick.bind(null, id)}/>
-        <InstrumentSelector instruments={instruments} onInstrumentClick={onInstrumentClick}/>
+
+        <InstrumentSelector
+          activeInstrumentId={this.props.track.instrument.id}
+          instruments={instruments}
+          onInstrumentClick={onInstrumentClick}/>
+
         <TrackBody slots={slots} onSlotClick={onSlotClick}/>
+
         <TrackRemoveButton onClick={onRemoveTrack.bind(null, id)}/>
+
       </div>
     )
   }
