@@ -31,10 +31,10 @@ export default class AudioPlayer {
 
     this.matrixPlayData = tones.reduce((acc, tone, idx) => {
       // which row we're at, starting from top to bottom
-      const rowNumString = Math.floor(idx / this.store.MATRIX_SIDE_LEN).toString();
+      const rowNumString = Math.floor(idx / this.store.MATRIX_SIDE_LEN);
 
       // which column we're at, starting from left to right
-      const colNumString = (idx % this.store.MATRIX_SIDE_LEN).toString();
+      const colNumString = idx % this.store.MATRIX_SIDE_LEN;
 
       // instantiate this field of the matrixPlayData
       acc[colNumString] = !!acc[colNumString] ? acc[colNumString] : [];

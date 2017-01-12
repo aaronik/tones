@@ -20,7 +20,7 @@ const deconstructUrlString = () => {
       query = url().query;
 
   // active track
-  state.activeTrackId = query.a;
+  state.activeTrackId = parseInt(query.a, 10);
 
   delete query.a; // make room for easy numerical deconstruction of tracks
 
@@ -29,21 +29,21 @@ const deconstructUrlString = () => {
 
     const encodedToneBitString = segments[0],
           encodedSlotBitString = segments[1],
-          instrumentId         = segments[2],
-          tuningId             = segments[3];
+          instrumentId         = parseInt(segments[2], 10),
+          tuningId             = parseInt(segments[3], 10);
 
     const unencodedToneBitString = b2.decode(encodedToneBitString, 256), // TODO un hard code
           unencodedSlotBitString = b2.decode(encodedSlotBitString, 8);
 
     return {
-      id: id,
+      id: parseInt(id, 10),
 
       tones: unencodedToneBitString.split('').map((bit, id) => {
-        return { id: id.toString(), active: bit === '1' };
+        return { id: parseInt(id, 10), active: bit === '1' };
       }),
 
       slots: unencodedSlotBitString.split('').map((bit, id) => {
-        return { id: id.toString(), active: bit === '1' };
+        return { id: parseInt(id, 10), active: bit === '1' };
       }),
 
       tuning: sounds.getTuning(tuningId),
@@ -82,10 +82,10 @@ const constructUrlString = (state) => {
     query[track.id] = query[track.id] + '.' + encodedSlotBitString;
 
     // instrument
-    query[track.id] = query[track.id] + '.' + track.instrument.id;
+    query[track.id] = query[track.id] + '.' + track.instrument.id.toString();
 
     // tuning
-    query[track.id] = query[track.id] + '.' + track.tuning.id;
+    query[track.id] = query[track.id] + '.' + track.tuning.id.toString();
   });
 
   navTo(url().set('query', query).toString());

@@ -15,14 +15,12 @@ const Tracks = React.createClass({
   },
 
   _renderTracks () {
-    return this.props.tracks.map( (track) => {
+    return this.props.tracks.map(track => {
       const { id, tones, slots } = track;
 
       return <Track
         key={id}
-        id={id}
-        tones={tones}
-        slots={slots}
+        track={track}
         onMiniMatrixClick={this.props.onMiniMatrixClick}
         onRemoveTrack={this.props.onRemoveTrack}
         onSlotClick={this.props.onSlotClick}

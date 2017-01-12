@@ -5,7 +5,6 @@ import _ from 'underscore'
 
 const TableRow = React.createClass({
   propTypes: {
-    id:          React.PropTypes.number.isRequired,
     tones:       propTypes.tones.isRequired,
     onToneClick: React.PropTypes.func.isRequired
   },
@@ -15,7 +14,6 @@ const TableRow = React.createClass({
       return (
         <td key={`tone-${idx}`}>
           <Tone
-            id={tone.id}
             tone={tone}
             onClick={this.props.onToneClick}/>
         </td>
@@ -45,8 +43,7 @@ const Table = React.createClass({
       return <TableRow
         key={`table-row-${idx}`}
         tones={rowTones}
-        onToneClick={this.props.onToneClick}
-        id={idx}/>;
+        onToneClick={this.props.onToneClick}/>
     })
   },
 

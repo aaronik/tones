@@ -136,7 +136,7 @@ export default class Store {
 
     // major hack?
     for (var newId = 0; _.contains(parsedUsedIds, newId); newId++) {}
-    return newId.toString();
+    return newId;
   }
 
   _emitChange() {
@@ -168,11 +168,11 @@ export default class Store {
       id: this._generateUniqueTrackId(),
 
       slots: util.oneTo(NUM_SLOTS).map(id => {
-        return { id: id.toString(), active: false };
+        return { id: id, active: false };
       }),
 
       tones: util.oneTo(Math.pow(MATRIX_SIDE_LEN, 2)).map(id => {
-        return { id: id.toString(), active: false };
+        return { id: id, active: false };
       }),
 
       tuning: sounds.TUNINGS[0],

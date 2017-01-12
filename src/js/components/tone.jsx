@@ -3,7 +3,6 @@ import propTypes from 'js/prop_types'
 
 const Tone = React.createClass({
   propTypes: {
-    id:      React.PropTypes.string.isRequired,
     tone:    propTypes.tone.isRequired,
     onClick: React.PropTypes.func.isRequired
   },
@@ -17,7 +16,7 @@ const Tone = React.createClass({
 
     return <div
       className={className}
-      onClick={this.props.onClick.bind(null, this.props.id)}>
+      onClick={this.props.onClick.bind(null, this.props.tone.id)}>
     </div>;
   }
 });

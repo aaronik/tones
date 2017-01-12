@@ -7,9 +7,7 @@ import propTypes from 'js/prop_types'
 
 const Track = React.createClass({
   propTypes: {
-    id:                React.PropTypes.string.isRequired,
-    tones:             propTypes.tones.isRequired,
-    slots:             propTypes.slots.isRequired,
+    track:             propTypes.track.isRequired,
     onRemoveTrack:     React.PropTypes.func.isRequired,
     onMiniMatrixClick: React.PropTypes.func.isRequired,
     onSlotClick:       React.PropTypes.func.isRequired,
@@ -18,7 +16,9 @@ const Track = React.createClass({
   },
 
   render() {
-    const { onMiniMatrixClick, id, tones, onRemoveTrack, slots, instruments } = this.props;
+    const { onMiniMatrixClick, onRemoveTrack, instruments } = this.props;
+    const { id, tones, slots } = this.props.track;
+
     const onSlotClick       = this.props.onSlotClick.bind(null, id);
     const onInstrumentClick = this.props.onInstrumentClick.bind(null, id);
 
