@@ -12,11 +12,13 @@ const Track = React.createClass({
     onMiniMatrixClick: React.PropTypes.func.isRequired,
     onSlotClick:       React.PropTypes.func.isRequired,
     instruments:       React.PropTypes.array.isRequired, // TODO propTypes
-    onInstrumentClick: React.PropTypes.func.isRequired
+    onInstrumentClick: React.PropTypes.func.isRequired,
+    tunings:           React.PropTypes.array.isRequired, // TODO propTypes
+    onTuningClick:     React.PropTypes.func.isRequired
   },
 
   render() {
-    const { onMiniMatrixClick, onRemoveTrack, instruments } = this.props;
+    const { onMiniMatrixClick, onRemoveTrack, instruments, tunings, onTuningClick } = this.props;
     const { id, tones, slots } = this.props.track;
 
     const onSlotClick       = this.props.onSlotClick.bind(null, id);
@@ -30,7 +32,9 @@ const Track = React.createClass({
         <InstrumentSelector
           activeInstrumentId={this.props.track.instrument.id}
           instruments={instruments}
-          onInstrumentClick={onInstrumentClick}/>
+          onInstrumentClick={onInstrumentClick}
+          tunings={tunings}
+          onTuningClick={onTuningClick}/>
 
         <TrackBody slots={slots} onSlotClick={onSlotClick}/>
 

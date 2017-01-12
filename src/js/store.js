@@ -117,6 +117,14 @@ export default class Store {
     this._emitChange();
   }
 
+  setTuning (trackId, tuningId) {
+    let track = this._getTrack(trackId);
+
+    track.tuning = sounds.getTuning(tuningId);
+
+    this._emitChange();
+  }
+
   ////
   // private helpers
 

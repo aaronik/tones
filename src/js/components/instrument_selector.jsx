@@ -6,7 +6,9 @@ const InstrumentSelector = React.createClass({
   propTypes: {
     activeInstrumentId: React.PropTypes.number.isRequired,
     instruments:        React.PropTypes.array.isRequired, // TODO propTypes
-    onInstrumentClick:  React.PropTypes.func.isRequired
+    onInstrumentClick:  React.PropTypes.func.isRequired,
+    tunings:            React.PropTypes.array.isRequired, // TODO propTypes
+    onTuningClick:      React.PropTypes.func.isRequired
   },
 
   instrumentIcons() {
@@ -27,7 +29,7 @@ const InstrumentSelector = React.createClass({
 
   render() {
     return (
-      <div>
+      <div className='instrument-selector-container'>
         <div className='instrument-selector-dropdown'>
 
           <div className='instrument-switch-icon-container'>

@@ -11,7 +11,9 @@ const Tracks = React.createClass({
     onMiniMatrixClick: React.PropTypes.func.isRequired,
     onSlotClick:       React.PropTypes.func.isRequired,
     instruments:       React.PropTypes.array.isRequired, // TODO propTypes
-    onInstrumentClick: React.PropTypes.func.isRequired
+    onInstrumentClick: React.PropTypes.func.isRequired,
+    tunings:           React.PropTypes.array.isRequired, // TODO propTypes
+    onTuningClick:     React.PropTypes.func.isRequired
   },
 
   _renderTracks () {
@@ -25,16 +27,16 @@ const Tracks = React.createClass({
         onRemoveTrack={this.props.onRemoveTrack}
         onSlotClick={this.props.onSlotClick}
         instruments={this.props.instruments}
-        onInstrumentClick={this.props.onInstrumentClick}/>
+        onInstrumentClick={this.props.onInstrumentClick}
+        tunings={this.props.tunings}
+        onTuningClick={this.props.onTuningClick}/>
     });
   },
 
   render() {
     return (
       <div className='tracks-container'>
-        <AddTrackButton
-          onClick={this.props.onNewTrack}
-          instruments={this.props.instruments}/>
+        <AddTrackButton onClick={this.props.onNewTrack}/>
         {this._renderTracks()}
       </div>
     )

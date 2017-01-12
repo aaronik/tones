@@ -90,6 +90,10 @@
   cursor: pointer;
 };
 
+.instrument-selector-container {
+  position: relative;
+}
+
 .instrument-icon-container {
   height: $miniMatrixLength;
   width: $miniMatrixLength;
@@ -118,6 +122,7 @@
     transform: rotate(360deg);
   }
 }
+
 .instrument-selector-dropdown {
   height: $miniMatrixLength;
   width: $miniMatrixLength;
@@ -125,9 +130,11 @@
   overflow: hidden;
   text-align: center;
   background-color: cyan;
+  right: 0;
 
   &:hover {
     height: $miniMatrixLength * 4; // magic number is num instruments + 1
+    width: $miniMatrixLength * 2;
   }
 }
 

@@ -63,6 +63,10 @@ const App = React.createClass({
     store.setInstrument(trackId, instrumentId);
   },
 
+  onTuningClick (trackId, tuningId) {
+    store.setTuning(trackId, instrumentId);
+  },
+
   onMatrixPlayClick() {
     if (this.state.matrixPlayActive) {
       audioPlayer.stop();
@@ -104,7 +108,9 @@ const App = React.createClass({
             onMiniMatrixClick={this.onMiniMatrixClick}
             onSlotClick={this.onSlotClick}
             instruments={sounds.INSTRUMENTS}
-            onInstrumentClick={this.onInstrumentClick}/>
+            onInstrumentClick={this.onInstrumentClick}
+            tunings={sounds.TUNINGS}
+            onTuningClick={this.onTuningClick}/>
         </div>
 
         <div className='layout-row'>
