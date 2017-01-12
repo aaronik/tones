@@ -7,6 +7,7 @@ const InstrumentSelector = React.createClass({
     activeInstrumentId: React.PropTypes.number.isRequired,
     instruments:        React.PropTypes.array.isRequired, // TODO propTypes
     onInstrumentClick:  React.PropTypes.func.isRequired,
+    activeTuningId:     React.PropTypes.number.isRequired,
     tunings:            React.PropTypes.array.isRequired, // TODO propTypes
     onTuningClick:      React.PropTypes.func.isRequired
   },
@@ -27,6 +28,22 @@ const InstrumentSelector = React.createClass({
     });
   },
 
+  tuningIcons() {
+    return this.props.tunings.map(tuning => {
+      const onClick = this.props.onTuningClick.bind(null, tuning.id);
+
+      let containerClassName = 'tuning-icon-container ';
+      if (tuning.id === this.props.activeTuningId)
+        containerClassName += 'active';
+
+      return (
+        <div key={tuning.id} className={containerClassName} onClick={onClick}>
+          <i className={tuning.iconClassName}/>
+        </div>
+      );
+    });
+  },
+
   render() {
     return (
       <div className='instrument-selector-container'>
@@ -37,6 +54,10 @@ const InstrumentSelector = React.createClass({
           </div>
 
           {this.instrumentIcons()}
+
+          <hr/>
+
+          {this.tuningIcons()}
 
         </div>
 

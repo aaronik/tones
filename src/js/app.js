@@ -64,7 +64,7 @@ const App = React.createClass({
   },
 
   onTuningClick (trackId, tuningId) {
-    store.setTuning(trackId, instrumentId);
+    store.setTuning(trackId, tuningId);
   },
 
   onMatrixPlayClick() {

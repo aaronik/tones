@@ -3,9 +3,29 @@ import Tone from 'tone'
 const TUNINGS = [
   {
     id: 0,
-    name: 'Major Pentatonic', // TODO use something more language independent, like M5?
+    name: 'Major Pentatonic', // unused
+    shortName: 'M5', // unused
+    iconClassName: 'fa fa-smile-o',
     pitches: [
       'D6', 'C6', 'A5', 'G5', 'E5', 'D5', 'C5', 'A4', 'G4', 'E4', 'D4', 'C4', 'A3', 'G3', 'E3', 'C2'
+    ]
+  },
+  {
+    id: 1,
+    name: 'Minor Pentatonic',
+    shortName: 'm5',
+    iconClassName: 'fa fa-frown-o',
+    pitches: [
+      'D6', 'C6', 'Ab5', 'G5', 'Eb5', 'D5', 'C5', 'Ab4', 'G4', 'Eb4', 'D4', 'C4', 'Ab3', 'G3', 'Eb3', 'C2'
+    ]
+  },
+  {
+    id: 2,
+    name: 'Whole Tone',
+    shortName: 'W',
+    iconClassName: 'fa fa-sun-o',
+    pitches: [
+      'F#5', 'E5', 'D5', 'C5', 'Bb4', 'G#4', 'F#4', 'E4', 'D4', 'C4', 'Bb3', 'G#3', 'F#3', 'E3', 'D3', 'C2'
     ]
   }
 ];

@@ -130,11 +130,10 @@
   overflow: hidden;
   text-align: center;
   background-color: cyan;
-  right: 0;
 
   &:hover {
-    height: $miniMatrixLength * 4; // magic number is num instruments + 1
-    width: $miniMatrixLength * 2;
+    // magic num = num instruments + num tunings + 1 + room for the <hr>
+    height: $miniMatrixLength * 7 + 20px;
   }
 }
 
@@ -144,6 +143,22 @@
   z-index: -1;
 }
 
+.tuning-icon-container {
+  height: $miniMatrixLength;
+  width: $miniMatrixLength;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: yellow;
+  }
+
+  &.active {
+    background-color: pink;
+  }
+}
 .track-body-container {
   width: $trackBodyWidth;
   height: $trackBodyHeight;

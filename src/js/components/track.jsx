@@ -18,11 +18,12 @@ const Track = React.createClass({
   },
 
   render() {
-    const { onMiniMatrixClick, onRemoveTrack, instruments, tunings, onTuningClick } = this.props;
+    const { onMiniMatrixClick, onRemoveTrack, instruments, tunings } = this.props;
     const { id, tones, slots } = this.props.track;
 
     const onSlotClick       = this.props.onSlotClick.bind(null, id);
     const onInstrumentClick = this.props.onInstrumentClick.bind(null, id);
+    const onTuningClick     = this.props.onTuningClick.bind(null, id);
 
     return (
       <div className='track-container'>
@@ -33,6 +34,7 @@ const Track = React.createClass({
           activeInstrumentId={this.props.track.instrument.id}
           instruments={instruments}
           onInstrumentClick={onInstrumentClick}
+          activeTuningId={this.props.track.tuning.id}
           tunings={tunings}
           onTuningClick={onTuningClick}/>
 
