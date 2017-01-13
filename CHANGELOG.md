@@ -1,3 +1,12 @@
+### [0.1.7](https://github.com/aaronik/tones/releases/tag/0.1.7)
+
+  * (Aaron Sullivan) Add tuning selection
+  * (Aaron Sullivan) Add js wirings to tuning switching, about to attempt dangerous HTML reorganizing
+  * (Aaron Sullivan) Change FA instrument icons
+  * (Aaron Sullivan) Add some TODOs
+  * (Aaron Sullivan) Add active instrument indicator
+  * (Aaron Sullivan) Convert string type ids to number type ids
+
 ### [0.1.6](https://github.com/aaronik/tones/releases/tag/0.1.6)
 
   * (Aaron Sullivan) Get tuning, instrument IDs into URL
