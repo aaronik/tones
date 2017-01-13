@@ -1,5 +1,11 @@
 import Tone from 'tone'
 
+// TODO remove
+window.Tone = Tone;
+
+// TODO globalize
+const MATRIX_SIDE_LEN = 16;
+
 const TUNINGS = [
   {
     id: 0,
@@ -23,7 +29,7 @@ const TUNINGS = [
     id: 2,
     name: 'Whole Tone',
     shortName: 'W',
-    iconClassName: 'fa fa-sun-o',
+    iconClassName: 'fa fa-cloud',
     pitches: [
       'F#5', 'E5', 'D5', 'C5', 'Bb4', 'G#4', 'F#4', 'E4', 'D4', 'C4', 'Bb3', 'G#3', 'F#3', 'E3', 'D3', 'C2'
     ]
@@ -35,19 +41,19 @@ const INSTRUMENTS = [
     id: 0,
     iconClassName: 'fa fa-bell',
     name: 'Synth', // for printing purposes?
-    synth: new Tone.Synth().toMaster() // TODO is this the best spot for this?
+    synth: new Tone.PolySynth(MATRIX_SIDE_LEN, Tone.Synth).toMaster()
   },
   {
     id: 1,
     iconClassName: 'fa fa-adjust',
     name: 'AMSynth',
-    synth: new Tone.AMSynth().toMaster()
+    synth: new Tone.PolySynth(MATRIX_SIDE_LEN, Tone.AMSynth).toMaster()
   },
   {
     id: 2,
     iconClassName: 'fa fa-square',
     name: 'FMSynth',
-    synth: new Tone.FMSynth().toMaster()
+    synth: new Tone.PolySynth(MATRIX_SIDE_LEN, Tone.FMSynth).toMaster()
   }
 ];
 

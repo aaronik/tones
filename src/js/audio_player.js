@@ -22,7 +22,6 @@ export default class AudioPlayer {
     this._updateActiveTrack();
   }
 
-  // TODO naming
   _updateActiveTrack() {
     const track = this.store.getActiveTrack(),
           tones = track.tones,
@@ -39,28 +38,28 @@ export default class AudioPlayer {
       // instantiate this field of the matrixPlayData
       acc[colNumString] = !!acc[colNumString] ? acc[colNumString] : [];
 
-      // data is shaped like { 0: [list of playables], 1: []... } where
-      // key is column number, list is all playables within a single column
+      // data is shaped like { 0: [list of pitches], 1: []... } where
+      // key is column number
       if (tone.active)
-        acc[colNumString].push({ pitch: pitches[rowNumString], synth: instrument.synth });
+        acc[colNumString].push({ pitches: pitches[rowNumString], synth: instrument.synth });
 
       return acc;
     }, {});
   }
 
   startMatrix() {
+    const track = this.store.getActiveTrack(),
+          instrument = sounds.getInstrument(track.instrument.id);
+
     let colCounter = 0;
 
-    // TODO This isn't workin - choppy, ill-timed,
-    // starts at the wrong spot. Read about a loop
-    // scheduler, that might make this work better.
-    this.transportScheduleId = new Tone.Loop((time) => {
-      // TODO this isn't working either. Loop would prob fix it,
-      // otherwise if there are multiple instruments, better do
-      // poly synth.
-      this.matrixPlayData[colCounter].forEach(playDatum => {
-        const { synth, pitch } = playDatum;
-        synth.triggerAttackRelease(pitch, '16n');
+    this.transportScheduleId = new Tone.Loop(time => {
+
+      // for each column of the matrix, use the poly synth to play
+      // each selected pitch at the same time.
+      this.matrixPlayData[colCounter].forEach(datum => {
+        const { pitches, synth } = datum;
+        synth.triggerAttackRelease(pitches, '16n', time);
       });
 
       colCounter = (colCounter + 1) % this.store.MATRIX_SIDE_LEN;
@@ -80,6 +79,7 @@ export default class AudioPlayer {
   stop() {
     Tone.Transport.stop();
     Tone.Transport.cancel(this.transportScheduleId);
+    // Tone.Transport.dispose();
   }
 }
 
