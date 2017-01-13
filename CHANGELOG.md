@@ -1,3 +1,7 @@
+### [0.1.10](https://github.com/aaronik/tones/releases/tag/0.1.10)
+
+  * (Aaron Sullivan) Fix instrument degredation after many store changes
+
 ### [0.1.9](https://github.com/aaronik/tones/releases/tag/0.1.9)
 
   * (Aaron Sullivan) Get duplicating layered playback sorted out, matrix play done, tracks play started
