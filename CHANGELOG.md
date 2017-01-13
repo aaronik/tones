@@ -1,3 +1,9 @@
+### [0.1.9](https://github.com/aaronik/tones/releases/tag/0.1.9)
+
+  * (Aaron Sullivan) Get duplicating layered playback sorted out, matrix play done, tracks play started
+  * (Aaron Sullivan) Embiggen dropdown icons
+  * (Aaron Sullivan) Fix wobbly matrix playing with polysynth
+
 ### [0.1.8](https://github.com/aaronik/tones/releases/tag/0.1.8)
 
   * (Aaron Sullivan) Align play buttons a hint better (excuse to release, last onebroken)
