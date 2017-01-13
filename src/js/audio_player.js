@@ -10,11 +10,17 @@ export default class AudioPlayer {
   constructor(store) {
     this.store = store;
 
+    // keep track of all created synths for later cleaning up
+    this.synths = [];
+
     this.store.onChange(this.update.bind(this));
     this.update();
 
     // TODO add this to UI, put in store, url
     Tone.Transport.bpm.value = 80;
+
+    this._createMatrixLoop();
+    this._createTracksLoop();
   }
 
   // update everything - active tones, num tracks, instruments, etc.
@@ -26,7 +32,10 @@ export default class AudioPlayer {
     const track = this.store.getActiveTrack(),
           tones = track.tones,
           instrument = sounds.getInstrument(track.instrument.id),
+          synth = instrument.buildSynth(),
           pitches = sounds.getTuning(track.tuning.id).pitches;
+
+    this.synths.push(synth); // for later cleaning up
 
     this.matrixPlayData = tones.reduce((acc, tone, idx) => {
       // which row we're at, starting from top to bottom
@@ -41,19 +50,15 @@ export default class AudioPlayer {
       // data is shaped like { 0: [list of pitches], 1: []... } where
       // key is column number
       if (tone.active)
-        acc[colNumString].push({ pitches: pitches[rowNumString], synth: instrument.synth });
+        acc[colNumString].push({ pitches: pitches[rowNumString], synth });
 
       return acc;
     }, {});
   }
 
-  startMatrix() {
-    const track = this.store.getActiveTrack(),
-          instrument = sounds.getInstrument(track.instrument.id);
-
+  _createMatrixLoop() {
     let colCounter = 0;
-
-    this.transportScheduleId = new Tone.Loop(time => {
+    this.matrixLoop = new Tone.Loop(time => {
 
       // for each column of the matrix, use the poly synth to play
       // each selected pitch at the same time.
@@ -64,28 +69,29 @@ export default class AudioPlayer {
 
       colCounter = (colCounter + 1) % this.store.MATRIX_SIDE_LEN;
     }, '16n').start(0);
+  }
 
+  _createTracksLoop() {
+    let colCounter = 0;
+    this.tracksLoop = new Tone.Loop(time => {
+      console.log(time);
+      colCounter = (colCounter + 1) % this.store.MATRIX_SIDE_LEN;
+    }, '16n').start(0);
+  }
+
+  startMatrix() {
+    this.tracksLoop.mute = true;
+    this.matrixLoop.mute = false;
     Tone.Transport.start();
   }
 
   startTracks() {
-    this.transportScheduleId = Tone.Transport.scheduleRepeat(time => {
-      console.log(time);
-    }, '16n');
-
+    this.matrixLoop.mute = true;
+    this.tracksLoop.mute = false;
     Tone.Transport.start();
   }
 
   stop() {
     Tone.Transport.stop();
-    Tone.Transport.cancel(this.transportScheduleId);
-    // Tone.Transport.dispose();
-  }
-}
-
-// sketchin it out
-class Bass {
-  play(level) {
-    // where level = the # row, the frequency
   }
 }

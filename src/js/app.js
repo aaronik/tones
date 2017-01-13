@@ -81,6 +81,12 @@ const App = React.createClass({
   },
 
   onTracksPlayClick() {
+    if (this.state.tracksPlayActive) {
+      audioPlayer.stop();
+    } else {
+      audioPlayer.startTracks();
+    }
+
     this.setState({
       matrixPlayActive: false,
       tracksPlayActive: !this.state.tracksPlayActive
