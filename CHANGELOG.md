@@ -1,3 +1,7 @@
+### [0.1.8](https://github.com/aaronik/tones/releases/tag/0.1.8)
+
+  * (Aaron Sullivan) Align play buttons a hint better (excuse to release, last onebroken)
+
 ### [0.1.7](https://github.com/aaronik/tones/releases/tag/0.1.7)
 
   * (Aaron Sullivan) Add tuning selection
