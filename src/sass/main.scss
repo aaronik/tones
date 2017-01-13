@@ -130,6 +130,7 @@
   overflow: hidden;
   text-align: center;
   background-color: cyan;
+  font-size: 30px;
 
   &:hover {
     // magic num = num instruments + num tunings + 1 + room for the <hr>
