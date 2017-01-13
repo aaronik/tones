@@ -16,6 +16,9 @@ export default class AudioPlayer {
     // TODO add this to UI, put in store, url
     Tone.Transport.bpm.value = 80;
 
+    // The master playback state holder
+    this._colCounter = 0;
+
     this._createMatrixLoop();
     this._createTracksLoop();
   }
@@ -52,25 +55,23 @@ export default class AudioPlayer {
   }
 
   _createMatrixLoop() {
-    let colCounter = 0;
     this.matrixLoop = new Tone.Loop(time => {
 
       // for each column of the matrix, use the poly synth to play
       // each selected pitch at the same time.
-      this.matrixPlayData[colCounter].forEach(datum => {
+      this.matrixPlayData[this._colCounter].forEach(datum => {
         const { pitches, synth } = datum;
         synth.triggerAttackRelease(pitches, '16n', time);
       });
 
-      colCounter = (colCounter + 1) % this.store.MATRIX_SIDE_LEN;
+      this._colCounter = (this._colCounter + 1) % this.store.MATRIX_SIDE_LEN;
     }, '16n').start(0);
   }
 
   _createTracksLoop() {
-    let colCounter = 0;
     this.tracksLoop = new Tone.Loop(time => {
       console.log(time);
-      colCounter = (colCounter + 1) % this.store.MATRIX_SIDE_LEN;
+      this._colCounter = (this._colCounter + 1) % this.store.MATRIX_SIDE_LEN;
     }, '16n').start(0);
   }
 
@@ -88,5 +89,6 @@ export default class AudioPlayer {
 
   stop() {
     Tone.Transport.stop();
+    this._colCounter = 0;
   }
 }
