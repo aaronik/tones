@@ -10,9 +10,6 @@ export default class AudioPlayer {
   constructor(store) {
     this.store = store;
 
-    // keep track of all created synths for later cleaning up
-    this.synths = [];
-
     this.store.onChange(this.update.bind(this));
     this.update();
 
@@ -32,10 +29,8 @@ export default class AudioPlayer {
     const track = this.store.getActiveTrack(),
           tones = track.tones,
           instrument = sounds.getInstrument(track.instrument.id),
-          synth = instrument.buildSynth(),
+          synth = instrument.synth,
           pitches = sounds.getTuning(track.tuning.id).pitches;
-
-    this.synths.push(synth); // for later cleaning up
 
     this.matrixPlayData = tones.reduce((acc, tone, idx) => {
       // which row we're at, starting from top to bottom

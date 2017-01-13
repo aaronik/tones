@@ -41,19 +41,19 @@ const INSTRUMENTS = [
     id: 0,
     iconClassName: 'fa fa-bell',
     name: 'Synth', // for printing purposes?
-    buildSynth: () => new Tone.PolySynth(MATRIX_SIDE_LEN, Tone.Synth).toMaster()
+    synth: new Tone.PolySynth(MATRIX_SIDE_LEN, Tone.Synth).toMaster()
   },
   {
     id: 1,
     iconClassName: 'fa fa-adjust',
     name: 'AMSynth',
-    buildSynth: () => new Tone.PolySynth(MATRIX_SIDE_LEN, Tone.AMSynth).toMaster()
+    synth: new Tone.PolySynth(MATRIX_SIDE_LEN, Tone.AMSynth).toMaster()
   },
   {
     id: 2,
     iconClassName: 'fa fa-square',
     name: 'FMSynth',
-    buildSynth: () => new Tone.PolySynth(MATRIX_SIDE_LEN, Tone.FMSynth).toMaster()
+    synth: new Tone.PolySynth(MATRIX_SIDE_LEN, Tone.FMSynth).toMaster()
   }
 ];
 
