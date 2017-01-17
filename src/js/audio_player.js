@@ -1,10 +1,5 @@
-// instrument shape:
-// * id
-// * iconClassName
-// * name (corresponds to value in SOUNDS json)
-
 import Tone from 'tone'
-import sounds from 'js/sounds'
+import util from 'js/util'
 
 export default class AudioPlayer {
   constructor(store) {
@@ -16,8 +11,9 @@ export default class AudioPlayer {
     // TODO add this to UI, put in store, url
     Tone.Transport.bpm.value = 80;
 
-    // The master playback state holder
+    // The master playback location state
     this._colCounter = 0;
+    this._slotCounter = 0;
 
     this._createMatrixLoop();
     this._createTracksLoop();
@@ -25,30 +21,68 @@ export default class AudioPlayer {
 
   // update everything - active tones, num tracks, instruments, etc.
   update() {
-    this._updateActiveTrack();
+    this._updateMatrixData();
+    this._updateTracksData();
   }
 
-  _updateActiveTrack() {
+  // create an internal memory structure that makes it easy to
+  // play the right tones at the right time. This one is for
+  // the matrix play.
+  _updateMatrixData() {
     const track = this.store.getActiveTrack(),
           tones = track.tones,
-          instrument = sounds.getInstrument(track.instrument.id),
-          synth = instrument.synth,
-          pitches = sounds.getTuning(track.tuning.id).pitches;
+          synth = track.instrument.synth,
+          pitches = track.tuning.pitches;
 
-    this.matrixPlayData = tones.reduce((acc, tone, idx) => {
+    this._matrixPlayData = tones.reduce((acc, tone, idx) => {
       // which row we're at, starting from top to bottom
-      const rowNumString = Math.floor(idx / this.store.MATRIX_SIDE_LEN);
+      const rowNum = Math.floor(idx / this.store.MATRIX_SIDE_LEN);
 
       // which column we're at, starting from left to right
-      const colNumString = idx % this.store.MATRIX_SIDE_LEN;
+      const colNum = idx % this.store.MATRIX_SIDE_LEN;
 
       // instantiate this field of the matrixPlayData
-      acc[colNumString] = !!acc[colNumString] ? acc[colNumString] : [];
+      if (!acc[colNum]) acc[colNum] = [];
 
-      // data is shaped like { 0: [list of pitches], 1: []... } where
+      // data is shaped like { 0: {[list of pitches], synth}, 1: []... } where
       // key is column number
       if (tone.active)
-        acc[colNumString].push({ pitches: pitches[rowNumString], synth });
+        acc[colNum].push({ pitches: pitches[rowNum], synth });
+
+      return acc;
+    }, {});
+  }
+
+  // create an internal memory structure that makes it easy to
+  // play the right tones at the right time. This is for when
+  // the tracks are playing.
+  _updateTracksData() {
+    const tracks = this.store.tracks;
+
+    // { <slot>: <col>: [list of pitches], synth, ... }
+    // TODO iterate over actual slot IDs, don't assume
+    this._tracksPlayData = util.oneTo(8).reduce((acc, slotId) => {
+      tracks.forEach(track => {
+
+        const slot    = track.slots[slotId],
+              synth   = track.instrument.synth,
+              pitches = track.tuning.pitches;
+
+        track.tones.forEach((tone, idx) => {
+
+          // which row we're at, starting from top to bottom
+          const rowNum = Math.floor(idx / this.store.MATRIX_SIDE_LEN);
+
+          // which column we're at, starting from left to right
+          const colNum = idx % this.store.MATRIX_SIDE_LEN;
+
+          if (!acc[slotId]) acc[slotId] = {};
+          if (!acc[slotId][colNum]) acc[slotId][colNum] = [];
+
+          if (slot.active && tone.active)
+            acc[slotId][colNum].push({ pitches: pitches[rowNum], synth });
+        });
+      });
 
       return acc;
     }, {});
@@ -59,7 +93,7 @@ export default class AudioPlayer {
 
       // for each column of the matrix, use the poly synth to play
       // each selected pitch at the same time.
-      this.matrixPlayData[this._colCounter].forEach(datum => {
+      this._matrixPlayData[this._colCounter].forEach(datum => {
         const { pitches, synth } = datum;
         synth.triggerAttackRelease(pitches, '16n', time);
       });
@@ -70,8 +104,16 @@ export default class AudioPlayer {
 
   _createTracksLoop() {
     this.tracksLoop = new Tone.Loop(time => {
-      console.log(time);
+
+      this._tracksPlayData[this._slotCounter][this._colCounter].forEach(datum => {
+        const { pitches, synth } = datum;
+        synth.triggerAttackRelease(pitches, '16n', time);
+      });
+
       this._colCounter = (this._colCounter + 1) % this.store.MATRIX_SIDE_LEN;
+      if (this._colCounter === 0)
+        this._slotCounter = (this._slotCounter + 1) % this.store.NUM_SLOTS;
+
     }, '16n').start(0);
   }
 
@@ -90,5 +132,6 @@ export default class AudioPlayer {
   stop() {
     Tone.Transport.stop();
     this._colCounter = 0;
+    this._slotCounter = 0;
   }
 }

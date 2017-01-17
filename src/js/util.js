@@ -3,7 +3,6 @@
 //
 
 let util = {};
-export default util;
 
 // build array of 1 to n ascending by 1
 // TODO: test only take num, negative
@@ -22,3 +21,5 @@ util.flatten = (nestedArray) => {
 util.log = (...args) => {
   console.log('Tones: ', ...args);
 };
+
+export default util;

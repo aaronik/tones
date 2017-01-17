@@ -53,6 +53,22 @@ export default class Store {
     return this.tracks;
   }
 
+  getTrack (trackId) {
+    return this.tracks.find(track => {
+      return track.id === trackId;
+    });
+  }
+
+  getSlot (trackId, slotId) {
+    const track = this.getTrack(trackId);
+    return track.slots.find(slot => slot.id === slotId);
+  }
+
+  getTone (trackId, toneId) {
+    const track = this.getTrack(trackId);
+    return track.tones.find(tone => tone.id === toneId);
+  }
+
   ////
   // writers
 
@@ -80,25 +96,15 @@ export default class Store {
   }
 
   toggleTone (trackId, toneId) {
-    let track = this._getTrack(trackId);
-
-    track.tones.forEach(tone => {
-      if (tone.id !== toneId) return;
-
-      tone.active = !tone.active;
-    });
+    let tone = this.getTone(trackId, toneId);
+    tone.active = !tone.active;
 
     this._emitChange();
   }
 
   toggleSlot (trackId, slotId) {
-    let track = this._getTrack(trackId);
-
-    track.slots.forEach(slot => {
-      if (slot.id !== slotId) return;
-
-      slot.active = !slot.active;
-    });
+    let slot = this.getSlot(trackId, slotId);
+    slot.active = !slot.active;
 
     this._emitChange();
   }
@@ -110,7 +116,7 @@ export default class Store {
   }
 
   setInstrument (trackId, instrumentId) {
-    let track = this._getTrack(trackId);
+    let track = this.getTrack(trackId);
 
     track.instrument = sounds.getInstrument(instrumentId);
 
@@ -118,7 +124,7 @@ export default class Store {
   }
 
   setTuning (trackId, tuningId) {
-    let track = this._getTrack(trackId);
+    let track = this.getTrack(trackId);
 
     track.tuning = sounds.getTuning(tuningId);
 
@@ -127,12 +133,6 @@ export default class Store {
 
   ////
   // private helpers
-
-  _getTrack (trackId) {
-    return this.tracks.find(track => {
-      return track.id === trackId;
-    });
-  }
 
   // return a track id that has not been used yet
   _generateUniqueTrackId() {
