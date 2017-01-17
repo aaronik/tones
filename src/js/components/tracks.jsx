@@ -6,6 +6,7 @@ import propTypes from 'js/prop_types'
 const Tracks = React.createClass({
   propTypes: {
     tracks:            React.PropTypes.arrayOf(propTypes.track).isRequired,
+    activeTrackId:     React.PropTypes.number.isRequired,
     onNewTrack:        React.PropTypes.func.isRequired,
     onRemoveTrack:     React.PropTypes.func.isRequired,
     onMiniMatrixClick: React.PropTypes.func.isRequired,
@@ -19,10 +20,12 @@ const Tracks = React.createClass({
   _renderTracks () {
     return this.props.tracks.map(track => {
       const { id, tones, slots } = track;
+      const isActiveTrack = id === this.props.activeTrackId;
 
       return <Track
         key={id}
         track={track}
+        isActiveTrack={isActiveTrack}
         onMiniMatrixClick={this.props.onMiniMatrixClick}
         onRemoveTrack={this.props.onRemoveTrack}
         onSlotClick={this.props.onSlotClick}

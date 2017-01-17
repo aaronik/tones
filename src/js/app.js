@@ -97,6 +97,8 @@ const App = React.createClass({
     const { tracks, activeTrack } = this.state;
     const { tones } = activeTrack;
 
+    // TODO are the classnames below here being used?
+
     return (
       <div>
         <div className='layout-row'>
@@ -109,6 +111,7 @@ const App = React.createClass({
           <Tracks
             className='layout-tracks-container'
             tracks={tracks}
+            activeTrackId={this.state.activeTrack.id}
             onNewTrack={this.onNewTrack}
             onRemoveTrack={this.onRemoveTrack}
             onMiniMatrixClick={this.onMiniMatrixClick}
