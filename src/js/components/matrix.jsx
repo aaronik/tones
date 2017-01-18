@@ -5,16 +5,25 @@ import _ from 'underscore'
 
 const TableRow = React.createClass({
   propTypes: {
-    tones:       propTypes.tones.isRequired,
-    onToneClick: React.PropTypes.func.isRequired
+    tones:        propTypes.tones.isRequired,
+    // TODO I don't need an activeColumn to be passed down
+    // if the tones just have a property on them from the store
+    // that says if their row / self is active.
+    // Or I could just do activeColumn and never combine
+    // the data
+    activeColumn: React.PropTypes.number.isRequired,
+    onToneClick:  React.PropTypes.func.isRequired
   },
 
   _generateRow() {
     return this.props.tones.map((tone, idx) => {
+      const inActiveColumn = (idx === this.props.activeColumn);
+
       return (
         <td key={`tone-${idx}`}>
           <Tone
             tone={tone}
+            inActiveColumn={inActiveColumn}
             onClick={this.props.onToneClick}/>
         </td>
       );
@@ -29,6 +38,7 @@ const TableRow = React.createClass({
 const Table = React.createClass({
   propTypes: {
     tones:        propTypes.tones.isRequired,
+    activeColumn: React.PropTypes.number.isRequired,
     onToneClick:  React.PropTypes.func.isRequired
   },
 
@@ -43,6 +53,7 @@ const Table = React.createClass({
       return <TableRow
         key={`table-row-${idx}`}
         tones={rowTones}
+        activeColumn={this.props.activeColumn}
         onToneClick={this.props.onToneClick}/>
     })
   },
@@ -61,23 +72,17 @@ const Table = React.createClass({
 const Matrix = React.createClass({
   propTypes: {
     tones: propTypes.tones.isRequired,
+    activeColumn: React.PropTypes.number.isRequired,
     onToneClick: React.PropTypes.func.isRequired
-  },
-
-  componentWillMount() {
-    const toneCount    = this.props.tones.length,
-          matrixLength = Math.sqrt(toneCount),
-          roundedRoot  = Math.round(matrixLength);
-
-    if (roundedRoot != matrixLength) { // TODO make this check in app
-      throw new Error('matrix must be given a square grid');
-    }
   },
 
   render() {
     return (
       <div className='matrix-container'>
-        <Table tones={this.props.tones} onToneClick={this.props.onToneClick}/>
+        <Table
+          tones={this.props.tones}
+          activeColumn={this.props.activeColumn}
+          onToneClick={this.props.onToneClick}/>
       </div>
     )
   }

@@ -16,43 +16,51 @@ const navTo = (url) => {
 // turn URL into full state object, which will then
 // be consumed by the Store.
 const deconstructUrlString = () => {
-  var state = {},
-      query = url().query;
+  try {
 
-  // active track
-  state.activeTrackId = parseInt(query.a, 10);
+    var state = {},
+        query = url().query;
 
-  delete query.a; // make room for easy numerical deconstruction of tracks
+    // active track
+    state.activeTrackId = parseInt(query.a, 10);
 
-  state.tracks = Object.keys(query).map(id => {
-    const segments = query[id].split('.');
+    delete query.a; // make room for easy numerical deconstruction of tracks
 
-    const encodedToneBitString = segments[0],
-          encodedSlotBitString = segments[1],
-          instrumentId         = parseInt(segments[2], 10),
-          tuningId             = parseInt(segments[3], 10);
+    state.tracks = Object.keys(query).map(id => {
+      const segments = query[id].split('.');
 
-    const unencodedToneBitString = b2.decode(encodedToneBitString, 256), // TODO un hard code
-          unencodedSlotBitString = b2.decode(encodedSlotBitString, 8);
+      const encodedToneBitString = segments[0],
+            encodedSlotBitString = segments[1],
+            instrumentId         = parseInt(segments[2], 10),
+            tuningId             = parseInt(segments[3], 10);
 
-    return {
-      id: parseInt(id, 10),
+      const unencodedToneBitString = b2.decode(encodedToneBitString, 256), // TODO un hard code
+            unencodedSlotBitString = b2.decode(encodedSlotBitString, 8);
 
-      tones: unencodedToneBitString.split('').map((bit, id) => {
-        return { id: parseInt(id, 10), active: bit === '1' };
-      }),
+      return {
+        id: parseInt(id, 10),
 
-      slots: unencodedSlotBitString.split('').map((bit, id) => {
-        return { id: parseInt(id, 10), active: bit === '1' };
-      }),
+        tones: unencodedToneBitString.split('').map((bit, id) => {
+          return { id: parseInt(id, 10), active: bit === '1' };
+        }),
 
-      tuning: sounds.getTuning(tuningId),
+        slots: unencodedSlotBitString.split('').map((bit, id) => {
+          return { id: parseInt(id, 10), active: bit === '1' };
+        }),
 
-      instrument: sounds.getInstrument(instrumentId)
-    };
-  });
+        tuning: sounds.getTuning(tuningId),
 
-  return state;
+        instrument: sounds.getInstrument(instrumentId)
+      };
+    });
+
+    return state;
+
+  } catch (e) {
+    // could not decipher URL, was probably ill formed somehow.
+    alert('Looks like somehow you got an ill-formed URL and I can\'t deconstruct it, sorry :/ Make sure to copy the whole URL (they can be long) and ensure nothing else stays in the URL bar when you paste.');
+    window.location.assign('/');
+  };
 };
 
 const constructUrlString = (state) => {

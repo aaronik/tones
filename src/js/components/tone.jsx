@@ -3,16 +3,19 @@ import propTypes from 'js/prop_types'
 
 const Tone = React.createClass({
   propTypes: {
-    tone:    propTypes.tone.isRequired,
-    onClick: React.PropTypes.func.isRequired
+    tone:           propTypes.tone.isRequired,
+    inActiveColumn: React.PropTypes.bool.isRequired,
+    onClick:        React.PropTypes.func.isRequired
   },
 
   render() {
-    let className = 'tone-container ';
+    let className = 'tone ';
 
-    if (this.props.tone.active) {
-      className += 'tone-container-active';
-    }
+    if (this.props.tone.active)
+      className += 'active ';
+
+    if (this.props.inActiveColumn)
+      className += 'column-active';
 
     return <div
       className={className}

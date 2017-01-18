@@ -13,10 +13,8 @@ import sounds      from 'js/sounds'
 
 // TODO Make robust to ill-formed URLs
 
-const store = new Store();
+const store       = new Store();
 const audioPlayer = new AudioPlayer(store);
-
-window.AP = audioPlayer; // TODO remove
 
 const getStateFromStore = () => {
   return {
@@ -25,18 +23,35 @@ const getStateFromStore = () => {
   };
 };
 
+const INACTIVE_PLAYBACK_BAR_STATE = {
+  activeMatrixColumn: -1, // -1 means don't show the playback bar
+  activeTrackColumn: -1,
+  activeSlotId: -1
+};
+
 const App = React.createClass({
   getInitialState() {
     return Object.assign({
       matrixPlayActive: false,
       tracksPlayActive: false
-    }, getStateFromStore());
+    }, INACTIVE_PLAYBACK_BAR_STATE, getStateFromStore());
   },
 
   componentWillMount() {
     store.onChange(() => {
       this.setState(getStateFromStore());
     });
+
+    audioPlayer.addMatrixPlayHook(this.onMatrixPlayHit);
+    audioPlayer.addTracksPlayHook(this.onTracksPlayHit);
+  },
+
+  onMatrixPlayHit (colNum) {
+    this.setState({ activeMatrixColumn: colNum });
+  },
+
+  onTracksPlayHit (slotId, colNum) {
+    this.setState({ activeSlotId: slotId, activeTrackColumn: colNum });
   },
 
   onToneClick (toneId) {
@@ -68,29 +83,25 @@ const App = React.createClass({
   },
 
   onMatrixPlayClick() {
-    if (this.state.matrixPlayActive) {
-      audioPlayer.stop();
-    } else {
-      audioPlayer.startMatrix();
-    }
+    audioPlayer.stop();
 
-    this.setState({
+    if (!this.state.matrixPlayActive) audioPlayer.startMatrix();
+
+    this.setState(Object.assign({
       tracksPlayActive: false,
       matrixPlayActive: !this.state.matrixPlayActive
-    });
+    }, INACTIVE_PLAYBACK_BAR_STATE));
   },
 
   onTracksPlayClick() {
-    if (this.state.tracksPlayActive) {
-      audioPlayer.stop();
-    } else {
-      audioPlayer.startTracks();
-    }
+    audioPlayer.stop();
 
-    this.setState({
+    if (!this.state.tracksPlayActive) audioPlayer.startTracks();
+
+    this.setState(Object.assign({
       matrixPlayActive: false,
       tracksPlayActive: !this.state.tracksPlayActive
-    });
+    }, INACTIVE_PLAYBACK_BAR_STATE));
   },
 
   render() {
@@ -106,12 +117,15 @@ const App = React.createClass({
           <Matrix
             className='layout-matrix-container'
             tones={tones}
+            activeColumn={this.state.activeMatrixColumn}
             onToneClick={this.onToneClick}/>
 
           <Tracks
             className='layout-tracks-container'
             tracks={tracks}
             activeTrackId={this.state.activeTrack.id}
+            activeColumn={this.state.activeTrackColumn}
+            activeSlotId={this.state.activeSlotId}
             onNewTrack={this.onNewTrack}
             onRemoveTrack={this.onRemoveTrack}
             onMiniMatrixClick={this.onMiniMatrixClick}

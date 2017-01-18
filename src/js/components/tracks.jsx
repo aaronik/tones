@@ -7,6 +7,8 @@ const Tracks = React.createClass({
   propTypes: {
     tracks:            React.PropTypes.arrayOf(propTypes.track).isRequired,
     activeTrackId:     React.PropTypes.number.isRequired,
+    activeColumn:      React.PropTypes.number.isRequired,
+    activeSlotId:      React.PropTypes.number.isRequired,
     onNewTrack:        React.PropTypes.func.isRequired,
     onRemoveTrack:     React.PropTypes.func.isRequired,
     onMiniMatrixClick: React.PropTypes.func.isRequired,
@@ -26,6 +28,8 @@ const Tracks = React.createClass({
         key={id}
         track={track}
         isActiveTrack={isActiveTrack}
+        activeColumn={this.props.activeColumn}
+        activeSlotId={this.props.activeSlotId}
         onMiniMatrixClick={this.props.onMiniMatrixClick}
         onRemoveTrack={this.props.onRemoveTrack}
         onSlotClick={this.props.onSlotClick}

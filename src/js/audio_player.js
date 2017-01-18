@@ -12,9 +12,14 @@ export default class AudioPlayer {
     Tone.Transport.bpm.value = 80;
 
     // The master playback location state
-    this._colCounter = 0;
+    this._colCounter  = 0;
     this._slotCounter = 0;
 
+    // Called on each iteration of playback loop
+    this._matrixPlayHooks = new Set();
+    this._trackPlayHooks  = new Set();
+
+    // One time instantiation of playback loops, later started/stopped
     this._createMatrixLoop();
     this._createTracksLoop();
   }
@@ -98,6 +103,8 @@ export default class AudioPlayer {
         synth.triggerAttackRelease(pitches, '16n', time);
       });
 
+      this._fireMatrixPlayHooks();
+
       this._colCounter = (this._colCounter + 1) % this.store.MATRIX_SIDE_LEN;
     }, '16n').start(0);
   }
@@ -110,11 +117,21 @@ export default class AudioPlayer {
         synth.triggerAttackRelease(pitches, '16n', time);
       });
 
+      this._fireTrackPlayHooks();
+
       this._colCounter = (this._colCounter + 1) % this.store.MATRIX_SIDE_LEN;
       if (this._colCounter === 0)
         this._slotCounter = (this._slotCounter + 1) % this.store.NUM_SLOTS;
 
     }, '16n').start(0);
+  }
+
+  _fireMatrixPlayHooks() {
+    this._matrixPlayHooks.forEach(hook => hook(this._colCounter));
+  }
+
+  _fireTrackPlayHooks() {
+    this._trackPlayHooks.forEach(hook => hook(this._slotCounter, this._colCounter));
   }
 
   startMatrix() {
@@ -131,7 +148,19 @@ export default class AudioPlayer {
 
   stop() {
     Tone.Transport.stop();
-    this._colCounter = 0;
+    this._colCounter  = 0;
     this._slotCounter = 0;
+  }
+
+  // give callback that gets called on each play
+  // loop hit. Gives CB the column number being played.
+  addMatrixPlayHook (funk) {
+    this._matrixPlayHooks.add(funk);
+  }
+
+  // add a hook for each time the tracks column play is hit.
+  // This funk gets slotId and column number.
+  addTracksPlayHook (funk) {
+    this._trackPlayHooks.add(funk);
   }
 }

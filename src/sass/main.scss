@@ -29,20 +29,28 @@
   background-color: $blue;
 };
 
-.tone-container {
+.tone {
   width: 27px;
   height: 27px;
   background-color: $green;
   cursor: pointer;
   transition: all 0.3s;
 
+  &.column-active {
+    background-color: grey;
+  }
+
+  &.active {
+    background-color: $red;
+  }
+
+  &.column-active.active {
+    background-color: white;
+  }
+
   &:hover {
     background-color: $black;
   };
-};
-
-.tone-container-active {
-  background-color: $red;
 };
 
 .tracks-container {
@@ -56,10 +64,14 @@
   border-left: 1px solid black;
   border-bottom: 1px solid black;
   box-sizing: border-box;
-};
 
-.mini-tone-active {
-  background-color: $red;
+  &.column-active {
+    background-color: grey;
+  }
+
+  &.active {
+    background-color: $red;
+  }
 };
 
 .mini-matrix-container {
@@ -181,7 +193,7 @@
   font-size: 30px;
 };
 
-.slot-container {
+.slot {
   height: $trackBodyHeight / 8; // TODO un-hardcode
   border-bottom: 1px solid red;
   cursor: pointer;
@@ -192,6 +204,10 @@
 
   &.active {
     background: purple;
+  }
+
+  &.playing {
+    box-shadow: inset 0 0 50px yellow;
   }
 };
 
