@@ -1,3 +1,10 @@
+### [0.1.11](https://github.com/aaronik/tones/releases/tag/0.1.11)
+
+  * (Aaron Sullivan) Get playback marker, playing tone highlighting proof of concept
+  * (Aaron Sullivan) Add visible indicator to which track is active
+  * (Aaron Sullivan) Tracks are playing correctly
+  * (Aaron Sullivan) Fix playback not starting at top of loop each start
+
 ### [0.1.10](https://github.com/aaronik/tones/releases/tag/0.1.10)
 
   * (Aaron Sullivan) Fix instrument degredation after many store changes
