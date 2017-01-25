@@ -1,3 +1,7 @@
+### [0.1.12](https://github.com/aaronik/tones/releases/tag/0.1.12)
+
+  * (Aaron Sullivan) Add chorus to instruments
+
 ### [0.1.11](https://github.com/aaronik/tones/releases/tag/0.1.11)
 
   * (Aaron Sullivan) Get playback marker, playing tone highlighting proof of concept
