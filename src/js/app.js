@@ -1,15 +1,16 @@
 require('../sass/main.scss');
 
-import _           from 'underscore'
-import React       from 'react'
-import ReactDOM    from 'react-dom'
-import Track       from 'components/track'
-import Tracks      from 'components/tracks'
-import Matrix      from 'components/matrix'
-import PlayButton  from 'components/play_button'
-import Store       from 'js/store'
-import AudioPlayer from 'js/audio_player'
-import sounds      from 'js/sounds'
+import _                from 'underscore'
+import React            from 'react'
+import ReactDOM         from 'react-dom'
+import Track            from 'components/track'
+import Tracks           from 'components/tracks'
+import Matrix           from 'components/matrix'
+import PlayButton       from 'components/play_button'
+import Store            from 'js/store'
+import AudioPlayer      from 'js/audio_player'
+import sounds           from 'js/sounds'
+import KeyboardListener from 'js/keyboard_listener'
 
 // TODO Make robust to ill-formed URLs
 
@@ -23,6 +24,7 @@ const getStateFromStore = () => {
   };
 };
 
+// defaults to help with showing the playback bar
 const INACTIVE_PLAYBACK_BAR_STATE = {
   activeMatrixColumn: -1, // -1 means don't show the playback bar
   activeTrackColumn: -1,
@@ -44,6 +46,8 @@ const App = React.createClass({
 
     audioPlayer.addMatrixPlayHook(this.onMatrixPlayHit);
     audioPlayer.addTracksPlayHook(this.onTracksPlayHit);
+
+    KeyboardListener.onSpace(this._stopAll);
   },
 
   componentDidMount() {
@@ -114,6 +118,15 @@ const App = React.createClass({
     this.setState(Object.assign({
       matrixPlayActive: false,
       tracksPlayActive: !this.state.tracksPlayActive
+    }, INACTIVE_PLAYBACK_BAR_STATE));
+  },
+
+  _stopAll() {
+    audioPlayer.stop();
+
+    this.setState(Object.assign({
+      matrixPlayActive: false,
+      tracksPlayActive: false,
     }, INACTIVE_PLAYBACK_BAR_STATE));
   },
 

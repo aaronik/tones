@@ -17,7 +17,6 @@ Serverless multiplayer musical instrument
 #### TODO
 * Add multiplayer functionality
 * Make back button either undo or go to the actual last page
-* Add keyboard shortcuts
 * Add slot range indicator (select how many slots to play)
 * Make animation for play triangle turning into stop square, back
 * Add color changes for instruments in tracks, matrix -- maybe just matrix, mini matrix
