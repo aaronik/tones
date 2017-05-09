@@ -1,3 +1,14 @@
+### [0.1.13](https://github.com/aaronik/tones/releases/tag/0.1.13)
+
+  * (Aaron Sullivan) Add space stops all keyboard shortcut
+  * (Aaron Sullivan) More todos
+  * (Aaron Sullivan) Matrix on by default
+  * (Aaron Sullivan) Minor cleanups
+  * (Aaron Sullivan) Add some tests
+  * (Aaron Sullivan) Add to readme TODOs
+  * (Aaron Sullivan) Add TODO
+  * (Aaron Sullivan) Work a hint on some tests (broken state)
+
 ### [0.1.12](https://github.com/aaronik/tones/releases/tag/0.1.12)
 
   * (Aaron Sullivan) Add chorus to instruments
