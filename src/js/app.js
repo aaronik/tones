@@ -46,6 +46,11 @@ const App = React.createClass({
     audioPlayer.addTracksPlayHook(this.onTracksPlayHit);
   },
 
+  componentDidMount() {
+    // Matrix is playing by default
+    this._playMatrix();
+  },
+
   onMatrixPlayHit (colNum) {
     this.setState({ activeMatrixColumn: colNum });
   },
@@ -83,6 +88,14 @@ const App = React.createClass({
   },
 
   onMatrixPlayClick() {
+    this._playMatrix();
+  },
+
+  onTracksPlayClick() {
+    this._playTracks();
+  },
+
+  _playMatrix() {
     audioPlayer.stop();
 
     if (!this.state.matrixPlayActive) audioPlayer.startMatrix();
@@ -93,7 +106,7 @@ const App = React.createClass({
     }, INACTIVE_PLAYBACK_BAR_STATE));
   },
 
-  onTracksPlayClick() {
+  _playTracks() {
     audioPlayer.stop();
 
     if (!this.state.tracksPlayActive) audioPlayer.startTracks();
@@ -134,9 +147,11 @@ const App = React.createClass({
             onInstrumentClick={this.onInstrumentClick}
             tunings={sounds.TUNINGS}
             onTuningClick={this.onTuningClick}/>
+
         </div>
 
         <div className='layout-row'>
+
           <PlayButton
             onClick={this.onMatrixPlayClick}
             active={this.state.matrixPlayActive}/>
@@ -144,6 +159,7 @@ const App = React.createClass({
           <PlayButton
             onClick={this.onTracksPlayClick}
             active={this.state.tracksPlayActive}/>
+
         </div>
       </div>
     )
