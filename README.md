@@ -25,3 +25,5 @@ Serverless multiplayer musical instrument
 * Main matrix to have playback bar when tracks are playing and that instrument instance is triggered
 * app should initialize already playing matrix
 * get karma online (get it to work with es6)
+* Add many more scales
+* Add a drum kit
