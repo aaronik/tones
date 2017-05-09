@@ -60,17 +60,19 @@ function encode (binary) {
 }
 
 // Turn base64 string back into binary.
-function decode (basedNum, desiredNumBits = 256) {
-  const basedNumArr = basedNum.split('');
+// string b64String   : the string (base 64 number) to be converted to base 2
+// num    totalNumBits: the total number of bits for the string when converted to base 2
+function decode (b64String, totalNumBits = 256) {
+  const basedNumArr = b64String.split('');
 
   let basedNumIdxArr = basedNumArr.map( char => {
     return RADIX_CHARS.indexOf(char);
   });
 
   return basedNumIdxArr.map( (num, idx) => {
-    if (idx == (basedNum.length - 1)) { // last num (handle 6 bit roundoff issue)
-      // if desiredNumBits % 6 == 0, we're really on the last bit and we want 6
-      return base10ToBinary(num, (desiredNumBits % 6) || 6);
+    if (idx == (b64String.length - 1)) { // last num (handle 6 bit roundoff issue)
+      // if totalNumBits % 6 == 0, we're really on the last bit and we want 6
+      return base10ToBinary(num, (totalNumBits % 6) || 6);
     } else {
       return base10ToBinary(num, 6)
     }

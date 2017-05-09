@@ -4,17 +4,9 @@
 
 let util = {};
 
-// build array of 1 to n ascending by 1
-// TODO: test only take num, negative
-util.oneTo = (n) => {
+// build array of 0 to n - 1 ascending by 1
+util.zeroTo = (n) => {
   return [...new Array(n).keys()];
-};
-
-// TODO: test
-util.flatten = (nestedArray) => {
-  return nestedArray.reduce((flatArray, el) => {
-    return flatArray.concat(el);
-  }, []);
 };
 
 // print messages prettily

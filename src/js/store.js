@@ -1,4 +1,4 @@
-// Alright, this will be a JS store object which contains the state
+// This is a JS store object which contains the state
 // of the URL bar. It's too hard to constantly work with the URL
 // bar itself. Messy string manipulation. Instead, this will hold
 // state, and when it changes, it'll update the URL bar. It'll also
@@ -142,7 +142,7 @@ export default class Store {
     // a new one, so we parse them here.
     const parsedUsedIds = usedIds.map(id => { return parseInt(id, 10) });
 
-    // major hack?
+    // major hack or JavaScript joke?
     for (var newId = 0; _.contains(parsedUsedIds, newId); newId++) {}
     return newId;
   }
@@ -175,11 +175,11 @@ export default class Store {
     this.tracks.push({
       id: this._generateUniqueTrackId(),
 
-      slots: util.oneTo(NUM_SLOTS).map(id => {
+      slots: util.zeroTo(NUM_SLOTS).map(id => {
         return { id: id, active: false };
       }),
 
-      tones: util.oneTo(Math.pow(MATRIX_SIDE_LEN, 2)).map(id => {
+      tones: util.zeroTo(Math.pow(MATRIX_SIDE_LEN, 2)).map(id => {
         return { id: id, active: false };
       }),
 

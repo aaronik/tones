@@ -1,10 +1,5 @@
 import React from 'react'
 
-// function invalidPropErrStr (propName, componentName, expectedType) {
-
-//   `Invalid prop of type ${propName} supplied to ${componentName}, expected ${expectedType}.`
-// }
-
 const tone = React.PropTypes.shape({
   id:     React.PropTypes.number.isRequired,
   active: React.PropTypes.bool.isRequired

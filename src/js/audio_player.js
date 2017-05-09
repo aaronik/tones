@@ -66,7 +66,7 @@ export default class AudioPlayer {
 
     // { <slot>: <col>: [list of pitches], synth, ... }
     // TODO iterate over actual slot IDs, don't assume
-    this._tracksPlayData = util.oneTo(8).reduce((acc, slotId) => {
+    this._tracksPlayData = util.zeroTo(8).reduce((acc, slotId) => {
       tracks.forEach(track => {
 
         const slot    = track.slots[slotId],
