@@ -4,6 +4,15 @@
 #  Script to cut a release and publish to gh-pages (or whatever release branch is)
 #
 
+#
+# This is a really cool release script I think. It's super, super, super simple. You just run 'npm run release'
+# and the script does it all for you. It'll ask you for a version number, offering a best guess (incrementing
+# the patch version). The hosting I'm using is github pages and this script reflects it. It has nice colors
+# and lets you know what's happening at all times. It's imperitive IMO for bash scripts to be both loquatious
+# at runtime and well commented for future developers as I've found lots of devs don't share my amusement
+# with the eccentricities of bash.
+#
+
 SEMVER=./node_modules/semver/bin/semver
 OLD_VERSION=$(node -pe 'require("./package.json").version')
 CHANGELOG=./CHANGELOG.md

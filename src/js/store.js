@@ -12,6 +12,17 @@ import sounds  from 'js/sounds'
 // TODO move all this.tracks, this.activeTrackId to this.state.x
 // TODO Can we use numeric ids instead of string based ones? Would be easier.
 
+/*
+ * One of the cool aspects of this app is that it stores all state in the URL bar.
+ * The idea is that in order to save your configuration you copy the URL. That idea
+ * blossomed into the idea of just keeping all state in the URL bar in the first place.
+ * That idea then blossomed into that that is a little tricky and painful and that there
+ * should be in-app state after all but it should be reflected in the URL bar at all
+ * times. The obvious problem is then that there can be discrepencies and that has not
+ * yet been remedied, though it's an edge case so far.
+ *
+ */
+
 // constants TODO move to App
 const NUM_SLOTS       = 8,
       MATRIX_SIDE_LEN = 16;

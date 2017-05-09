@@ -1,3 +1,7 @@
+// I use prop types to enhance React's type system.
+// I'd say I hope y'all do too but it's entirely
+// possible using typescript nullifies the need.
+
 import React from 'react'
 
 const tone = React.PropTypes.shape({

@@ -1,6 +1,10 @@
 import Tone from 'tone'
 import util from 'js/util'
 
+// I really wanted this to be decoupled to the store, but it ended up
+// not really being practical. Figuring out a clean way to do that
+// would be a huge win!
+
 export default class AudioPlayer {
   constructor(store) {
     this.store = store;
