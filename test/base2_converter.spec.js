@@ -1,3 +1,6 @@
+// I grant you that like most of my personal projects, this project needs
+// more tests.
+
 import { expect } from 'chai';
 import b2 from '../src/js/base2_converter'; // TODO: fix path to just js/ and fix webpack
 

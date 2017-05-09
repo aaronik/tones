@@ -146,6 +146,21 @@ const App = React.createClass({
             activeColumn={this.state.activeMatrixColumn}
             onToneClick={this.onToneClick}/>
 
+          // Look at all these `active*` properties! There's an interesting
+          // architectural decision I made here. There were two ways of connecting
+          // the sounds with the visuals. I could either go direct from the
+          // sound emination entity, utilizing an event system, or I could
+          // pass information based on which tone is active down the react
+          // component chain. The latter is slower and cleaner and more
+          // in line with the react paradigm, the former is faster. I decided
+          // to try cleanliness first and wait until the optimization was
+          // necessary. Turns out even passing all this info down the react
+          // chain, forcing lots of re-renders, still allows the visuals
+          // to be _faster than the audio_. So now the audio and visuals
+          // are decoupled in terms of timing, but they *kind of* align
+          // _on my computer_. This is a particular bug that doesn't yet
+          // need to be solved and so hasn't yet, but most likely will
+          // in the future.
           <Tracks
             className='layout-tracks-container'
             tracks={tracks}
