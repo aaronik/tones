@@ -26,3 +26,4 @@ Serverless multiplayer musical instrument
 * get karma online (get it to work with es6)
 * Add many more scales
 * Add a drum kit
+* Add copy track
