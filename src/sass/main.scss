@@ -1,4 +1,5 @@
 @import './variables';
+@import './functions_mixins';
 
 * {
   transition: all 0.3s;
@@ -81,13 +82,12 @@
 };
 
 .add-track-button-container {
+  @include flex_centered();
   width: $miniMatrixLength;
   height: $miniMatrixLength;
   background: $blue;
   cursor: pointer;
   border: 1px solid $black;
-  text-align: center;
-  line-height: $miniMatrixLength;
   font-size: 30px;
   cursor: pointer;
 };
@@ -113,11 +113,9 @@
 }
 
 .instrument-icon-container {
+  @include flex_centered();
   height: $miniMatrixLength;
   width: $miniMatrixLength;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
 
   &:hover {
@@ -132,9 +130,7 @@
 .instrument-switch-icon-container { // TODO this and above are real similar
   height: $miniMatrixLength;
   width: $miniMatrixLength;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex_centered();
 
   &:hover {
     transform: rotate(360deg);
@@ -146,7 +142,6 @@
   width: $miniMatrixLength;
   position: absolute;
   overflow: hidden;
-  text-align: center;
   background-color: cyan;
   font-size: 30px;
 
@@ -163,11 +158,9 @@
 }
 
 .tuning-icon-container {
+  @include flex_centered();
   height: $miniMatrixLength;
   width: $miniMatrixLength;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
 
   &:hover {
@@ -185,12 +178,11 @@
 };
 
 .track-remove-button-container {
+  @include flex_centered();
   width: $trackRemoveButtonLength;
   height: $trackRemoveButtonLength;
   background-color: $red;
-  text-align: center;
   cursor: pointer;
-  line-height: $trackRemoveButtonLength;
   font-size: 30px;
 };
 
@@ -213,12 +205,10 @@
 };
 
 .play-button-container {
-  display: flex;
-  align-items: center;
+  @include flex_centered();
   width: 100px;
   background: red;
   height: $mainMenuHeight;
-  justify-content: center;
   line-height: 50px;
   font-size: 30px;
   margin-left: auto;
