@@ -188,7 +188,7 @@
 
 .slot {
   height: $trackBodyHeight / 8; // TODO un-hardcode
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid $red;
   cursor: pointer;
 
   &:hover {
@@ -207,7 +207,7 @@
 .play-button-container {
   @include flex_centered();
   width: 100px;
-  background: red;
+  background: $red;
   height: $mainMenuHeight;
   line-height: 50px;
   font-size: 30px;
