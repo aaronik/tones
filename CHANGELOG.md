@@ -1,3 +1,11 @@
+### [0.1.14](https://github.com/aaronik/tones/releases/tag/0.1.14)
+
+  * (Aaron Sullivan) temporarily disable autoplay per chrome's new rules
+  * (Aaron Sullivan) Add ; to imports
+  * (Aaron Sullivan) Add package-lock
+  * (Aaron Sullivan) Update readme
+  * (Aaron Sullivan) Add TODO
+
 ### [0.1.13](https://github.com/aaronik/tones/releases/tag/0.1.13)
 
   * (Aaron Sullivan) Add space stops all keyboard shortcut
