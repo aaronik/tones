@@ -1,6 +1,8 @@
 # Tones
 
-A simple musical sequencer
+A simple, serverless musical sequencer.
+
+All state is saved in the URL, so to save your instrument, just copy your unique URL.
 
 ### Developing:
 * `npm install`
