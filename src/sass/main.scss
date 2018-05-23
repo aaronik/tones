@@ -21,36 +21,36 @@
   width: $matrixLength;
   height: $matrixLength;
   margin: auto;
-  background: $green;
+  background: $colorLightest;
 };
 
 .matrix-table {
   width: 100%;
   height: 100%;
-  background-color: $blue;
+  background-color: $colorLightest;
 };
 
 .tone {
   width: 27px;
   height: 27px;
-  background-color: $green;
+  background-color: $colorLight;
   cursor: pointer;
   transition: all 0.3s;
 
   &.column-active {
-    background-color: grey;
+    background-color: $colorLighter;
   }
 
   &.active {
-    background-color: $red;
+    background-color: $colorDarker;
   }
 
   &.column-active.active {
-    background-color: white;
+    background-color: $colorLightest;
   }
 
   &:hover {
-    background-color: $black;
+    background-color: $colorDark;
   };
 };
 
@@ -61,17 +61,17 @@
 .mini-tone {
   width: 3px;
   height: 3px;
-  background-color: $green;
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
+  background-color: $colorLight;
+  border-left: 1px solid $colorDarkest;
+  border-bottom: 1px solid $colorDarkest;
   box-sizing: border-box;
 
   &.column-active {
-    background-color: grey;
+    background-color: $colorLighter;
   }
 
   &.active {
-    background-color: $red;
+    background-color: $colorDarker;
   }
 };
 
@@ -85,15 +85,15 @@
   @include flex_centered();
   width: $miniMatrixLength;
   height: $miniMatrixLength;
-  background: $blue;
+  background: $colorLight;
   cursor: pointer;
-  border: 1px solid $black;
+  border: 1px solid $colorDarkest;
   font-size: 30px;
   cursor: pointer;
 };
 
 .track-container {
-  border: 1px solid $black;
+  border: 1px solid $colorDarkest;
   opacity: 0.8;
 
   &.active {
@@ -104,7 +104,7 @@
 .mini-matrix-container {
   width: $miniMatrixLength;
   height: $miniMatrixLength;
-  background-color: $blue;
+  background-color: $colorLightest;
   cursor: pointer;
 };
 
@@ -119,11 +119,11 @@
   cursor: pointer;
 
   &:hover {
-    background-color: yellow;
+    background-color: $colorLighter;
   }
 
   &.active {
-    background-color: salmon;
+    background-color: $colorLightest;
   }
 }
 
@@ -142,7 +142,7 @@
   width: $miniMatrixLength;
   position: absolute;
   overflow: hidden;
-  background-color: cyan;
+  background-color: $colorLight;
   font-size: 30px;
 
   &:hover {
@@ -164,39 +164,39 @@
   cursor: pointer;
 
   &:hover {
-    background-color: yellow;
+    background-color: $colorLighter;
   }
 
   &.active {
-    background-color: pink;
+    background-color: $colorLightest;
   }
 }
 .track-body-container {
   width: $trackBodyWidth;
   height: $trackBodyHeight;
-  background-color: $orange;
+  background-color: $colorLightest;
 };
 
 .track-remove-button-container {
   @include flex_centered();
   width: $trackRemoveButtonLength;
   height: $trackRemoveButtonLength;
-  background-color: $red;
+  background-color: $colorDarkest;
   cursor: pointer;
   font-size: 30px;
 };
 
 .slot {
   height: $trackBodyHeight / 8; // TODO un-hardcode
-  border-bottom: 1px solid $red;
+  border-bottom: 1px solid $colorDarkest;
   cursor: pointer;
 
   &:hover {
-    background: yellow;
+    background: $colorLighter;
   }
 
   &.active {
-    background: purple;
+    background: $colorDark;
   }
 
   &.playing {
@@ -207,7 +207,7 @@
 .play-button-container {
   @include flex_centered();
   width: 100px;
-  background: $red;
+  background: $colorDarkest;
   height: $mainMenuHeight;
   line-height: 50px;
   font-size: 30px;
