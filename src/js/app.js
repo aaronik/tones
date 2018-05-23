@@ -1,16 +1,16 @@
 require('../sass/main.scss');
 
-import _                from 'underscore'
-import React            from 'react'
-import ReactDOM         from 'react-dom'
-import Track            from 'components/track'
-import Tracks           from 'components/tracks'
-import Matrix           from 'components/matrix'
-import PlayButton       from 'components/play_button'
-import Store            from 'js/store'
-import AudioPlayer      from 'js/audio_player'
-import sounds           from 'js/sounds'
-import KeyboardListener from 'js/keyboard_listener'
+import _                from 'underscore';
+import React            from 'react';
+import ReactDOM         from 'react-dom';
+import Track            from 'components/track';
+import Tracks           from 'components/tracks';
+import Matrix           from 'components/matrix';
+import PlayButton       from 'components/play_button';
+import Store            from 'js/store';
+import AudioPlayer      from 'js/audio_player';
+import sounds           from 'js/sounds';
+import KeyboardListener from 'js/keyboard_listener';
 
 // TODO Make robust to ill-formed URLs
 
