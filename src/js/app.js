@@ -47,7 +47,7 @@ const App = React.createClass({
     audioPlayer.addMatrixPlayHook(this.onMatrixPlayHit);
     audioPlayer.addTracksPlayHook(this.onTracksPlayHit);
 
-    KeyboardListener.onSpace(this._stopAll);
+    KeyboardListener.onSpace(this._onSpace);
   },
 
   onMatrixPlayHit (colNum) {
@@ -92,6 +92,13 @@ const App = React.createClass({
 
   onTracksPlayClick() {
     this._playTracks();
+  },
+
+  _onSpace() {
+    if (this.state.matrixPlayActive || this.state.tracksPlayActive)
+      this._stopAll();
+    else
+      this._playMatrix();
   },
 
   _playMatrix() {
