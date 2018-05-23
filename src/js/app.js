@@ -50,11 +50,6 @@ const App = React.createClass({
     KeyboardListener.onSpace(this._stopAll);
   },
 
-  componentDidMount() {
-    // Matrix is playing by default
-    // this._playMatrix();
-  },
-
   onMatrixPlayHit (colNum) {
     this.setState({ activeMatrixColumn: colNum });
   },
