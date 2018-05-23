@@ -89,6 +89,7 @@
   text-align: center;
   line-height: $miniMatrixLength;
   font-size: 30px;
+  cursor: pointer;
 };
 
 .track-container {
@@ -221,4 +222,6 @@
   line-height: 50px;
   font-size: 30px;
   margin-left: auto;
+  cursor: pointer;
+  border-radius: 4px;
 };
