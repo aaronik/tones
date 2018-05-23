@@ -52,7 +52,7 @@ const App = React.createClass({
 
   componentDidMount() {
     // Matrix is playing by default
-    this._playMatrix();
+    // this._playMatrix();
   },
 
   onMatrixPlayHit (colNum) {
