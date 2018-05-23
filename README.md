@@ -1,6 +1,6 @@
 # Tones
 
-Serverless multiplayer musical instrument
+A simple musical sequencer
 
 ### Developing:
 * `npm install`
@@ -22,7 +22,6 @@ Serverless multiplayer musical instrument
 * Add color changes for instruments in tracks, matrix -- maybe just matrix, mini matrix
 * Add drag n drop track re-ordering
 * Main matrix to have playback bar when tracks are playing and that instrument instance is triggered
-* app should initialize already playing matrix
 * get karma online (get it to work with es6)
 * Add many more scales
 * Add a drum kit
