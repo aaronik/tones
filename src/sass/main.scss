@@ -27,31 +27,31 @@
 .matrix-table {
   width: 100%;
   height: 100%;
-  background-color: $colorLightest;
+  background-color: $colorLighter;
 };
 
 .tone {
   width: 27px;
   height: 27px;
-  background-color: $colorLight;
+  background-color: $colorLightest;
   cursor: pointer;
   transition: all 0.3s;
 
-  &.column-active {
-    background-color: $colorLighter;
-  }
-
   &.active {
-    background-color: $colorDarker;
-  }
-
-  &.column-active.active {
-    background-color: $colorLightest;
+    background-color: $colorLighter;
   }
 
   &:hover {
     background-color: $colorDark;
   };
+
+  &.column-active {
+    background-color: $colorLighter;
+
+    &.active {
+      background-color: $colorDark;
+    }
+  }
 };
 
 .tracks-container {
@@ -61,9 +61,9 @@
 .mini-tone {
   width: 3px;
   height: 3px;
-  background-color: $colorLight;
-  border-left: 1px solid $colorDarkest;
-  border-bottom: 1px solid $colorDarkest;
+  background-color: $colorLightest;
+  border-left: 1px solid $colorDark;
+  border-bottom: 1px solid $colorDark;
   box-sizing: border-box;
 
   &.column-active {
@@ -71,7 +71,7 @@
   }
 
   &.active {
-    background-color: $colorDarker;
+    background-color: $colorDark;
   }
 };
 
@@ -87,13 +87,13 @@
   height: $miniMatrixLength;
   background: $colorLight;
   cursor: pointer;
-  border: 1px solid $colorDarkest;
+  border: 1px solid $colorDark;
   font-size: 30px;
   cursor: pointer;
 };
 
 .track-container {
-  border: 1px solid $colorDarkest;
+  border: 1px solid $colorDark;
   opacity: 0.8;
 
   &.active {
@@ -171,6 +171,7 @@
     background-color: $colorLightest;
   }
 }
+
 .track-body-container {
   width: $trackBodyWidth;
   height: $trackBodyHeight;
@@ -181,33 +182,34 @@
   @include flex_centered();
   width: $trackRemoveButtonLength;
   height: $trackRemoveButtonLength;
-  background-color: $colorDarkest;
+  background-color: $colorLight;
   cursor: pointer;
   font-size: 30px;
 };
 
 .slot {
   height: $trackBodyHeight / 8; // TODO un-hardcode
-  border-bottom: 1px solid $colorDarkest;
+  border-bottom: 1px solid $colorBackground;
   cursor: pointer;
+  background-color: $colorLightest;
 
   &:hover {
-    background: $colorLighter;
-  }
-
-  &.active {
     background: $colorDark;
   }
 
+  &.active {
+    background: $colorLighter;
+  }
+
   &.playing {
-    box-shadow: inset 0 0 50px yellow;
+    box-shadow: inset 0 0 50px $colorLightest;
   }
 };
 
 .play-button-container {
   @include flex_centered();
   width: 100px;
-  background: $colorDarkest;
+  background: $colorLight;
   height: $mainMenuHeight;
   line-height: 50px;
   font-size: 30px;
