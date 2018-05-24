@@ -27,7 +27,7 @@ const TrackBody = React.createClass({
 
   render() {
     return (
-      <div className='track-body-container'>
+      <div className='track-body'>
         {this.renderSlots()}
       </div>
     )

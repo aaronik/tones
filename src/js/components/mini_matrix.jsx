@@ -29,7 +29,7 @@ const MiniMatrix = React.createClass({
     let { onClick, tones } = this.props
 
     return (
-      <div className='mini-matrix-container' onClick={onClick}>
+      <div className='mini-matrix' onClick={onClick}>
         { this.miniTones() }
       </div>
     )

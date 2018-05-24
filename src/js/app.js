@@ -137,13 +137,21 @@ const App = React.createClass({
     const { tones } = activeTrack;
 
     return (
-      <div>
-        <div className='layout-row'>
+      <div className='grid-container'>
+        <section className='grid-section'>
 
           <Matrix
             tones={tones}
             activeColumn={this.state.activeMatrixColumn}
             onToneClick={this.onToneClick}/>
+
+          <PlayButton
+            onClick={this.onMatrixPlayClick}
+            active={this.state.matrixPlayActive}/>
+
+        </section>
+
+        <section className='grid-section'>
 
           <Tracks
             tracks={tracks}
@@ -159,19 +167,11 @@ const App = React.createClass({
             tunings={sounds.TUNINGS}
             onTuningClick={this.onTuningClick}/>
 
-        </div>
-
-        <div className='layout-row'>
-
-          <PlayButton
-            onClick={this.onMatrixPlayClick}
-            active={this.state.matrixPlayActive}/>
-
           <PlayButton
             onClick={this.onTracksPlayClick}
             active={this.state.tracksPlayActive}/>
 
-        </div>
+        </section>
       </div>
     )
   }

@@ -7,17 +7,41 @@
 
 body {
   background-color: $colorBackground;
+  padding: 30px;
 }
 
-.layout-row {
+.grid-container {
+
+  @media screen and (min-width: $screenSizeBig) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media screen and (min-width: $screenSizeSmall) and (max-width: $screenSizeBig - 1) {
+    grid-template-columns: 1fr;
+  }
+
+  display: grid;
+  grid-gap: 30px;
+}
+
+.grid-section {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  border: 5px dashed grey;
+  padding: 10px;
 };
 
 .matrix-container {
   width: $matrixLength;
   height: $matrixLength;
-  margin: auto;
+};
+
+.tracks-container {
+  display: flex;
+  align-self: flex-end;
 };
 
 .blank-matrix {
@@ -57,10 +81,6 @@ body {
   }
 };
 
-.tracks-container {
-  display: flex;
-};
-
 .mini-tone {
   width: 3px;
   height: 3px;
@@ -78,13 +98,13 @@ body {
   }
 };
 
-.mini-matrix-container {
+.mini-matrix {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 };
 
-.add-track-button-container {
+.add-track-button {
   @include flex_centered();
   width: $miniMatrixLength;
   height: $miniMatrixLength;
@@ -104,7 +124,7 @@ body {
   }
 };
 
-.mini-matrix-container {
+.mini-matrix {
   width: $miniMatrixLength;
   height: $miniMatrixLength;
   background-color: $colorLightest;
@@ -175,13 +195,13 @@ body {
   }
 }
 
-.track-body-container {
+.track-body {
   width: $trackBodyWidth;
   height: $trackBodyHeight;
   background-color: $colorLightest;
 };
 
-.track-remove-button-container {
+.track-remove-button {
   @include flex_centered();
   width: $trackRemoveButtonLength;
   height: $trackRemoveButtonLength;
@@ -209,14 +229,13 @@ body {
   }
 };
 
-.play-button-container {
+.play-button {
   @include flex_centered();
   width: 100px;
   background: $colorLight;
   height: $mainMenuHeight;
   line-height: 50px;
   font-size: 30px;
-  margin-left: auto;
   cursor: pointer;
   border-radius: 4px;
 };

@@ -7,7 +7,7 @@ const AddTrackButton = React.createClass({
 
   render() {
     return (
-      <div className='add-track-button-container' onClick={this.props.onClick}>
+      <div className='add-track-button' onClick={this.props.onClick}>
         <i className='fa fa-plus'></i>
       </div>
     )

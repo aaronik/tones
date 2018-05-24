@@ -9,7 +9,7 @@ const PlayButton = React.createClass({
   render() {
     const className = this.props.active ? 'fa fa-stop' : 'fa fa-play';
     return (
-      <div onClick={this.props.onClick} className='play-button-container'>
+      <div onClick={this.props.onClick} className='play-button'>
         <i className={className}/>
       </div>
     );
