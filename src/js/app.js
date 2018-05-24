@@ -136,20 +136,16 @@ const App = React.createClass({
     const { tracks, activeTrack } = this.state;
     const { tones } = activeTrack;
 
-    // TODO are the classnames below here being used?
-
     return (
       <div>
         <div className='layout-row'>
 
           <Matrix
-            className='layout-matrix-container'
             tones={tones}
             activeColumn={this.state.activeMatrixColumn}
             onToneClick={this.onToneClick}/>
 
           <Tracks
-            className='layout-tracks-container'
             tracks={tracks}
             activeTrackId={this.state.activeTrack.id}
             activeColumn={this.state.activeTrackColumn}
