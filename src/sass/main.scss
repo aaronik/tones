@@ -5,10 +5,13 @@
   transition: all 0.3s;
 };
 
+body {
+  background-color: $colorBackground;
+}
+
 .layout-row {
   display: flex;
   justify-content: space-between;
-  background-color: $colorBackground;
 };
 
 .matrix-container {
