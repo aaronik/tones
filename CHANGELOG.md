@@ -1,3 +1,17 @@
+### [0.2.0](https://github.com/aaronik/tones/releases/tag/0.2.0)
+
+  * (Aaron Sullivan) Make responsive
+  * (Aaron Sullivan) Remove unused classnames in app.js
+  * (Aaron Sullivan) Switch background to whole shebang
+  * (Aaron Sullivan) Pick a color scheme (for now)
+  * (Aaron Sullivan) Use colorscheme
+  * (Aaron Sullivan) red -> $red
+  * (Aaron Sullivan) Clean up some duplicate styles
+  * (Aaron Sullivan) Tidy up button styles a hint
+  * (Aaron Sullivan) Space to play matrix as well as just stopall
+  * (Aaron Sullivan) Update readme for URL state info
+  * (Aaron Sullivan) Stopping autoplay fixes it never playing in chrome; make permanent
+
 ### [0.1.14](https://github.com/aaronik/tones/releases/tag/0.1.14)
 
   * (Aaron Sullivan) temporarily disable autoplay per chrome's new rules
