@@ -16,7 +16,6 @@
     "tones"
   ],
   "scripts": {
-    "clean": "rimraf lib dist coverage",
     "lint": "eslint src test --fix",
     "test": "mocha",
     "test:karma": "karma start karma.conf.js",
