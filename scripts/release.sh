@@ -107,11 +107,6 @@ function clean_build () {
 
 ### Main
 
-# technically it should already be clean and this should have no effect.
-# If it isn't, the script will bail on the next step. We expect there to
-# be no build.
-npm run clean
-
 ensure_changes_since_last_release
 ensure_clean_directory
 ensure_on_master_branch
