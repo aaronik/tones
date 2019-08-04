@@ -1,3 +1,7 @@
+### [0.2.1](https://github.com/aaronik/tones/releases/tag/0.2.1)
+
+  * (Aaron Sullivan) Add google adsense
+
 ### [0.2.0](https://github.com/aaronik/tones/releases/tag/0.2.0)
 
   * (Aaron Sullivan) Make responsive
