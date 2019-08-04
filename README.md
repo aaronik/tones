@@ -17,14 +17,16 @@ All state is saved in the URL, so to save your instrument, just copy your unique
 * The "matrix" is all around us. Jkizzle it's the whole collection of tones.
 
 #### TODO
-* Add multiplayer functionality
-* Make back button either undo or go to the actual last page
+* Main matrix to have playback bar when tracks are playing
+* Make back button undo
 * Add slot range indicator (select how many slots to play)
+* Consider starting with all slots selected
 * Make animation for play triangle turning into stop square, back
-* Add color changes for instruments in tracks, matrix -- maybe just matrix, mini matrix
+* Add visual indicator for options selected in track
 * Add drag n drop track re-ordering
-* Main matrix to have playback bar when tracks are playing and that instrument instance is triggered
-* get karma online (get it to work with es6)
+* get unit tests working
 * Add many more scales
 * Add a drum kit
 * Add copy track
+* Add ability to save
+* Add multiplayer functionality
