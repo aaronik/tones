@@ -4,7 +4,6 @@
 // state, and when it changes, it'll update the URL bar. It'll also
 // contain all the methods of getting at the URL state info.
 import _       from 'underscore'
-import Tone    from 'tone'
 import util    from 'js/util'
 import urlUtil from 'js/url_util'
 import sounds  from 'js/sounds'
