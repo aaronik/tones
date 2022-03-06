@@ -1,3 +1,7 @@
+### [0.2.6](https://github.com/aaronik/tones/releases/tag/0.2.6)
+
+  * (Aaron Sullivan) Update everything to be behind click
+
 ### [0.2.5](https://github.com/aaronik/tones/releases/tag/0.2.5)
 
   * (Aaron Sullivan) Whoops, we need this in there.
