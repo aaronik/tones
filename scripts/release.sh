@@ -99,7 +99,6 @@ function build () {
 function clean_build () {
   report "removing build before merging back into master..."
 
-  git rm -r dist/
   rm -rf dist/
   git commit --amend --no-edit
 }
