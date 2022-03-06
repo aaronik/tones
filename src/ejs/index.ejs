@@ -13,6 +13,20 @@
 </head>
 
 <body>
+  <button id="render_all" style='position: absolute; left: 48%; top: 20%;'>Begin the Experience</button>
   <div id="container"></div>
+  <script type="text/javascript">
+    // This whole terrible mess is just so that everything can load based on a user click event.
+    // Everything being behind an event is new to browsers since this was originally written.
+    // This is a quick and dirty way to make this happen. Maybe in the future it can be nicer.
+    const raButton = document.getElementById('render_all')
+    raButton.onclick = function() {
+      const script = document.createElement('script')
+      script.type = "text/javascript"
+      script.src = "<%= htmlWebpackPlugin.files.js[0] %>"
+      document.body.appendChild(script)
+      document.body.removeChild(raButton)
+    }
+  </script>
 </body>
 </html>

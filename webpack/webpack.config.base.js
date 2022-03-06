@@ -46,10 +46,10 @@ module.exports = {
 
   plugins: [new HtmlWebpackPlugin({
     template: './src/ejs/index.ejs',
-    inject: 'body',                   // inject js into body, not head. Adds <script> tag with js from otuput above
+    inject: false,                   // inject js into body, not head. Adds <script> tag with js from otuput above
     favicon: null,                    // TODO add one
     minify: false,
-    hash: true,
+    // hash: true,
     cache: false,                     // don't try to guess whether files have changed
     filename: '../index.html'         // TODO move this to dist/
   })]
