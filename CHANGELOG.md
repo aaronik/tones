@@ -1,3 +1,7 @@
+### [0.2.4](https://github.com/aaronik/tones/releases/tag/0.2.4)
+
+  * (Aaron Sullivan) Maybe fix a bug where it can't play anymore
+
 ### [0.2.2](https://github.com/aaronik/tones/releases/tag/0.2.2)
 
   * (Aaron Sullivan) Update package lock
