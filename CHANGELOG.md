@@ -1,3 +1,7 @@
+### [0.2.5](https://github.com/aaronik/tones/releases/tag/0.2.5)
+
+  * (Aaron Sullivan) Whoops, we need this in there.
+
 ### [0.2.4](https://github.com/aaronik/tones/releases/tag/0.2.4)
 
   * (Aaron Sullivan) Maybe fix a bug where it can't play anymore
