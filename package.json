@@ -51,7 +51,7 @@
     "istanbul-coveralls": "^1.0.3",
     "json-loader": "^0.5.4",
     "jsx-loader": "^0.13.2",
-    "karma": "^0.13.21",
+    "karma": "^6.4.1",
     "karma-mocha": "^0.2.2",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
